@@ -3,7 +3,7 @@ import { faPlus, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { IconButton } from '../components/DashButton';
 import { BasicTable } from '../components/Table';
 import { Search } from '../components/Search';
-import {ModalUsers} from '../components/ModalUsers';
+import {ModalEmployees} from '../components/ModalEmployees';
 
 
 
@@ -19,13 +19,13 @@ export function Dashboard(){
 
            <div className="container px-6 mx-auto grid">
              <h2 className="my-6 text-3xl font-semibold text-black ">
-               Dashboard
+               Dashboard - Empleados
 
              </h2>
 
              <Search className='hidden sm:flex'/>
               <div className='flex space-x-3 my-5'>
-              <ModalUsers />
+              <ModalEmployees /> 
 
               <IconButton id={'respaldoBtn'} text={'Respaldo'} icon={faCloudArrowUp} onClick={handleAddClick}/>
 

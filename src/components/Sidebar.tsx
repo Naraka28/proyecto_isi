@@ -19,6 +19,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Dashboard } from '../views/Dashboard';
+import { Link } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -83,7 +85,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -138,7 +140,7 @@ export function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Dashboard', 'Users', 'Products', 'Services'].map((text, index) => (
+          {['Dashboard', 'Appointments', 'Products', 'Services','Users','Employees'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

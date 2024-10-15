@@ -18,6 +18,10 @@ const router= createBrowserRouter([
   {
     path: "/dashboard",
     element: <PersistentDrawerLeft />,
+  },
+  {
+    path:"/users",
+    element:<></>
   }
 
 ]);

@@ -19,7 +19,7 @@ export function Dashboard(){
 
            <div className="container px-6 mx-auto grid">
              <h2 className="my-6 text-3xl font-semibold text-black ">
-               Dashboard
+               Dashboard - Citas
 
              </h2>
 
