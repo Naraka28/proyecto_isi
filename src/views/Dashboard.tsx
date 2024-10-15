@@ -33,8 +33,6 @@ export function Dashboard(){
               <div className=''>
                 <BasicTable />
             </div>
-
-             
            </div>
         </div>
         </>

@@ -1,11 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface LoginResponse {
-      token?:string;
-      id: number;
-      name: string;
-      email: string;
-
+      success: boolean;
   }
   export interface LoginCredentials {
     email: string;

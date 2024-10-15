@@ -1,4 +1,4 @@
-export interface responseUser{
+export interface user{
     user_id:number,
     name:string,
     last_name: string,
@@ -7,8 +7,11 @@ export interface responseUser{
     role_id: number,
     phone_number: string
 }
+export interface UserResponse{
+  users: user[]
+}
 
-export interface userCreate{
+export interface UserCreate{
   name:string,
   last_name: string,
   access_email: string,
@@ -20,14 +23,13 @@ export interface userCreate{
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 
-export const getAllUsers = async ():Promise<responseUser> => {
+export const getAllUsers = async ():Promise<UserResponse> => {
   try {
     const respuesta = await fetch(`${API_URL}/users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
-      
     });
 
     if (!respuesta.ok) {
@@ -35,7 +37,7 @@ export const getAllUsers = async ():Promise<responseUser> => {
       throw new Error(`Error en la solicitud: ${respuesta.statusText}`);
     }
 
-    const datos: responseUser = await respuesta.json();
+    const datos: UserResponse = await respuesta.json();
     console.log(datos)
     return datos;
   } catch (error) {
@@ -46,7 +48,7 @@ export const getAllUsers = async ():Promise<responseUser> => {
 
 
 
-export async function userAddService(create:userCreate) {
+export async function userAddService(create:UserCreate) {
   console.log("Estoy al principio de userAddService");
   console.log("Datos del usuario:",create); // Agrega este log para ver los datos
 

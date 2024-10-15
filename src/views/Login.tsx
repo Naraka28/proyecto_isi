@@ -40,20 +40,13 @@ function LoginForm() {
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
     },
   });
+    if(mutation.isSuccess){
+      if( mutation.data.success){
+        localStorage.setItem('success',mutation.data.success+'')
+        navigate("/dashboard");
+      }
 
-  // const useLogin = (credentials:LoginCredentials) => {
-  //   return useMutation({mutationFn: login, onSuccess: (data: { token: string }) => {
-  //       // Guardar el token de autenticación o manejar los datos del usuario autenticado
-  //       localStorage.setItem('token', data.token);
-  //       console.log('Login exitoso');
-  //       navigate('/dashboard');
-  //     },
-  //     onError: (error) => {
-  //       console.error('Error al iniciar sesión:', error.message);
-  //     }
-  //   });
-  // };
-
+    }
   return (
     <>
       <div className="bg-[#353232] overflow-hidden">
@@ -95,8 +88,7 @@ function LoginForm() {
                   />
                   <a
                     className="flex justify-center sm:text-2xl text-lg whitespace-nowrap p-auto py-5 hover:underline"
-                    href="/templates/loginAdmin.html"
-                  >
+                    href="/templates/loginAdmin.html">
                     Registrar nuevo usuario
                   </a>
                 </form>

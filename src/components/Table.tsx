@@ -23,11 +23,14 @@ function Test() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-
+  if(!data){
+    return <span>No hay datos disponibles</span>
+  }
   // Renderizamos la tabla
+
+
   return (
     <TableContainer component={Paper}>
-      {Array.isArray(data) && data.length > 0 ? (
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -39,7 +42,7 @@ function Test() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((user, index) => (
+            {data.users.map((user, index) => (
               <TableRow
                 key={user.user_id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -53,9 +56,6 @@ function Test() {
             ))}
           </TableBody>
         </Table>
-      ) : (
-        <p>No hay datos disponibles.</p>
-      )}
     </TableContainer>
   );
 }
