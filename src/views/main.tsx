@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'; // Importar QueryClient y Provider
 import { Login } from './Login.tsx';
+import { Users } from './Users.tsx';
 import { PersistentDrawerLeft } from '../components/Sidebar';
 
 
@@ -21,7 +22,7 @@ const router= createBrowserRouter([
   },
   {
     path:"/users",
-    element:<></>
+    element:<Users />
   }
 
 ]);
