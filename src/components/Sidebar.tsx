@@ -19,14 +19,12 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Dashboard } from '../views/Dashboard';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 
 const drawerWidth = 240;
 
-interface SidebarProps {
-  children: React.ReactNode;
-}
+
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
@@ -87,7 +85,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export function PersistentDrawerLeft({ children }: SidebarProps) {
+export function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -145,7 +143,7 @@ export function PersistentDrawerLeft({ children }: SidebarProps) {
         <Divider />
         <List>
           {['Dashboard', 'Appointments', 'Products', 'Services','Users','Employees'].map((text, index) => (
-            <Link 
+            <Link
             to={'../'+text.toLowerCase()}
             className='no-underline text-black'
             >
@@ -176,7 +174,7 @@ export function PersistentDrawerLeft({ children }: SidebarProps) {
       </Drawer>
       <Main open={open} className='flex bg-gray-200 p-5 m-5 w-screen h-screen'>
         <DrawerHeader />
-          {children}
+          <Outlet/>
       </Main>
     </Box>
   );

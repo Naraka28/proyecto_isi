@@ -18,6 +18,7 @@ export async function getAllProducts() {
 }
 
 export async function addProduct(create:Product) {
+  console.log(create)
   const response = await fetch(`${API_URL}/products`, {
         method: 'POST',
         headers: {
