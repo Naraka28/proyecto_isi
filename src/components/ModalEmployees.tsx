@@ -96,7 +96,7 @@ export function ModalEmployeesForm() {
                   <Field id={'personal email'} type={'email'} onChange={(e) => setPersonalEmail(e.target.value)} />
                   <Field id={'password'} type={'password'} onChange={(e) => setPassword(e.target.value)} />
                   <Field id={'phone'} type={'tel'} onChange={(e) => setPhone(e.target.value)} />
-                  <ComboBox id="role_id" options={["1","2"]} onChange={(e) => setRole(e.target.value)}/>
+                  <ComboBox id="role_id" options={["1 Admin","2 Empleado"]} onChange={(e) => setRole(e.target.value)}/>
                   
                 </div>
                 {/*footer*/}

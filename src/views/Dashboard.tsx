@@ -1,9 +1,13 @@
 import { faPlus, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton } from '../components/DashButton';
-import { BasicTable } from '../components/Table';
+import { BasicTable } from '../components/TableUsers';
 import { Search } from '../components/Search';
 import {ModalUsers} from '../components/ModalUsers';
+
+
+
+
 
 
 

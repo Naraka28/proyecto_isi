@@ -7,7 +7,7 @@ import {ModalUsers} from '../components/ModalUsers';
 
 
 
-export function Dashboard(){
+export function Appointments(){
 
   const handleAddClick = () => {
     throw new Error('Function not implemented.');

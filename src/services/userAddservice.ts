@@ -49,9 +49,6 @@ export const getAllUsers = async ():Promise<UserResponse> => {
 
 
 export async function userAddService(create:UserCreate) {
-  console.log("Estoy al principio de userAddService");
-  console.log("Datos del usuario:",create); // Agrega este log para ver los datos
-
     const response = await fetch(`${API_URL}/users`, {
         method: 'POST',
         headers: {
@@ -66,7 +63,6 @@ export async function userAddService(create:UserCreate) {
           phone_number:create.phone_number
         }),
     });
-    console.log("ya apunto de terminar userAddService");
     const responsedata= await response.json();
     return responsedata;
 

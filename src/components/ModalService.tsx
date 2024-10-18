@@ -2,32 +2,28 @@ import React from "react";
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { IconButton } from '../components/DashButton';
 import { Field } from "../components/Field";
-import { ModalState } from "../components/ModalState";
+import { ComboBox } from "../components/Combobox";
 import { useState } from "react";
-import { userAddService } from "../services/userAddservice";
-
+import { addService } from "../services/serviciosServices";
 import {
-  useQuery,
   useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
 
 
-
 const queryClient = new QueryClient()
 
-export function ModalUsers() {
+export function ModalServices() {
   return (
     // Provide the client to your App
     <QueryClientProvider client={queryClient}>
-      <ModalUsersForm />
+      <ModalAppointmentsForm />
     </QueryClientProvider>
   )
 }
 
-export function ModalUsersForm() {
+export function ModalAppointmentsForm() {
   
   const [showModal, setShowModal] = React.useState(false);
   
@@ -35,30 +31,28 @@ export function ModalUsersForm() {
         setShowModal(true);
     };
 
-    const [access_email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [last_name, setApellido] = useState('');
-    const [name, setNombre] = useState('');
-    const [phone, setPhone] = useState('');
-    const [error, setError] = useState('');
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [duration, setDuration] = useState('');
+    const [catalogue, setCatalogue] = useState('');
+    
 
 
     const mutation = useMutation({
-      mutationFn: userAddService,
+      mutationFn: addService,
       onSuccess: () => {
-
         // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['userInfo'] })
+        queryClient.invalidateQueries({ queryKey: ['serviceInfo'] })
       },
     })
-    const newUser = {
-      name: name,
-      last_name: last_name,
-      access_email: access_email,
-      password: password,
-      role_id:3,
-      phone_number: phone
+    const newService = {
+      name:name,
+      catalogue_id:parseInt(catalogue),
+      price:parseFloat( price),
+      duration:parseInt(duration)
     };
+
+
   return (
     <>
 
@@ -73,7 +67,7 @@ export function ModalUsersForm() {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h2 className="text-3xl font-semibold">
-                    Añadir Usuario
+                    Añadir Servicio
                   </h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -87,13 +81,13 @@ export function ModalUsersForm() {
                 {/*body*/}
                 <div className="relative p-6 m-6 flex-auto">
                   <h2>
-                    Formulario de Usuario:
+                    Formulario de Servicio:
                   </h2>
-                  <Field id={'nombre'} type={'text'} onChange={(e) => setNombre(e.target.value)} />
-                  <Field id={'apellido'} type={'text'} onChange={(e) => setApellido(e.target.value)} />
-                  <Field id={'email'} type={'email'} onChange={(e) => setEmail(e.target.value)} />
-                  <Field id={'password'} type={'password'} onChange={(e) => setPassword(e.target.value)} />
-                  <Field id={'phone'} type={'tel'} onChange={(e) => setPhone(e.target.value)} />
+                  <Field id={'nombre'} type={'text'} onChange={(e) => setName(e.target.value)} />
+                  <ComboBox id="catalogue_id" options={["1","2"]} onChange={(e) => setCatalogue(e.target.value)}/>
+                  <Field id={'precio'} type={'number'} onChange={(e) => setPrice(e.target.value)} />
+                  <Field id={'duración'} type={'number'} onChange={(e) => setDuration(e.target.value)} />
+                  
 
                 </div>
                 {/*footer*/}
@@ -108,7 +102,7 @@ export function ModalUsersForm() {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => { mutation.mutate(newUser);}}>
+                    onClick={() => { mutation.mutate(newService);}}>
                     Save Changes
                   </button>
                 </div>

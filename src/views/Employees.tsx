@@ -1,13 +1,13 @@
 import { faPlus, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton } from '../components/DashButton';
-import { BasicTable } from '../components/Table';
+import { EmployeeTable } from '../components/TableEmployees';
 import { Search } from '../components/Search';
 import {ModalEmployees} from '../components/ModalEmployees';
 
 
 
-export function Dashboard(){
+export function Employees(){
 
   const handleAddClick = () => {
     throw new Error('Function not implemented.');
@@ -25,13 +25,11 @@ export function Dashboard(){
 
              <Search className='hidden sm:flex'/>
               <div className='flex space-x-3 my-5'>
-              <ModalEmployees /> 
-
+              <ModalEmployees />
               <IconButton id={'respaldoBtn'} text={'Respaldo'} icon={faCloudArrowUp} onClick={handleAddClick}/>
-
               </div>
               <div className=''>
-                <BasicTable />
+                <EmployeeTable />
             </div>
            </div>
         </div>

@@ -12,7 +12,7 @@ export interface EmployeeResponse{
   employees: Employee[]
 }
 
-export interface UserCreate{
+export interface EmployeeCreate{
     name: string,
     last_name: string,
     access_email: string,
@@ -24,8 +24,14 @@ export interface UserCreate{
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
+export async function getAllEmployees() {
+    const response = await fetch(`${API_URL}/employees`);
+    const data: EmployeeResponse = await response.json();
+    return data;
+}
 
-export async function employeeAddService(create:Employee) {
+
+export async function employeeAddService(create:EmployeeCreate) {
   console.log("Estoy al principio de userAddService");
   console.log("Datos del usuario:",create); // Agrega este log para ver los datos
 

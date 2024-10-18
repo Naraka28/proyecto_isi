@@ -24,6 +24,10 @@ import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
+interface SidebarProps {
+  children: React.ReactNode;
+}
+
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
 }>(({ theme }) => ({
@@ -83,7 +87,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export function PersistentDrawerLeft() {
+export function PersistentDrawerLeft({ children }: SidebarProps) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -141,6 +145,10 @@ export function PersistentDrawerLeft() {
         <Divider />
         <List>
           {['Dashboard', 'Appointments', 'Products', 'Services','Users','Employees'].map((text, index) => (
+            <Link 
+            to={'../'+text.toLowerCase()}
+            className='no-underline text-black'
+            >
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -149,6 +157,7 @@ export function PersistentDrawerLeft() {
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
@@ -167,7 +176,7 @@ export function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open} className='flex bg-gray-200 p-5 m-5 w-screen h-screen'>
         <DrawerHeader />
-          <Dashboard />
+          {children}
       </Main>
     </Box>
   );
