@@ -1,26 +1,52 @@
 export interface Appointment{
     appointment_id?:number,
     date:string,
-    catalogue_id:number,
-    price:number,
-    duration:number //duration in minutes - hours
-
+    user_id:number,
+    material_id:number,
+    ticket_id:number,
+    employee_id:number,
+    service_id:number,
+    total_price:number,
 }
-export interface ServiceResponse{
-  services: Appointment[]
+export interface AppointmentResponse{
+  appointments: Appointment[]
 }
 
-export interface ServiceCreate{
-    name:string,
-    catalogue_id:number,
-    price:number,
-    duration:number
+export interface AppointmentCreate{
+    date:string,
+    user_id:number,
+    material_id:number,
+    ticket_id:number,
+    employee_id:number,
+    service_id:number,
+    total_price:number,
 }
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
-export async function getAllServices() {
-    const response = await fetch(`${API_URL}/services`);
-    const data: ServiceResponse = await response.json();
+export async function getAllAppointments() {
+    const response = await fetch(`${API_URL}/appointments`);
+    const data: AppointmentResponse = await response.json();
     return data;
+}
+
+
+export async function appointmentAddService(create: AppointmentCreate) {
+    const response = await fetch(`${API_URL}/appointments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            date: create.date,
+            user_id: create.user_id,
+            material_id: create.material_id,
+            ticket_id: create.ticket_id,
+            employee_id: create.employee_id,
+            service_id: create.service_id,
+            total_price: create.total_price
+        }),
+    });
+    const responsedata = await response.json();
+    return responsedata;
 }

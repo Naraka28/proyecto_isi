@@ -22,7 +22,7 @@ export function ServiceTable() {
 
 
 function Test() {
-  const { isLoading, isError, data, error } = useQuery({ queryKey: ['productInfo'], queryFn: getAllServices });
+  const { isLoading, isError, data, error } = useQuery({ queryKey: ['serviceInfo'], queryFn: getAllServices });
 
 
   if (isLoading) {
@@ -45,8 +45,9 @@ function Test() {
             <TableRow>
               <TableCell >ID</TableCell>
               <TableCell align="right">Nombre</TableCell>
-              <TableCell align="right">Duracion</TableCell>
-              <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Catálogo ID</TableCell>
+              <TableCell align="right">Precio</TableCell>
+              <TableCell align="right">Duración</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -57,8 +58,10 @@ function Test() {
               >
                 <TableCell>{service.service_id}</TableCell>
                 <TableCell align="right">{service.name}</TableCell>
-                <TableCell align="right">{service.duration}</TableCell>
+                <TableCell align="right">{service.catalogue_id}</TableCell>
                 <TableCell align="right">{service.price}</TableCell>
+                <TableCell align="right">{service.duration}</TableCell>
+                
               </TableRow>
             ))}
           </TableBody>

@@ -4,6 +4,7 @@ import { IconButton } from '../components/DashButton';
 import { BasicTable } from '../components/Table';
 import { Search } from '../components/Search';
 import {ModalServices} from '../components/ModalService';
+import { ServiceTable } from '../components/TableServices';
 
 
 
@@ -31,7 +32,7 @@ export function Services(){
 
                   </div>
                   <div className=''>
-                    <BasicTable />
+                    <ServiceTable />
                 </div>
                </div>
             </div>
