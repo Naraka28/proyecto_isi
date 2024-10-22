@@ -25,9 +25,8 @@ export function ModalEmployees() {
 }
 
 export function ModalEmployeesForm() {
-  
   const [showModal, setShowModal] = React.useState(false);
-  
+
     const handleAddClick = () => {
         setShowModal(true);
     };
@@ -92,8 +91,8 @@ export function ModalEmployeesForm() {
                   </h2>
                   <Field id={'nombre'} type={'text'} onChange={(e) => setNombre(e.target.value)} />
                   <Field id={'apellido'} type={'text'} onChange={(e) => setApellido(e.target.value)} />
-                  <Field id={'access email '} type={'email'} onChange={(e) => setAccessEmail(e.target.value)} />
-                  <Field id={'personal email'} type={'email'} onChange={(e) => setPersonalEmail(e.target.value)} />
+                  <Field id={'access_email'} type={'email'} onChange={(e) => setAccessEmail(e.target.value)} />
+                  <Field id={'personal_email'} type={'email'} onChange={(e) => setPersonalEmail(e.target.value)} />
                   <Field id={'password'} type={'password'} onChange={(e) => setPassword(e.target.value)} />
                   <Field id={'phone'} type={'tel'} onChange={(e) => setPhone(e.target.value)} />
                   <ComboBox id="role_id" options={["1 Admin","2 Empleado"]} onChange={(e) => setRole(e.target.value)}/>
