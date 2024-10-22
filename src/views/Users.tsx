@@ -13,6 +13,10 @@ export function Users(){
     throw new Error('Function not implemented.');
   }
 
+  function handleSearch(query: string): void {
+    throw new Error('Function not implemented.');
+  }
+
     return(
       <>
         <div className=''>
@@ -23,7 +27,7 @@ export function Users(){
 
              </h2>
 
-             <Search className='hidden sm:flex'/>
+             <Search  onSearch={handleSearch} className='hidden sm:flex'/>
               <div className='flex space-x-3 my-5'>
               <ModalUsers />
 

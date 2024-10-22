@@ -33,7 +33,7 @@ function Test() {
 
 
   return (
-    <TableContainer className='flex w-fill' component={Paper}>
+    <TableContainer className='flex w-full' component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
