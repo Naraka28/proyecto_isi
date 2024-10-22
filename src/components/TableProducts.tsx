@@ -15,7 +15,7 @@ export function ProductTable() {
 
 
 
-function Test({}) {
+function Test() {
   const { isLoading, isError, data, error } = useQuery({ queryKey: ['productInfo'], queryFn: getAllProducts });
 
 

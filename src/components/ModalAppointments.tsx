@@ -8,7 +8,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { appointmentAddService, Appointment } from "../services/appointmentServices";
+import { appointmentAddService, AppointmentCreate } from "../services/appointmentServices";
 
 
 const queryClient = new QueryClient()
@@ -48,7 +48,7 @@ export function ModalAppointmentsForm() {
         queryClient.invalidateQueries({ queryKey: ['appointmentInfo'] })
       },
     })
-    const newAppointment:Appointment = {
+    const newAppointment:AppointmentCreate = {
       date: date,
       user_id: parseInt(user_id),
       material_id: parseInt(material_id),

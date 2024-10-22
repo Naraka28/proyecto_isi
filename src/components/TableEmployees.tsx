@@ -15,7 +15,7 @@ export function EmployeeTable() {
 
 
 
-function Test({}) {
+function Test() {
   const { isLoading, isError, data, error } = useQuery({ queryKey: ['employeeInfo'], queryFn: getAllEmployees });
 
 

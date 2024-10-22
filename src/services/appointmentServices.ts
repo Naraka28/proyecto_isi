@@ -32,7 +32,7 @@ export async function getAllAppointments() {
 
 
 export async function appointmentAddService(create: AppointmentCreate) {
-    const response = await fetch(`${API_URL}/appointments`, {
+    const response = await fetch(`${API_URL}/appointments/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

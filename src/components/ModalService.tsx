@@ -84,7 +84,7 @@ export function ModalAppointmentsForm() {
                     Formulario de Servicio:
                   </h2>
                   <Field id={'nombre'} type={'text'} onChange={(e) => setName(e.target.value)} />
-                  <ComboBox id="catalogue_id" options={["1","2"]} onChange={(e) => setCatalogue(e.target.value)}/>
+                  <ComboBox id="catalogue_id" options={["1 Corte","2 Tinte", "3 Peinado"]} onChange={(e) => setCatalogue(e.target.value)}/>
                   <Field id={'precio'} type={'number'} onChange={(e) => setPrice(e.target.value)} />
                   <Field id={'duración'} type={'number'} onChange={(e) => setDuration(e.target.value)} />
                   

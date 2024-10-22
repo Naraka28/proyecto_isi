@@ -60,8 +60,8 @@ function Test() {
                 <TableCell align="right">{service.name}</TableCell>
                 <TableCell align="right">{service.catalogue_id}</TableCell>
                 <TableCell align="right">{service.price}</TableCell>
-                <TableCell align="right">{service.duration}</TableCell>
-                
+                <TableCell align="right">{service.duration_in_minutes}</TableCell>
+
               </TableRow>
             ))}
           </TableBody>

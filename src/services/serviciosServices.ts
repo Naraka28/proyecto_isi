@@ -3,7 +3,7 @@ export interface Service{
     name:string,
     catalogue_id:number,
     price:number,
-    duration:number //duration in minutes - hours
+    duration_in_minutes:number //duration in minutes - hours
 
 }
 export interface ServiceResponse{
