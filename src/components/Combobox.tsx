@@ -21,11 +21,8 @@ export function ComboBox({ id, options, onChange }: ComboBoxProps) {
           Selecciona una opción
         </option>
         {options.map((option) => (
-          <option
-            key={option.name + "-" + option.last_name}
-            value={option.name + " " + option.last_name}
-          >
-            {option.name + " " + option.last_name}
+          <option key={option.phone_number} value={option.phone_number}>
+            {option.phone_number}
           </option>
         ))}
       </select>

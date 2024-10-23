@@ -32,13 +32,13 @@ export async function getAllAppointments() {
 }
 
 export async function searchUser(search: string) {
-  const response = await fetch(`${API_URL}/users/name`, {
+  const response = await fetch(`${API_URL}/users/phone`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: search,
+      phone_number: search,
     }),
   });
   const data = await response.json();

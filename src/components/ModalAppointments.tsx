@@ -48,7 +48,6 @@ export function ModalAppointmentsForm() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchItem(e.target.value.trim());
-    console.log(debouncedSearchTerm);
   };
 
   const mutation = useMutation({
@@ -65,6 +64,11 @@ export function ModalAppointmentsForm() {
       queryClient.invalidateQueries({ queryKey: ["appointmentInfo"] });
     },
   });
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchMutation.mutate(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   const newAppointment: AppointmentCreate = {
     date: date,
@@ -75,11 +79,6 @@ export function ModalAppointmentsForm() {
     service_id: parseInt(service_id),
     total_price: parseFloat(total_price),
   };
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      searchMutation.mutate(debouncedSearchTerm);
-    }
-  }, [debouncedSearchTerm]);
 
   if (searchMutation.isSuccess) {
     console.log(searchMutation.data);
