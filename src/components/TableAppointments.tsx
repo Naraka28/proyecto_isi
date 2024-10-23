@@ -39,11 +39,12 @@ function Test({}) {
             <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell align="right">Date</TableCell>
-                <TableCell align="right">User ID</TableCell>
-                <TableCell align="right">Material ID</TableCell>
-                <TableCell align="right">Ticket ID</TableCell>
-                <TableCell align="right">Employee ID</TableCell>
-                <TableCell align="right">Service ID</TableCell>
+                <TableCell align="right">User Name</TableCell>
+                <TableCell align="right">User Lastname</TableCell>
+                <TableCell align="right">Material</TableCell>
+                <TableCell align="right">Employee Name</TableCell>
+                <TableCell align="right">Employee Lastname</TableCell>
+                <TableCell align="right">Service</TableCell>
                 <TableCell align="right">Total Price</TableCell>
             </TableRow>
           </TableHead>
@@ -55,11 +56,12 @@ function Test({}) {
               >
                 <TableCell>{appointment.appointment_id}</TableCell>
                 <TableCell align="right">{appointment.date}</TableCell>
-                <TableCell align="right">{appointment.user_id}</TableCell>
-                <TableCell align="right">{appointment.material_id}</TableCell>
-                <TableCell align="right">{appointment.ticket_id}</TableCell>
-                <TableCell align="right">{appointment.employee_id}</TableCell>
-                <TableCell align="right">{appointment.service_id}</TableCell>
+                <TableCell align="right">{appointment.name}</TableCell>
+                <TableCell align="right">{appointment.last_name}</TableCell>
+                <TableCell align="right">{appointment.material}</TableCell>
+                <TableCell align="right">{appointment.em_name}</TableCell>
+                <TableCell align="right">{appointment.em_last_name}</TableCell>
+                <TableCell align="right">{appointment.servicio}</TableCell>
                 <TableCell align="right">{appointment.total_price}</TableCell>
               </TableRow>
             ))}

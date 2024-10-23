@@ -25,7 +25,7 @@ export function Appointments(){
 
              </h2>
 
-             <Search className='hidden sm:flex'/>
+             {/* <Search className='hidden sm:flex'/> */}
               <div className='flex space-x-3 my-5'>
               <ModalAppointments />
 
