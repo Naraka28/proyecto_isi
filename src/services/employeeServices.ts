@@ -7,6 +7,7 @@ export interface Employee {
   password: string;
   phone_number: string;
   role_id: number;
+  token?: string;
 }
 export interface EmployeeResponse {
   employees: Employee[];

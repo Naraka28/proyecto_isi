@@ -41,8 +41,8 @@ function LoginForm() {
     },
   });
   if (mutation.isSuccess) {
-    if (mutation.data.success) {
-      localStorage.setItem("success", mutation.data.success + "");
+    if (mutation.data.token) {
+      localStorage.setItem("token", mutation.data.token);
       navigate("/dashboard");
     }
   }
