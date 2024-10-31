@@ -2,7 +2,7 @@ import { Field } from "../components/Field";
 import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { login, LoginCredentials } from "../services/POSTlogin";
+import { login } from "../services/POSTlogin";
 
 import {
   QueryClient,
@@ -41,7 +41,7 @@ function LoginForm() {
     },
   });
   if (mutation.isSuccess) {
-    if (mutation.data.token) {
+    if (mutation.data.success) {
       localStorage.setItem("token", mutation.data.token);
       navigate("/dashboard");
     }

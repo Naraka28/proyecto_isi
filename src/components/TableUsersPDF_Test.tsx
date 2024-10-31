@@ -1,25 +1,41 @@
-import React from 'react';
-import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
-import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  useQuery,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { getAllUsers } from "../services/userAddservice.ts"; // Servicio para obtener los usuarios
-import { Table, TableBody, TableContainer, TableHead, TableCell, TableRow, Paper, Button } from '@mui/material';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import { IconButton } from './DashButton.tsx';
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableRow,
+  Paper,
+  Button,
+} from "@mui/material";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import { IconButton } from "./DashButton.tsx";
 
 const queryClient = new QueryClient();
 
 export function BasicTable() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Test/>
+      <Test />
     </QueryClientProvider>
   );
 }
 
 function Test() {
-  const { isLoading, isError, data, error } = useQuery({ queryKey: ['userInfo'], queryFn: getAllUsers });
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: getAllUsers,
+  });
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -41,7 +57,7 @@ function Test() {
 
     // Extraer los datos para la tabla
     const tableColumn = ["ID", "Nombre", "Apellido", "Email", "Teléfono"];
-    const tableRows = data.users.map(user => [
+    const tableRows = data.users.map((user) => [
       user.user_id,
       user.name,
       user.last_name,
@@ -62,37 +78,31 @@ function Test() {
 
   return (
     <div>
-      <IconButton id={'PDF'} text={"Exportar PDF"} icon={faFilePdf} onClick={exportToPDF} />
-        
-        
-
-      <TableContainer className="flex w-fill" component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="right">Nombre</TableCell>
-              <TableCell align="right">Apellido</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Teléfono</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.users.map((user) => (
-              <TableRow
-                key={user.user_id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell>{user.user_id}</TableCell>
-                <TableCell align="right">{user.name}</TableCell>
-                <TableCell align="right">{user.last_name}</TableCell>
-                <TableCell align="right">{user.access_email}</TableCell>
-                <TableCell align="right">{user.phone_number}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <h2>Exportar PDF para:</h2>
+      <IconButton
+        id={"PDF"}
+        text={"Productos  más Vendidos"}
+        icon={faFilePdf}
+        onClick={exportToPDF}
+      />
+      <IconButton
+        id={"PDF"}
+        text={"Exportar PDF"}
+        icon={faFilePdf}
+        onClick={exportToPDF}
+      />
+      <IconButton
+        id={"PDF"}
+        text={"Exportar PDF"}
+        icon={faFilePdf}
+        onClick={exportToPDF}
+      />
+      <IconButton
+        id={"PDF"}
+        text={"Exportar PDF"}
+        icon={faFilePdf}
+        onClick={exportToPDF}
+      />
     </div>
   );
 }

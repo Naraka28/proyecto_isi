@@ -23,42 +23,17 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route
-      path="login"
-      element={<Login />}
-      />
+      <Route path="login" element={<Login />} />
 
       <Route element={<PersistentDrawerLeft />} path="">
-        <Route
-        path="dashboard"
-        element={<Dashboard />}
-        />
-        <Route
-        path="users"
-        element={<Users />}
-        />
-        <Route
-        path="appointments"
-        element={<Appointments />}
-        />
-        <Route
-        path="services"
-        element={<Services />}
-        />
-        <Route
-        path="products"
-        element={<Products />}
-        />
-        <Route
-        path="employees"
-        element={<Employees />}
-        />
-        <Route
-        path="reports"
-        element={<Reports />}
-        />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="users" element={<Users />} />
+        <Route path="appointments" element={<Appointments />} />
+        <Route path="services" element={<Services />} />
+        <Route path="products" element={<Products />} />
+        <Route path="employees" element={<Employees />} />
+        <Route path="reports" element={<Reports />} />
       </Route>
-
     </Route>
   )
 );
@@ -66,8 +41,6 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      {" "}
-      {/* Envolver con QueryClientProvider */}
       <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>
