@@ -142,7 +142,7 @@ export function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Dashboard', 'Appointments', 'Products', 'Services','Users','Employees'].map((text, index) => (
+          {['Dashboard', 'Appointments', 'Products', 'Services','Users','Employees','Reports'].map((text, index) => (
             <Link
             to={'../'+text.toLowerCase()}
             className='no-underline text-black'
@@ -160,7 +160,7 @@ export function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['Reports', 'Inventory', 'Log Out'].map((text, index) => (
+          {['Inventory', 'Log Out'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

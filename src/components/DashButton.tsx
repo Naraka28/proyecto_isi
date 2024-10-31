@@ -2,7 +2,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-interface dashBhutton{
+interface dashButton{
     id:string;
     text:string;
     icon:IconProp;
@@ -10,7 +10,7 @@ interface dashBhutton{
 }
 
 
-export function IconButton({id,text,icon,onClick}:dashBhutton){
+export function IconButton({id,text,icon,onClick}:dashButton){
     return(
         <button id={id} className="group flex items-center p-4 bg-gray-100 border-gray-200 rounded-lg shadow-xs hover:bg-gray-300 focus:bg-gray-300 transition-all hover:duration-500 focus:duration-0" onClick={onClick}>
         <div

@@ -16,6 +16,7 @@ import { Appointments } from "./Appointments.tsx";
 import { PersistentDrawerLeft } from "../components/Sidebar";
 import { Dashboard } from "./Dashboard.tsx";
 import { Employees } from "./Employees.tsx";
+import { Reports } from "./Reports.tsx";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter(
         <Route
         path="employees"
         element={<Employees />}
+        />
+        <Route
+        path="reports"
+        element={<Reports />}
         />
       </Route>
 
