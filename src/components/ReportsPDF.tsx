@@ -44,7 +44,7 @@ function PDFButton({
     doc.setFontSize(18);
     doc.text(`Reporte de ${text}`, 10, 10);
     doc.setFontSize(14);
-    doc.text(`Tabla que contiene la lista de ${textoDescriptivo}`, 10, 20);
+    doc.text(`${textoDescriptivo}`, 10, 20);
 
     // Generar la tabla en el PDF
     const tableRows = generateTableData(data);
@@ -75,7 +75,8 @@ function BestSellerPDFButton() {
     <PDFButton
       text="Productos más Vendidos"
       textoDescriptivo={
-        "Tabla que contiene la lista de productos más vendidos en la tienda, ordenados de mayor a menor e incluyendo la cantidad de veces que se realizó una venta"
+        "Tabla sobre la lista de productos más vendidos, ordenados de mayor a menor e \n" +
+        "incluyendo las ventas realizadas de cada producto."
       }
       queryKey={["productTop"]}
       queryFn={getBestSellerProducts}
@@ -97,7 +98,8 @@ function InventoryPDFButton() {
     <PDFButton
       text="Lista de Inventario"
       textoDescriptivo={
-        "Tabla que contiene la lista de productos que se encuentran en inventario de la tienda, incluyendo productos y servicios, cantidades de los productos y el valor total de cada uno en la lista "
+        "Tabla de productos que se encuentran en inventario incluyendo productos y \n" +
+        "servicios, cantidades de los productos y el valor total de cada uno en la lista "
       }
       queryKey={["inventory"]}
       queryFn={getInventoryList}
@@ -122,7 +124,10 @@ function WantedEmployeePDFButton() {
   return (
     <PDFButton
       text="Empleado más cotizado"
-      textoDescriptivo="Tabla que contiene la lista de empleados que han sido solicitados para más servicios en el salón, incluyendo el número de citas que han realizado."
+      textoDescriptivo={
+        "Lista de empleados que han sido solicitados para más servicios en \n" +
+        "el salón, incluyendo el número de citas que han realizado."
+      }
       queryKey={["employeeTop"]}
       queryFn={getMostWantedEmployee}
       fileName="reporte_empleados_mas_solicitados"
@@ -143,7 +148,8 @@ function WantedServicePDFButton() {
     <PDFButton
       text="Servicios con más demanda"
       textoDescriptivo={
-        "Tabla que contiene la lista de servicios más solicitado en la tienda el salón, ordenados de mayor a menor e incluyendo la cantidad de veces que se realizó dicho servicio"
+        "Lista de servicios más solicitado en el salón, ordenados de mayor a menor e \n" +
+        "incluyendo la cantidad de veces que se realizó dicho servicio"
       }
       queryKey={["serviceTop"]}
       queryFn={getMostWantedServices}
@@ -165,7 +171,8 @@ function PriceListPDFButton() {
     <PDFButton
       text="Lista de Precios"
       textoDescriptivo={
-        "Tabla que contiene la lista de productos y servicios ofrecidos en el salón, incluyendo el precio y el tipo de servicio/producto que es cada uno"
+        "Tabla que contiene la lista de productos y servicios ofrecidos en el salón, \n" +
+        "incluyendo el precio y el tipo de servicio/producto que es cada uno"
       }
       queryKey={["priceList"]}
       queryFn={getPriceList}
@@ -183,15 +190,54 @@ function PriceListPDFButton() {
   );
 }
 
+/*
 export function BasicTable() {
   return (
-    <div>
-      <h2 className="text-3xl font-bold">Descargar PDF para:</h2>
-      <BestSellerPDFButton />
-      <InventoryPDFButton />
-      <WantedEmployeePDFButton />
-      <WantedServicePDFButton />
-      <PriceListPDFButton />
+    <div style={{ width: "100%", padding: "24px" }}>
+      <h2
+        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}
+      >
+        Descargar PDF para:
+      </h2>
+      <div style={{ display: "flex", gap: "16px" }}>
+        <div style={{ flex: 1 }}>
+          <BestSellerPDFButton />
+          <InventoryPDFButton />
+        </div>
+        <div style={{ flex: 1 }}>
+          <WantedEmployeePDFButton />
+          <WantedServicePDFButton />
+        </div>
+        <div style={{ flex: 1 }}>
+          <PriceListPDFButton />
+        </div>
+      </div>
+    </div>
+  );
+}
+ */
+
+export function BasicTable() {
+  return (
+    <div style={{ width: "100%", padding: "24px" }}>
+      <h2
+        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}
+      >
+        Descargar PDF para:
+      </h2>
+      <div
+        style={{
+          display: "grid",
+          gap: "16px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        }}
+      >
+        <BestSellerPDFButton />
+        <InventoryPDFButton />
+        <WantedEmployeePDFButton />
+        <WantedServicePDFButton />
+        <PriceListPDFButton />
+      </div>
     </div>
   );
 }

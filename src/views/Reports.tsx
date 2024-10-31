@@ -17,7 +17,7 @@ export function Reports() {
   return (
     <>
       <div className="">
-        <div className="container px-6 mx-auto grid">
+        <div className=" px-6 mx-auto grid">
           <h2 className="my-6 py-6 text-3xl font-bold text-black ">Reportes</h2>
 
           <Search onSearch={handleSearch} className="hidden sm:flex" />
