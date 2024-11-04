@@ -66,3 +66,47 @@ export async function userAddService(create: UserCreate) {
   const responsedata = await response.json();
   return responsedata;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function userDeleteService(id: number) {
+  const response = await fetch(`${API_URL}/users/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const responsedata = await response.json();
+  return responsedata;
+}
+
+export async function userFindById(id: number) {
+  const response = await fetch(`${API_URL}/users/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const responsedata = await response.json();
+  return responsedata;
+}
+
+export async function userUpdateService(id: number, create: UserCreate) {
+  const response = await fetch(`${API_URL}/users/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: create.name,
+      last_name: create.last_name,
+      access_email: create.access_email,
+      password: create.password,
+      role_id: create.role_id,
+      phone_number: create.phone_number,
+    }),
+  });
+  const responsedata = await response.json();
+  return responsedata;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

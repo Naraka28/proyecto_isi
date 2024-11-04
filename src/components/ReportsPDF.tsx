@@ -215,7 +215,7 @@ export function BasicTable() {
     </div>
   );
 }
- */
+  */
 
 export function BasicTable() {
   return (
