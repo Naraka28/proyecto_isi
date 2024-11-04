@@ -21,14 +21,8 @@ import {
 } from "@mui/material";
 import { Button } from "@mui/material";
 
-const queryClient = new QueryClient();
-
 export function ServiceTable() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Test />
-    </QueryClientProvider>
-  );
+  return <Test />;
 }
 
 function handleEdit() {

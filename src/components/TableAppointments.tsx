@@ -15,14 +15,8 @@ import {
 import { getAllAppointments } from "../services/appointmentServices.ts";
 import { Button } from "@mui/material";
 
-const queryClient = new QueryClient();
-
 export function AppointmentsTable() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Test />
-    </QueryClientProvider>
-  );
+  return <Test />;
 }
 
 function handleEdit() {

@@ -1,8 +1,4 @@
-import {
-  useQuery,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getAllEmployees } from "../services/employeeServices.ts"; // Servicio para obtener los usuarios
 import {
   Table,
@@ -15,14 +11,8 @@ import {
 } from "@mui/material";
 import { Button } from "@mui/material";
 
-const queryClient = new QueryClient();
-
 export function EmployeeTable() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Test />
-    </QueryClientProvider>
-  );
+  return <Test />;
 }
 
 function handleEdit() {

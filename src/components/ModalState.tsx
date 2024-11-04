@@ -1,27 +1,33 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 interface stateProps {
-  success: boolean,
-  messageTrue: string,
-  messageFalse: string,
-  color?: string,
-  show: boolean,
-  onClose: () => void // Para manejar el cierre del modal desde el padre
+  success: boolean;
+  messageTrue: string;
+  messageFalse: string;
+  color?: string;
+  show: boolean;
+  onClose: () => void; // Para manejar el cierre del modal desde el padre
 }
 
 export function ModalState(props: stateProps) {
   return (
     // Provide the client to your App
     <QueryClientProvider client={queryClient}>
-      {props.show && <ModalStateForm {...props} />} {/* Renderizar el modal solo si show es true */}
+      {props.show && <ModalStateForm {...props} />}{" "}
+      {/* Renderizar el modal solo si show es true */}
     </QueryClientProvider>
-  )
+  );
 }
 
-export function ModalStateForm({ success, messageTrue, messageFalse, onClose }: stateProps) {
+export function ModalStateForm({
+  success,
+  messageTrue,
+  messageFalse,
+  onClose,
+}: stateProps) {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -30,9 +36,7 @@ export function ModalStateForm({ success, messageTrue, messageFalse, onClose }: 
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-              <h2 className="text-3xl font-semibold">
-                Mensaje de Respuesta
-              </h2>
+              <h2 className="text-3xl font-semibold">Mensaje de Respuesta</h2>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={onClose}

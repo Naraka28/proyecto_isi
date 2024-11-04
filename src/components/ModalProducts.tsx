@@ -1,57 +1,50 @@
 import React from "react";
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { IconButton } from '../components/DashButton';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
 import { addProduct, Product } from "../services/productsServices";
-import {
-  useMutation,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-
-
-const queryClient = new QueryClient()
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function ModalProducts() {
   return (
     // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
-      <ModalProductsForm />
-    </QueryClientProvider>
-  )
+    <ModalProductsForm />
+  );
 }
 
 export function ModalProductsForm() {
-
   const [showModal, setShowModal] = React.useState(false);
-    const handleAddClick = () => {
-        setShowModal(true);
-    };
+  const queryClient = useQueryClient();
+  const handleAddClick = () => {
+    setShowModal(true);
+  };
 
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
 
-
-
-    const mutation = useMutation({
-      mutationFn: addProduct,
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['productInfo'] })
-      },
-    })
-    const newProduct:Product = {
-      name:name,
-      quantity:parseInt(quantity),
-      price:parseFloat( price),
-    };
+  const mutation = useMutation({
+    mutationFn: addProduct,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["productInfo"] });
+    },
+  });
+  const newProduct: Product = {
+    name: name,
+    quantity: parseInt(quantity),
+    price: parseFloat(price),
+  };
 
   return (
     <>
-
-       <IconButton id={'añadirBtn'} text={'Añadir'} icon={faPlus} onClick={handleAddClick} />
+      <IconButton
+        id={"añadirBtn"}
+        text={"Añadir"}
+        icon={faPlus}
+        onClick={handleAddClick}
+      />
 
       {showModal ? (
         <>
@@ -61,9 +54,7 @@ export function ModalProductsForm() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h2 className="text-3xl font-semibold">
-                    Añadir Producto
-                  </h2>
+                  <h2 className="text-3xl font-semibold">Añadir Producto</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -75,13 +66,22 @@ export function ModalProductsForm() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 m-6 flex-auto">
-                  <h2>
-                    Formulario de Producto:
-                  </h2>
-                  <Field id={'nombre'} type={'text'} onChange={(e) => setName(e.target.value)} />
-                  <Field id={'cantidad'} type={'number'} onChange={(e) => setQuantity(e.target.value)}/>
-                  <Field id={'precio'} type={'number'} onChange={(e) => setPrice(e.target.value)} />
-
+                  <h2>Formulario de Producto:</h2>
+                  <Field
+                    id={"nombre"}
+                    type={"text"}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <Field
+                    id={"cantidad"}
+                    type={"number"}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                  <Field
+                    id={"precio"}
+                    type={"number"}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -95,7 +95,10 @@ export function ModalProductsForm() {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => { mutation.mutate(newProduct);}}>
+                    onClick={() => {
+                      mutation.mutate(newProduct);
+                    }}
+                  >
                     Save Changes
                   </button>
                 </div>

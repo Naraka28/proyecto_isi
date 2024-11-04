@@ -8,6 +8,7 @@ import {
   useMutation,
   QueryClient,
   QueryClientProvider,
+  useQueryClient,
 } from "@tanstack/react-query";
 import {
   appointmentAddService,
@@ -16,19 +17,16 @@ import {
 } from "../services/appointmentServices";
 import { ComboBox } from "./Combobox";
 
-const queryClient = new QueryClient();
-
 export function ModalAppointments() {
   return (
     // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
-      <ModalAppointmentsForm />
-    </QueryClientProvider>
+    <ModalAppointmentsForm />
   );
 }
 
 export function ModalAppointmentsForm() {
   const [showModal, setShowModal] = React.useState(false);
+  const queryClient = useQueryClient();
 
   const handleAddClick = () => {
     setShowModal(true);

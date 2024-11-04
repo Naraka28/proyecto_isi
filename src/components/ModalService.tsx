@@ -1,62 +1,54 @@
 import React from "react";
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { IconButton } from '../components/DashButton';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { ComboBox } from "../components/Combobox";
 import { useState } from "react";
 import { addService } from "../services/serviciosServices";
-import {
-  useMutation,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-
-
-const queryClient = new QueryClient()
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function ModalServices() {
   return (
     // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
-      <ModalAppointmentsForm />
-    </QueryClientProvider>
-  )
+    <ModalAppointmentsForm />
+  );
 }
 
 export function ModalAppointmentsForm() {
-  
+  const queryClient = useQueryClient();
   const [showModal, setShowModal] = React.useState(false);
-  
-    const handleAddClick = () => {
-        setShowModal(true);
-    };
 
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [duration, setDuration] = useState('');
-    const [catalogue, setCatalogue] = useState('');
-    
+  const handleAddClick = () => {
+    setShowModal(true);
+  };
 
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [duration, setDuration] = useState("");
+  const [catalogue, setCatalogue] = useState("");
 
-    const mutation = useMutation({
-      mutationFn: addService,
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['serviceInfo'] })
-      },
-    })
-    const newService = {
-      name:name,
-      catalogue_id:parseInt(catalogue),
-      price:parseFloat( price),
-      duration:parseInt(duration)
-    };
-
+  const mutation = useMutation({
+    mutationFn: addService,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["serviceInfo"] });
+    },
+  });
+  const newService = {
+    name: name,
+    catalogue_id: parseInt(catalogue),
+    price: parseFloat(price),
+    duration: parseInt(duration),
+  };
 
   return (
     <>
-
-       <IconButton id={'añadirBtn'} text={'Añadir'} icon={faPlus} onClick={handleAddClick} />
+      <IconButton
+        id={"añadirBtn"}
+        text={"Añadir"}
+        icon={faPlus}
+        onClick={handleAddClick}
+      />
 
       {showModal ? (
         <>
@@ -66,9 +58,7 @@ export function ModalAppointmentsForm() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h2 className="text-3xl font-semibold">
-                    Añadir Servicio
-                  </h2>
+                  <h2 className="text-3xl font-semibold">Añadir Servicio</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -80,15 +70,27 @@ export function ModalAppointmentsForm() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 m-6 flex-auto">
-                  <h2>
-                    Formulario de Servicio:
-                  </h2>
-                  <Field id={'nombre'} type={'text'} onChange={(e) => setName(e.target.value)} />
-                  <ComboBox id="catalogue_id" options={["1 Corte","2 Tinte", "3 Peinado"]} onChange={(e) => setCatalogue(e.target.value)}/>
-                  <Field id={'precio'} type={'number'} onChange={(e) => setPrice(e.target.value)} />
-                  <Field id={'duración'} type={'number'} onChange={(e) => setDuration(e.target.value)} />
-                  
-
+                  <h2>Formulario de Servicio:</h2>
+                  <Field
+                    id={"nombre"}
+                    type={"text"}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <ComboBox
+                    id="catalogue_id"
+                    options={["1 Corte", "2 Tinte", "3 Peinado"]}
+                    onChange={(e) => setCatalogue(e.target.value)}
+                  />
+                  <Field
+                    id={"precio"}
+                    type={"number"}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                  <Field
+                    id={"duración"}
+                    type={"number"}
+                    onChange={(e) => setDuration(e.target.value)}
+                  />
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -102,7 +104,10 @@ export function ModalAppointmentsForm() {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => { mutation.mutate(newService);}}>
+                    onClick={() => {
+                      mutation.mutate(newService);
+                    }}
+                  >
                     Save Changes
                   </button>
                 </div>

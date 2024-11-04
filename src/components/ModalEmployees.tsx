@@ -9,22 +9,20 @@ import {
   useMutation,
   QueryClient,
   QueryClientProvider,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { employeeAddService, Employee } from "../services/employeeServices";
-
-const queryClient = new QueryClient();
 
 export function ModalEmployees() {
   return (
     // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
-      <ModalEmployeesForm />
-    </QueryClientProvider>
+    <ModalEmployeesForm />
   );
 }
 
 export function ModalEmployeesForm() {
   const [showModal, setShowModal] = React.useState(false);
+  const queryClient = useQueryClient();
 
   const handleAddClick = () => {
     setShowModal(true);

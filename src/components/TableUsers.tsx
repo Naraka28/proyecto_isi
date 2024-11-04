@@ -1,8 +1,4 @@
-import {
-  useQuery,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getAllUsers } from "../services/userAddservice.ts"; // Servicio para obtener los usuarios
 import {
   Table,
@@ -17,14 +13,8 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { ModalState } from "../components/ModalState"; /////////////////
 
-const queryClient = new QueryClient();
-
 export function BasicTable() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Test />
-    </QueryClientProvider>
-  );
+  return <Test />;
 }
 
 function handleEdit() {
