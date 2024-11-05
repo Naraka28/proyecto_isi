@@ -45,9 +45,6 @@ export const getAllUsers = async (): Promise<UserResponse> => {
   }
 };
 
-
-
-
 export async function userAddService(create: UserCreate) {
   const response = await fetch(`${API_URL}/users`, {
     method: "POST",
@@ -66,8 +63,6 @@ export async function userAddService(create: UserCreate) {
   const responsedata = await response.json();
   return responsedata;
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function userDeleteService(id: number) {
   const response = await fetch(`${API_URL}/users/${id}`, {

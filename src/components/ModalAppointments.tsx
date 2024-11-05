@@ -121,13 +121,14 @@ export function ModalAppointmentsForm() {
                     type={"text"}
                     onChange={handleChange}
                   />
-                  {searchMutation.isSuccess ? (
-                    <ComboBox
-                      id={"users"}
-                      options={searchMutation.data.users}
-                      onChange={(e) => setUserId(e.target.value)}
-                    />
-                  ) : null}
+                  <ComboBox
+                    id={"users"}
+                    options={
+                      searchMutation.isSuccess ? searchMutation.data.users : []
+                    }
+                    onChange={(e) => setUserId(e.target.value)}
+                    className={searchMutation.isSuccess ? "" : "disabled"}
+                  />
                   <Field
                     id={"date"}
                     type={"date"}

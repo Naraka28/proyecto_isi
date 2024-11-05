@@ -64,3 +64,11 @@ export async function appointmentAddService(create: AppointmentCreate) {
   const responsedata = await response.json();
   return responsedata;
 }
+
+export async function deleteAppointment(id: number) {
+  const response = await fetch(`${API_URL}/appointments/${id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  return data;
+}

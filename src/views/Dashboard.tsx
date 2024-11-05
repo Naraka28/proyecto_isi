@@ -27,9 +27,7 @@ export function Dashboard() {
               onClick={handleAddClick}
             />
           </div>
-          <div className="">
-            <BasicTable />
-          </div>
+          <div className=""></div>
         </div>
       </div>
     </>

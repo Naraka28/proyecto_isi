@@ -1,5 +1,5 @@
 export interface Service {
-  service_id?: number;
+  service_id: number;
   name: string;
   catalogue_id: number;
   price: number;
@@ -39,4 +39,12 @@ export async function addService(create: ServiceCreate) {
   });
   const responsedata = await response.json();
   return responsedata;
+}
+
+export async function deleteService(service_id: number) {
+  const response = await fetch(`${API_URL}/services/${service_id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  return data;
 }

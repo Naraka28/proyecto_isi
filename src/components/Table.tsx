@@ -15,14 +15,8 @@ import {
   Button,
 } from "@mui/material";
 
-const queryClient = new QueryClient();
-
 export function BasicTable() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Test />
-    </QueryClientProvider>
-  );
+  return <Test />;
 }
 
 function handleEdit() {

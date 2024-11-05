@@ -1,5 +1,5 @@
 export interface Employee {
-  employee_id?: number;
+  employee_id: number;
   name: string;
   last_name: string;
   access_email: string;
@@ -49,4 +49,12 @@ export async function employeeAddService(create: EmployeeCreate) {
   });
   const responsedata = await response.json();
   return responsedata;
+}
+
+export async function deleteEmployee(employee_id: number) {
+  const response = await fetch(`${API_URL}/employees/${employee_id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  return data;
 }

@@ -3,6 +3,7 @@ interface ComboBoxProps {
   id: string;
   options: any[];
   optionObjects?: user[];
+  className?: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
