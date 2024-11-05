@@ -3,7 +3,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
-import { addProduct, Product } from "../services/productsServices";
+import {
+  addProduct,
+  Product,
+  ProductCreate,
+} from "../services/productsServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function ModalProducts() {
@@ -31,7 +35,7 @@ export function ModalProductsForm() {
       queryClient.invalidateQueries({ queryKey: ["productInfo"] });
     },
   });
-  const newProduct: Product = {
+  const newProduct: ProductCreate = {
     name: name,
     quantity: parseInt(quantity),
     price: parseFloat(price),

@@ -3,6 +3,7 @@ import {
   getAllProducts,
   Product,
   deleteProduct,
+  updateProduct,
 } from "../services/productsServices.ts"; // Servicio para obtener los usuarios
 import {
   Table,
@@ -16,13 +17,10 @@ import {
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { ModalDeleteProduct } from "./ModalDeleteProduct.tsx";
+import { ModalUpdateProduct } from "./ModalUpdateProduct.tsx";
 
 export function ProductTable() {
   return <Test />;
-}
-
-function handleEdit() {
-  console.log("Edit from outside");
 }
 
 function Test() {
@@ -43,6 +41,13 @@ function Test() {
       setShowModal(false); // Close modal after successful deletion
     },
   });
+  const updateMutation = useMutation({
+    mutationFn: updateProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["productInfo"] });
+      setshowUpdate(false); // Close modal after successful deletion
+    },
+  });
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -54,6 +59,10 @@ function Test() {
   if (!data) {
     return <span>No hay datos disponibles</span>;
   }
+  const handleEdit = (product: Product) => {
+    setselectedProduct(product);
+    setshowUpdate(true);
+  };
 
   const handleShow = (product: Product) => {
     setselectedProduct(product);
@@ -65,8 +74,17 @@ function Test() {
       deleteMutation.mutate(selectedProduct.product_id);
     }
   };
+  const handleUpdateConfirm = () => {
+    if (selectedProduct) {
+      updateMutation.mutate(selectedProduct);
+    }
+  };
 
   const handleCloseModal = () => {
+    setShowModal(false);
+    setselectedProduct(undefined);
+  };
+  const handleCloseUpdateModal = () => {
     setShowModal(false);
     setselectedProduct(undefined);
   };
@@ -101,7 +119,7 @@ function Test() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleEdit()}
+                      onClick={() => handleEdit(product)}
                     >
                       Edit
                     </Button>
@@ -119,11 +137,20 @@ function Test() {
           </TableBody>
         </Table>
       </TableContainer>
+
       {showModal && selectedProduct && (
         <ModalDeleteProduct
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={handleDeleteConfirm}
+          product={selectedProduct} // Pass selected user to modal
+        />
+      )}
+      {showUpdate && selectedProduct && (
+        <ModalUpdateProduct
+          open={showUpdate}
+          onClose={handleCloseUpdateModal}
+          onConfirm={handleUpdateConfirm}
           product={selectedProduct} // Pass selected user to modal
         />
       )}

@@ -7,6 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import { Service } from "../services/serviciosServices";
+//TODO:Generalizar interfaz
 interface ModalDeleteProps {
   open: boolean;
   onClose: () => void;
