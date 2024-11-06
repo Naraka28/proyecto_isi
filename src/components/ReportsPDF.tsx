@@ -244,7 +244,6 @@ export function BasicTable() {
 }
 */
 
-
 import React from "react";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
@@ -258,8 +257,8 @@ import {
   getPriceList,
   getMostWantedServices,
 } from "../services/reportsServices.ts";
-import logo from '../images/logoBaza.png';  // Importa el logo
-import firma from '../images/descarga.png';  // Importa la firma
+import logo from "../images/logoBaza.png"; // Importa el logo
+import firma from "../images/descarga.png"; // Importa la firma
 
 interface PDFButtonProps {
   text: string;
@@ -301,23 +300,23 @@ function PDFButton({
       imagesLoaded += 1;
       if (imagesLoaded === 2) {
         // Si ambas imágenes están cargadas, generar el PDF
-        doc.addImage(logoImg, 'PNG', 10, 10, 30, 30);  // Agregar el logo
-        doc.addImage(firmaImg, 'JPG', 60, 130, 80, 45);  // Agregar la firma
+        doc.addImage(logoImg, "PNG", 10, 10, 30, 30); // Agregar el logo
+        doc.addImage(firmaImg, "JPG", 60, 130, 80, 45); // Agregar la firma
 
         doc.setFontSize(18);
-        doc.text(`Reporte de ${text}`, 10, 50);  // Título
+        doc.text(`Reporte de ${text}`, 10, 50); // Título
         doc.setFontSize(14);
-        doc.text(textoDescriptivo, 10, 60);  // Descripción
+        doc.text(textoDescriptivo, 10, 60); // Descripción
         const fechaActual = new Date();
-        const fechaFormateada = fechaActual.toLocaleDateString();  // Formato: "11/5/2024"
-        doc.text(fechaFormateada, 150, 20);  // Fecha
+        const fechaFormateada = fechaActual.toLocaleDateString(); // Formato: "11/5/2024"
+        doc.text(fechaFormateada, 150, 20); // Fecha
 
         // Generar la tabla en el PDF
         const tableRows = generateTableData(data);
         (doc as any).autoTable({
           head: [tableColumn],
           body: tableRows,
-          startY: 75,  // Posición ajustada para que la tabla comience después del texto
+          startY: 75, // Posición ajustada para que la tabla comience después del texto
         });
 
         // Guardar el documento PDF
@@ -326,8 +325,8 @@ function PDFButton({
     };
 
     // Cargar las imágenes
-    logoImg.src = logo;  // Ruta de la imagen del logo
-    firmaImg.src = firma;  // Ruta de la imagen de la firma
+    logoImg.src = logo; // Ruta de la imagen del logo
+    firmaImg.src = firma; // Ruta de la imagen de la firma
 
     // Asignar las funciones onload para que se llamen cuando cada imagen esté lista
     logoImg.onload = handleImageLoad;
@@ -474,6 +473,7 @@ function PriceListPDFButton() {
   );
 }
 
+/*
 // Componente principal para mostrar los botones de exportación
 export function BasicTable() {
   return (
@@ -488,6 +488,34 @@ export function BasicTable() {
           display: "grid",
           gap: "16px",
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        }}
+      >
+        <BestSellerPDFButton />
+        <InventoryPDFButton />
+        <WantedEmployeePDFButton />
+        <WantedServicePDFButton />
+        <PriceListPDFButton />
+      </div>
+    </div>
+  );
+}
+*/
+
+// Componente principal para mostrar los botones de exportación
+export function BasicTable() {
+  return (
+    <div style={{ width: "100%", padding: "24px" }}>
+      <h2
+        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}
+      >
+        Descargar PDF para:
+      </h2>
+      <div
+        style={{
+          display: "grid",
+          gap: "16px",
+          gridTemplateColumns: "repeat(3, 1fr)", // Tres columnas de igual tamaño
+          width: "100%",
         }}
       >
         <BestSellerPDFButton />

@@ -31,7 +31,7 @@ export function Reports() {
               onClick={handleAddClick}
             />
           </div>
-          <div className="">
+          <div className="a">
             <BasicTable />
           </div>
         </div>
