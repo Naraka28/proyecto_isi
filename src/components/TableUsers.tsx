@@ -114,7 +114,7 @@ function Test() {
         <ModalDeleteUser
           open={showModal}
           onClose={handleCloseModal}
-          onConfirm={() => handleDeleteConfirm}
+          onConfirm={handleDeleteConfirm}
           user={selectedUser} // Pass selected user to modal
         />
       )}

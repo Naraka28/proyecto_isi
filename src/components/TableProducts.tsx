@@ -41,13 +41,6 @@ function Test() {
       setShowModal(false); // Close modal after successful deletion
     },
   });
-  const updateMutation = useMutation({
-    mutationFn: updateProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["productInfo"] });
-      setshowUpdate(false); // Close modal after successful deletion
-    },
-  });
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -74,18 +67,13 @@ function Test() {
       deleteMutation.mutate(selectedProduct.product_id);
     }
   };
-  const handleUpdateConfirm = () => {
-    if (selectedProduct) {
-      updateMutation.mutate(selectedProduct);
-    }
-  };
 
   const handleCloseModal = () => {
     setShowModal(false);
     setselectedProduct(undefined);
   };
   const handleCloseUpdateModal = () => {
-    setShowModal(false);
+    setshowUpdate(false);
     setselectedProduct(undefined);
   };
   // Renderizamos la tabla
@@ -143,15 +131,14 @@ function Test() {
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={handleDeleteConfirm}
-          product={selectedProduct} // Pass selected user to modal
+          product={selectedProduct}
         />
       )}
       {showUpdate && selectedProduct && (
         <ModalUpdateProduct
           open={showUpdate}
           onClose={handleCloseUpdateModal}
-          onConfirm={handleUpdateConfirm}
-          product={selectedProduct} // Pass selected user to modal
+          product={selectedProduct}
         />
       )}
     </>
