@@ -20,6 +20,7 @@ import {
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { IconButton } from "./DashButton.tsx";
+import logo from '../images/logoBaza.png' // Ruta de la imagen del logo";
 
 const queryClient = new QueryClient();
 
@@ -52,8 +53,15 @@ function Test() {
   // Función para exportar la tabla a PDF
   const exportToPDF = () => {
     const doc = new jsPDF();
+    const img = new Image();
+    img.src = logo; // Ensure the path is correct
+    img.onload = () => {
+    const base64Image = img.src;
+    doc.addImage(base64Image, 'PNG', 10, 10, 50, 20); // Adjust as needed
     doc.setFontSize(18);
     doc.text("Reporte de Usuarios", 10, 10);
+   
+
 
     // Extraer los datos para la tabla
     const tableColumn = ["ID", "Nombre", "Apellido", "Email", "Teléfono"];
