@@ -25,8 +25,8 @@ export function BasicTable() {
 function Test() {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
+  const [showUpdate, setshowUpdate] = useState(false);
   const [selectedUser, setSelectedUser] = useState<user | undefined>(undefined); // Track selected user
-  const [newService, setNewService] = useState<Service>(service);
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["userInfo"],
@@ -73,7 +73,7 @@ function Test() {
 
   const handleCloseUpdateModal = () => {
     setshowUpdate(false);
-    setselectedProduct(undefined);
+    setSelectedUser(undefined);
   };
 
   return (
@@ -106,7 +106,9 @@ function Test() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleEdit}
+                      onClick={() => {
+                        handleEdit(user);
+                      }}
                     >
                       Edit
                     </Button>
