@@ -69,7 +69,7 @@ export function ModalUpdateService({
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h2 className="text-3xl font-semibold">Añadir Servicio</h2>
+                  <h2 className="text-3xl font-semibold">Editar Servicio</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={onClose}
@@ -87,12 +87,6 @@ export function ModalUpdateService({
                     type={"text"}
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                  />
-                  //TODO:Seleccionar el del objeto
-                  <ComboBox
-                    id="catalogue_id"
-                    options={["1 Corte", "2 Tinte", "3 Peinado"]}
-                    onChange={(e) => setCatalogue(e.target.value)}
                   />
                   <Field
                     id={"precio"}

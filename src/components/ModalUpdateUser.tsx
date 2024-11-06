@@ -1,6 +1,3 @@
-import React from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
 import { user, userUpdateService } from "../services/userAddservice";
@@ -15,17 +12,12 @@ interface ModalUpdateProps {
 
 export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
   const queryClient = useQueryClient();
-  const [showModal, setShowModal] = React.useState(false);
 
-  const handleAddClick = () => {
-    setShowModal(true);
-  };
-
-  const [access_email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [last_name, setApellido] = useState("");
-  const [name, setNombre] = useState("");
-  const [phone, setPhone] = useState("");
+  const [access_email, setEmail] = useState(user.access_email);
+  const [password, setPassword] = useState(user.password);
+  const [last_name, setApellido] = useState(user.last_name);
+  const [name, setNombre] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone_number);
   const [dialogue, setDialogue] = useState(false);
   const [newUser, setnewUser] = useState<user>(user);
 
@@ -52,20 +44,16 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
   const cancelDialog = () => {
     setDialogue(false);
     setNombre(user.name);
-
+    setApellido(user.last_name);
+    setEmail(user.access_email);
+    setPassword(user.password);
+    setPhone(user.phone_number);
     onClose();
   };
 
   return (
     <>
-      <IconButton
-        id={"añadirBtn"}
-        text={"Añadir"}
-        icon={faPlus}
-        onClick={handleAddClick}
-      />
-
-      {showModal ? (
+      {open ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-full my-6 mx-auto max-w-xl">
@@ -73,10 +61,10 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h2 className="text-3xl font-semibold">Añadir Usuario</h2>
+                  <h2 className="text-3xl font-semibold">Editar Usuario</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
+                    onClick={onClose}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
@@ -90,26 +78,31 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
                     id={"nombre"}
                     type={"text"}
                     onChange={(e) => setNombre(e.target.value)}
+                    value={name}
                   />
                   <Field
                     id={"apellido"}
                     type={"text"}
                     onChange={(e) => setApellido(e.target.value)}
+                    value={last_name}
                   />
                   <Field
                     id={"email"}
                     type={"email"}
                     onChange={(e) => setEmail(e.target.value)}
+                    value={access_email}
                   />
                   <Field
                     id={"password"}
                     type={"password"}
                     onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                   />
                   <Field
                     id={"phone"}
                     type={"tel"}
                     onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
                   />
                 </div>
                 {/*footer*/}
@@ -117,7 +110,7 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={onClose}
                   >
                     Close
                   </button>

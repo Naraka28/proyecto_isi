@@ -58,3 +58,22 @@ export async function deleteEmployee(employee_id: number) {
   const data = await response.json();
   return data;
 }
+export async function updateEmployee(employee: Employee) {
+  const response = await fetch(`${API_URL}/employees/${employee.employee_id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: employee.name,
+      last_name: employee.last_name,
+      access_email: employee.access_email,
+      personal_email: employee.personal_email,
+      password: employee.password,
+      phone_number: employee.phone_number,
+      role_id: employee.role_id,
+    }),
+  });
+  const data = await response.json();
+  return data;
+}

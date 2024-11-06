@@ -5,13 +5,11 @@ import { Field } from "../components/Field";
 import { ComboBox } from "../components/Combobox";
 import { useState } from "react";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  useMutation,
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { employeeAddService, Employee } from "../services/employeeServices";
+  employeeAddService,
+  EmployeeCreate,
+} from "../services/employeeServices";
 
 export function ModalEmployees() {
   return (
@@ -23,10 +21,6 @@ export function ModalEmployees() {
 export function ModalEmployeesForm() {
   const [showModal, setShowModal] = React.useState(false);
   const queryClient = useQueryClient();
-
-  const handleAddClick = () => {
-    setShowModal(true);
-  };
 
   const [access_email, setAccessEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,11 +34,13 @@ export function ModalEmployeesForm() {
   const mutation = useMutation({
     mutationFn: employeeAddService,
     onSuccess: () => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["employeeInfo"] });
     },
   });
-  const newEmployee: Employee = {
+  const handleAddClick = () => {
+    setShowModal(true);
+  };
+  const newEmployee: EmployeeCreate = {
     name: name,
     last_name: last_name,
     access_email: access_email,
