@@ -81,7 +81,7 @@ function Test() {
                   </Button>
                   <Button
                     variant="contained"
-                    color="secondary"
+                    color="error"
                     onClick={() => handleDelete()}
                   >
                     Delete

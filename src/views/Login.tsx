@@ -95,7 +95,7 @@ function LoginForm() {
                     className="flex justify-center sm:text-2xl text-lg whitespace-nowrap p-auto py-5 hover:underline"
                     href="/templates/loginAdmin.html"
                   >
-                    Registrar nuevo usuario
+                    ¿Olvidó su contraseña?
                   </a>
                 </form>
               </div>
