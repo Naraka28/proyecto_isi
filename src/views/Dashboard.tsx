@@ -34,7 +34,7 @@ export function Dashboard() {
       <>
       
       <div className="h-screen w-screen manrope-500 overflow-y-auto">
-        <div className="relative  justify-center grid grid-cols-5  m-5 gap-5 w-screen h-screen">
+        <div className="relative  justify-center grid grid-cols-5 grid-rows-6 m-5 gap-5 w-screen h-screen">
           
         <div className="grid col-span-2 bg-white rounded-lg row-span-6 w-full h-full text-justify">
             {/* Seccion de siguiente cita*/}
@@ -92,7 +92,7 @@ export function Dashboard() {
           </div>
 
            {/* Sección de próximas citas */}
-           <div className="bg-white rounded-2xl col-span-2  w-full h-fit my-auto gap-y-5 flex flex-col ">
+           <div className="bg-white rounded-2xl col-span-2 row-span-3 w-full h-full my-auto gap-y-5 flex flex-col ">
             <div className="flex relative   justify-between">
               <ModalInsertCita closeModal={closeModal} />
               {isModalOpen && (
@@ -115,7 +115,7 @@ export function Dashboard() {
           </div>
 
           {/* Sección de bienvenida y ModalInsert */}
-          <div className="flex relative flex-col justify-start bg-white rounded-2xl  row-span-3 col-span-2 w-full h-fit my-auto pb-2">
+          <div className="flex relative flex-col justify-start bg-white rounded-2xl  row-span-3 col-span-2 w-full h-full my-auto pb-2">
             <span className="ml-5 mt-5 text-justify text-2xl">Clientes</span>
             <div className=" mt-10 flex justify-end">
               <ModalInsert closeModal={closeModal} />
