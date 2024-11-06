@@ -1,15 +1,8 @@
-import React from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
-import {
-  addProduct,
-  Product,
-  ProductCreate,
-  updateProduct,
-} from "../services/productsServices";
+import { Product, updateProduct } from "../services/productsServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { DialogueUpdateProduct } from "./DialogueUpdateProduct";
 interface ModalUpdateProps {
   open: boolean;
   onClose: () => void;
@@ -22,15 +15,36 @@ export function ModalUpdateProduct({
   product,
 }: ModalUpdateProps) {
   const queryClient = useQueryClient();
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [name, setName] = useState(product.name);
+  const [price, setPrice] = useState(product.price.toString());
+  const [quantity, setQuantity] = useState(product.quantity.toString());
+  const [dialog, setDialog] = useState(false);
+  const [newProduct, setNewProduct] = useState<Product>(product);
+
   const updateMutation = useMutation({
     mutationFn: updateProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["productInfo"] });
+      setDialog(false);
     },
   });
+  const showDialog = () => {
+    const updateProduct: Product = {
+      product_id: product.product_id,
+      name: name,
+      quantity: parseInt(quantity),
+      price: parseFloat(price),
+    };
+    setNewProduct(updateProduct);
+    setDialog(true);
+  };
+  const cancelDialog = () => {
+    setDialog(false);
+    setName(product.name);
+    setPrice(product.price.toString());
+    setQuantity(product.quantity.toString());
+    onClose();
+  };
 
   return (
     <>
@@ -59,19 +73,19 @@ export function ModalUpdateProduct({
                     id={"nombre"}
                     type={"text"}
                     onChange={(e) => setName(e.target.value)}
-                    value={product.name}
+                    value={name}
                   />
                   <Field
                     id={"cantidad"}
                     type={"number"}
                     onChange={(e) => setQuantity(e.target.value)}
-                    value={product.quantity.toString()}
+                    value={quantity.toString()}
                   />
                   <Field
                     id={"precio"}
                     type={"number"}
                     onChange={(e) => setPrice(e.target.value)}
-                    value={product.price.toString()}
+                    value={price.toString()}
                   />
                 </div>
                 {/*footer*/}
@@ -86,9 +100,7 @@ export function ModalUpdateProduct({
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => {
-                      updateMutation.mutate(product);
-                    }}
+                    onClick={showDialog}
                   >
                     Save Changes
                   </button>
@@ -98,6 +110,18 @@ export function ModalUpdateProduct({
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
+      ) : null}
+
+      {dialog ? (
+        <DialogueUpdateProduct
+          open={dialog}
+          onConfirm={() => {
+            updateMutation.mutate(newProduct);
+            onClose();
+          }}
+          onClose={cancelDialog}
+          product={newProduct}
+        />
       ) : null}
     </>
   );
