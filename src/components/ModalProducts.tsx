@@ -33,6 +33,7 @@ export function ModalProductsForm() {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["productInfo"] });
+      setShowModal(false);
     },
   });
   const newProduct: ProductCreate = {
