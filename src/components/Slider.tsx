@@ -29,10 +29,10 @@ export function MultipleItems() {
 
 
     return (
-        <div className="slider-container">
+        <div id="slider-citas" className="slider-container">
 
 
-            <Slider {...settings}>
+            <Slider  {...settings}>
 
 
                 {data.appointments.map((citas, index) => {

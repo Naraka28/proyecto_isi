@@ -32,15 +32,14 @@ export function Dashboard() {
 
   return (
       <>
-      <div className="">
-       
-      </div>
-      <div className="h-screen w-screen manrope-500">
-        <div className="relative grid grid-cols-3 grid-rows-5 m-5 gap-3 h-[81vh]">
-          <div className="grid grid-cols-1 grid-rows-2 bg-white rounded-lg row-span-5 w-full h-full">
+      
+      <div className="h-screen w-screen manrope-500 overflow-y-auto">
+        <div className="relative  justify-center grid grid-cols-5 grid-rows-6 m-5 gap-5 w-screen h-screen">
+          
+        <div className="grid col-span-2 bg-white rounded-lg row-span-6 w-full h-full text-justify">
             {/* Seccion de siguiente cita*/}
             <div className="relative">
-              <div className="mr-5 mt-auto flex justify-end">
+              <div className="mr-5 flex justify-end">
                 <ModalView closeModal={closeModal} />
                 {isModalOpen && (
                   <div
@@ -91,10 +90,34 @@ export function Dashboard() {
               </ul>
             </div>
           </div>
+
+           {/* Sección de próximas citas */}
+           <div className="bg-white rounded-2xl col-span-2 row-span-3 w-full h-full flex flex-col ">
+            <div className="flex relative   justify-between">
+              <ModalInsertCita closeModal={closeModal} />
+              {isModalOpen && (
+                <div
+                className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
+                onClick={handleOutsideClick}
+              >
+                  <ModalInsertCita closeModal={closeModal} />
+                </div>
+              )}
+              <h1 className="text-xl m-3">Próximas Citas</h1>
+              {/* <div className="w-[18vh] bg-primaryBlack text-yellow-50 m-3 p-2 rounded-xl text-lg">
+                Ver todas las citas
+              </div> */}
+              <div></div>
+            </div>
+            <div className="m-3">
+              <MultipleItems />
+            </div>
+          </div>
+
           {/* Sección de bienvenida y ModalInsert */}
-          <div className="flex relative flex-col justify-start bg-white rounded-lg row-span-2 col-span-2 w-full h-full pb-2">
-            <span className="ml-5 mt-5 text-2xl">Bienvenida</span>
-            <div className="mr-5 mt-auto flex justify-end">
+          <div className="flex relative flex-col justify-start bg-white rounded-2xl row-span-3 col-span-2 w-full h-full pb-2">
+            <span className="ml-5 mt-5 text-justify text-2xl">Clientes</span>
+            <div className="mr-5  mt-10 flex justify-end">
               <ModalInsert closeModal={closeModal} />
               {isModalOpen && (
                 <div
@@ -106,33 +129,13 @@ export function Dashboard() {
               )}
             </div>
             {/* aca va lo otro */}
-            <div className="mx-2">
+            <div className="p-5">
               <ClientSlider />
+
             </div>
           </div>
 
-          {/* Sección de próximas citas */}
-          <div className="bg-white rounded-lg col-span-2 row-span-3 w-full h-full flex flex-col justify-around">
-            <div className="flex relative justify-between">
-              <ModalInsertCita closeModal={closeModal} />
-              {isModalOpen && (
-                <div
-                  className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
-                  onClick={handleOutsideClick}
-                >
-                  <ModalInsertCita closeModal={closeModal} />
-                </div>
-              )}
-              <h1 className="text-2xl m-3">Próximas Citas</h1>
-              {/* <div className="w-[18vh] bg-primaryBlack text-yellow-50 m-3 p-2 rounded-xl text-lg">
-                Ver todas las citas
-              </div> */}
-              <div></div>
-            </div>
-            <div className="mt-2 mx-2">
-              <MultipleItems />
-            </div>
-          </div>
+         
         </div>
       </div>
     </>
