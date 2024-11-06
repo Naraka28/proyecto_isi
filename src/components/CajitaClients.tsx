@@ -19,7 +19,7 @@ const Cajita: React.FC<datosCajaClient> = ({ nombre, apellido, telefono }) => { 
         {nombre} {apellido}
       </h2>
       <p className="mb-2 text-lg tracking-tight text-gray-900 dark:text-white">
-        <span className="font-[600]">Teléfono: </span>{telefono}
+        <span className="font-[600]">Teléfono: <br/></span>{telefono}
       </p>
     </div>
   );

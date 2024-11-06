@@ -29,17 +29,18 @@ export const Cajita: React.FC<Props> = ({ datos }) => {
   return (
 
     <div className="m-1 p-4 border text-left text-lg border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-[#3B3F46] dark:border-gray-700 dark:hover:bg-[#5b616c] ">
-      <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <h2 className="mb-2  font-bold tracking-tight text-gray-900 dark:text-white">
         {cliente_nombre} {cliente_apellido}
       </h2>
       <p className="mb-2  tracking-tight text-gray-900 dark:text-white">
-        <span className=" font-[800]">Fecha: </span>{hora}
+        <span className=" font-[800]">Hora: <br/></span>{hora} {/* TODO: cambiar la forma en que se jala la fecha para que sea la pura hora */}
+
+      <p className="my-2  tracking-tight text-gray-900 dark:text-white">
+      <span className='font-[800]'>Encargado:<br/> </span>{em_name} {em_last_name}
       </p>
       <p className="mb-2  tracking-tight text-gray-900 dark:text-white">
-        <span className='font-[800]'>Servicio: </span>{proceso}
+        <span className='font-[800]'>Servicio: <br/></span>{proceso}
       </p>
-      <p className="mb-2  tracking-tight text-gray-900 dark:text-white">
-      <span className='font-[800]'>Encargado: </span>{em_name} {em_last_name}
 
       </p>
     </div>
