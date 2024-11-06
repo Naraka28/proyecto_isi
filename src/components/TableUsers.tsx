@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { ModalDeleteUser } from "./ModalDeleteUser.tsx";
+import { ModalUpdateUser } from "./ModalUpdateUser.tsx";
 
 export function BasicTable() {
   return <Test />;
@@ -25,6 +26,7 @@ function Test() {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<user | undefined>(undefined); // Track selected user
+  const [newService, setNewService] = useState<Service>(service);
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["userInfo"],
@@ -64,6 +66,15 @@ function Test() {
       deleteMutation.mutate(selectedUser.user_id);
     }
   };
+  const handleEdit = (user: user) => {
+    setSelectedUser(user);
+    setshowUpdate(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setshowUpdate(false);
+    setselectedProduct(undefined);
+  };
 
   return (
     <>
@@ -92,7 +103,11 @@ function Test() {
                 <TableCell align="right">{user.phone_number}</TableCell>
                 <TableCell align="right">
                   <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <Button variant="contained" color="primary">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleEdit}
+                    >
                       Edit
                     </Button>
                     <Button
@@ -115,6 +130,13 @@ function Test() {
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={handleDeleteConfirm}
+          user={selectedUser} // Pass selected user to modal
+        />
+      )}
+      {showModal && selectedUser && (
+        <ModalUpdateUser
+          open={showModal}
+          onClose={handleCloseUpdateModal}
           user={selectedUser} // Pass selected user to modal
         />
       )}

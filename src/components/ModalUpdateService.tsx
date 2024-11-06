@@ -4,53 +4,64 @@ import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { ComboBox } from "../components/Combobox";
 import { useState } from "react";
-import { addService } from "../services/serviciosServices";
+import {
+  addService,
+  Service,
+  updateService,
+} from "../services/serviciosServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { DialogueUpdateService } from "./DialogueUpdateService";
 
-export function ModalServices() {
-  return (
-    // Provide the client to your App
-    <ModalServiceForm />
-  );
+interface ModalUpdateProps {
+  open: boolean;
+  onClose: () => void;
+  service: Service;
 }
 
-export function ModalServiceForm() {
+export function ModalUpdateService({
+  open,
+  onClose,
+  service,
+}: ModalUpdateProps) {
   const queryClient = useQueryClient();
-  const [showModal, setShowModal] = React.useState(false);
-
-  const handleAddClick = () => {
-    setShowModal(true);
-  };
-
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [duration, setDuration] = useState("");
-  const [catalogue, setCatalogue] = useState("");
+  const [name, setName] = useState(service.name);
+  const [price, setPrice] = useState(service.price.toString());
+  const [duration, setDuration] = useState(
+    service.duration_in_minutes.toString()
+  );
+  const [catalogue, setCatalogue] = useState(service.catalogue_id.toString());
+  const [dialogue, setDialogue] = useState(false);
+  const [newService, setNewService] = useState<Service>(service);
 
   const mutation = useMutation({
-    mutationFn: addService,
+    mutationFn: updateService,
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["serviceInfo"] });
     },
   });
-  const newService = {
-    name: name,
-    catalogue_id: parseInt(catalogue),
-    price: parseFloat(price),
-    duration: parseInt(duration),
+  const showDialog = () => {
+    const updateService: Service = {
+      service_id: service.service_id,
+      name: name,
+      catalogue_id: parseInt(catalogue),
+      price: parseFloat(price),
+      duration_in_minutes: parseInt(duration),
+    };
+    setNewService(updateService);
+    setDialogue(true);
+  };
+  const cancelDialog = () => {
+    setDialogue(false);
+    setName(service.name);
+    setPrice(service.price.toString());
+    setDuration(service.duration_in_minutes.toString());
+    onClose();
   };
 
   return (
     <>
-      <IconButton
-        id={"añadirBtn"}
-        text={"Añadir"}
-        icon={faPlus}
-        onClick={handleAddClick}
-      />
-
-      {showModal ? (
+      {open ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-full my-6 mx-auto max-w-xl">
@@ -61,7 +72,7 @@ export function ModalServiceForm() {
                   <h2 className="text-3xl font-semibold">Añadir Servicio</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
+                    onClick={onClose}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
@@ -75,7 +86,9 @@ export function ModalServiceForm() {
                     id={"nombre"}
                     type={"text"}
                     onChange={(e) => setName(e.target.value)}
+                    value={name}
                   />
+                  //TODO:Seleccionar el del objeto
                   <ComboBox
                     id="catalogue_id"
                     options={["1 Corte", "2 Tinte", "3 Peinado"]}
@@ -85,11 +98,13 @@ export function ModalServiceForm() {
                     id={"precio"}
                     type={"number"}
                     onChange={(e) => setPrice(e.target.value)}
+                    value={price}
                   />
                   <Field
                     id={"duración"}
                     type={"number"}
                     onChange={(e) => setDuration(e.target.value)}
+                    value={duration}
                   />
                 </div>
                 {/*footer*/}
@@ -97,16 +112,14 @@ export function ModalServiceForm() {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={onClose}
                   >
                     Close
                   </button>
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => {
-                      mutation.mutate(newService);
-                    }}
+                    onClick={showDialog}
                   >
                     Save Changes
                   </button>
@@ -116,6 +129,17 @@ export function ModalServiceForm() {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
+      ) : null}
+      {dialogue ? (
+        <DialogueUpdateService
+          open={dialogue}
+          onConfirm={() => {
+            mutation.mutate(newService);
+            onClose();
+          }}
+          onClose={cancelDialog}
+          service={newService}
+        />
       ) : null}
     </>
   );

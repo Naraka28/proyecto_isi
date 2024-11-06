@@ -86,8 +86,8 @@ export async function userFindById(id: number) {
   return responsedata;
 }
 
-export async function userUpdateService(id: number, create: UserCreate) {
-  const response = await fetch(`${API_URL}/users/${id}`, {
+export async function userUpdateService(create: user) {
+  const response = await fetch(`${API_URL}/users/${create.user_id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

@@ -48,3 +48,19 @@ export async function deleteService(service_id: number) {
   const data = await response.json();
   return data;
 }
+export async function updateService(create: Service) {
+  const response = await fetch(`${API_URL}/services/${create.service_id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: create.name,
+      catalogue_id: create.catalogue_id,
+      price: create.price,
+      duration: create.duration_in_minutes,
+    }),
+  });
+  const data = await response.json();
+  return data;
+}

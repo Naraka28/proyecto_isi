@@ -7,7 +7,7 @@ interface ComboBoxProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export function ComboBox({ id, options, onChange }: ComboBoxProps) {
+export function ComboBoxPhone({ id, options, onChange }: ComboBoxProps) {
   return (
     <div className="relative w-full mx-auto my-6">
       <select
@@ -22,8 +22,8 @@ export function ComboBox({ id, options, onChange }: ComboBoxProps) {
           Selecciona una opción
         </option>
         {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.phone_number} value={option.phone_number}>
+            {option.phone_number}
           </option>
         ))}
       </select>

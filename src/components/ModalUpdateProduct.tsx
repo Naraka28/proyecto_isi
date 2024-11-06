@@ -43,7 +43,6 @@ export function ModalUpdateProduct({
     setName(product.name);
     setPrice(product.price.toString());
     setQuantity(product.quantity.toString());
-    onClose();
   };
 
   return (

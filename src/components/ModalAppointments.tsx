@@ -16,6 +16,7 @@ import {
   searchUser,
 } from "../services/appointmentServices";
 import { ComboBox } from "./Combobox";
+import { ComboBoxPhone } from "./ComboboxPhone";
 
 export function ModalAppointments() {
   return (
@@ -121,7 +122,7 @@ export function ModalAppointmentsForm() {
                     type={"text"}
                     onChange={handleChange}
                   />
-                  <ComboBox
+                  <ComboBoxPhone
                     id={"users"}
                     options={
                       searchMutation.isSuccess ? searchMutation.data.users : []

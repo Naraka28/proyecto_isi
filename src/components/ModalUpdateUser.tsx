@@ -2,19 +2,18 @@ import React from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
-import { ComboBox } from "../components/Combobox";
 import { useState } from "react";
-import { addService } from "../services/serviciosServices";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { user, userUpdateService } from "../services/userAddservice";
 
-export function ModalServices() {
-  return (
-    // Provide the client to your App
-    <ModalServiceForm />
-  );
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { DialogueUpdateUser } from "./DialogueUpdateUser";
+interface ModalUpdateProps {
+  open: boolean;
+  onClose: () => void;
+  user: user;
 }
 
-export function ModalServiceForm() {
+export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = React.useState(false);
 
@@ -22,23 +21,39 @@ export function ModalServiceForm() {
     setShowModal(true);
   };
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [duration, setDuration] = useState("");
-  const [catalogue, setCatalogue] = useState("");
+  const [access_email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [last_name, setApellido] = useState("");
+  const [name, setNombre] = useState("");
+  const [phone, setPhone] = useState("");
+  const [dialogue, setDialogue] = useState(false);
+  const [newUser, setnewUser] = useState<user>(user);
 
   const mutation = useMutation({
-    mutationFn: addService,
+    mutationFn: userUpdateService,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["serviceInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
     },
   });
-  const newService = {
-    name: name,
-    catalogue_id: parseInt(catalogue),
-    price: parseFloat(price),
-    duration: parseInt(duration),
+  const showDialog = () => {
+    const updateuser: user = {
+      user_id: user.user_id,
+      name: name,
+      last_name: last_name,
+      access_email: access_email,
+      password: password,
+      phone_number: phone,
+      role_id: user.role_id,
+    };
+    setnewUser(updateuser);
+    setDialogue(true);
+  };
+  const cancelDialog = () => {
+    setDialogue(false);
+    setNombre(user.name);
+
+    onClose();
   };
 
   return (
@@ -58,7 +73,7 @@ export function ModalServiceForm() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h2 className="text-3xl font-semibold">Añadir Servicio</h2>
+                  <h2 className="text-3xl font-semibold">Añadir Usuario</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -70,26 +85,31 @@ export function ModalServiceForm() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Servicio:</h2>
+                  <h2>Formulario de Usuario:</h2>
                   <Field
                     id={"nombre"}
                     type={"text"}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <ComboBox
-                    id="catalogue_id"
-                    options={["1 Corte", "2 Tinte", "3 Peinado"]}
-                    onChange={(e) => setCatalogue(e.target.value)}
+                    onChange={(e) => setNombre(e.target.value)}
                   />
                   <Field
-                    id={"precio"}
-                    type={"number"}
-                    onChange={(e) => setPrice(e.target.value)}
+                    id={"apellido"}
+                    type={"text"}
+                    onChange={(e) => setApellido(e.target.value)}
                   />
                   <Field
-                    id={"duración"}
-                    type={"number"}
-                    onChange={(e) => setDuration(e.target.value)}
+                    id={"email"}
+                    type={"email"}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <Field
+                    id={"password"}
+                    type={"password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <Field
+                    id={"phone"}
+                    type={"tel"}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
                 {/*footer*/}
@@ -104,9 +124,8 @@ export function ModalServiceForm() {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => {
-                      mutation.mutate(newService);
-                    }}
+                    id="save"
+                    onClick={showDialog}
                   >
                     Save Changes
                   </button>
@@ -116,6 +135,17 @@ export function ModalServiceForm() {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
+      ) : null}
+      {dialogue ? (
+        <DialogueUpdateUser
+          open={dialogue}
+          onConfirm={() => {
+            mutation.mutate(newUser);
+            onClose();
+          }}
+          onClose={cancelDialog}
+          user={newUser}
+        />
       ) : null}
     </>
   );

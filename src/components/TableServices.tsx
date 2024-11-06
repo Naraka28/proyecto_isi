@@ -22,22 +22,16 @@ import {
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { ModalDeleteServices } from "./ModalDeleteServices.tsx";
+import { ModalUpdateService } from "./ModalUpdateService.tsx";
 
 export function ServiceTable() {
   return <Test />;
 }
 
-function handleEdit() {
-  console.log("Edit from outside");
-}
-
-function handleDelete() {
-  console.log("Delete outside");
-}
-
 function Test() {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
+  const [showUpdate, setshowUpdate] = useState(false);
   const [selectedService, setselectedService] = useState<Service | undefined>(
     undefined
   );
@@ -80,6 +74,10 @@ function Test() {
     setShowModal(false);
     setselectedService(undefined);
   };
+  const handleEdit = (service: Service) => {
+    setselectedService(service);
+    setshowUpdate(true);
+  };
 
   return (
     <>
@@ -114,7 +112,7 @@ function Test() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleEdit()}
+                      onClick={() => handleEdit(service)}
                     >
                       Edit
                     </Button>
@@ -137,6 +135,13 @@ function Test() {
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={() => handleDeleteConfirm()}
+          service={selectedService}
+        />
+      )}
+      {showUpdate && selectedService && (
+        <ModalUpdateService
+          open={showUpdate}
+          onClose={handleCloseModal}
           service={selectedService}
         />
       )}
