@@ -16,21 +16,19 @@ import {
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { ModalDeleteEmployee } from "./ModalDeleteEmployees.tsx";
+import { ModalUpdateEmployee } from "./ModalUpdateEmployee.tsx";
 
 export function EmployeeTable() {
   return <Test />;
 }
 
-function handleEdit() {
-  console.log("Edit from outside");
-}
-
 function Test() {
+  const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [selectedEmployee, setselectedEmployee] = useState<
     Employee | undefined
   >(undefined);
-  const queryClient = useQueryClient();
+  const [showUpdate, setshowUpdate] = useState(false);
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["employeeInfo"],
     queryFn: getAllEmployees,
@@ -39,7 +37,7 @@ function Test() {
     mutationFn: deleteEmployee,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employeeInfo"] });
-      setShowModal(false); // Close modal after successful deletion
+      setShowModal(false);
     },
   });
 
@@ -66,6 +64,16 @@ function Test() {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setselectedEmployee(undefined);
+  };
+
+  const handleEdit = (employee: Employee) => {
+    setselectedEmployee(employee);
+    setshowUpdate(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setshowUpdate(false);
     setselectedEmployee(undefined);
   };
   // Renderizamos la tabla
@@ -103,7 +111,7 @@ function Test() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleEdit()}
+                      onClick={() => handleEdit(employee)}
                     >
                       Edit
                     </Button>
@@ -126,6 +134,13 @@ function Test() {
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={handleDeleteConfirm}
+          employee={selectedEmployee} // Pass selected user to modal
+        />
+      )}
+      {showUpdate && selectedEmployee && (
+        <ModalUpdateEmployee
+          open={showUpdate}
+          onClose={handleCloseUpdateModal}
           employee={selectedEmployee} // Pass selected user to modal
         />
       )}

@@ -132,14 +132,14 @@ function Test() {
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={handleDeleteConfirm}
-          user={selectedUser} // Pass selected user to modal
+          user={selectedUser}
         />
       )}
-      {showModal && selectedUser && (
+      {showUpdate && selectedUser && (
         <ModalUpdateUser
-          open={showModal}
+          open={showUpdate}
           onClose={handleCloseUpdateModal}
-          user={selectedUser} // Pass selected user to modal
+          user={selectedUser}
         />
       )}
     </>

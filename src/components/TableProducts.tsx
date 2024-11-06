@@ -3,7 +3,6 @@ import {
   getAllProducts,
   Product,
   deleteProduct,
-  updateProduct,
 } from "../services/productsServices.ts"; // Servicio para obtener los usuarios
 import {
   Table,
