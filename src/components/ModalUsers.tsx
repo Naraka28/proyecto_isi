@@ -5,6 +5,8 @@ import { Field } from "../components/Field";
 import { ModalState } from "../components/ModalState";
 import { useState } from "react";
 import { userAddService } from "../services/userAddservice";
+import EyeIcon from "../images/eyeOpened.svg";
+import EyeOffIcon from "../images/eyeClosed.svg";
 
 import {
   useMutation,
@@ -30,10 +32,12 @@ export function ModalUsersForm() {
 
   const [access_email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
   const [last_name, setApellido] = useState("");
   const [name, setNombre] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const mutation = useMutation({
     mutationFn: userAddService,
@@ -50,6 +54,11 @@ export function ModalUsersForm() {
     role_id: 3,
     phone_number: phone,
   };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <>
       <IconButton
@@ -97,9 +106,53 @@ export function ModalUsersForm() {
                   />
                   <Field
                     id={"password"}
-                    type={"password"}
+                    type={passwordVisible ? "text" : "password"}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <span
+                    className="absolute right-9 top-[69%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
+                  {/*
+                  <Field
+                    id={"password1"}
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span
+                    className="absolute right-9 top-[73%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
+                  */}
+
                   <Field
                     id={"phone"}
                     type={"tel"}

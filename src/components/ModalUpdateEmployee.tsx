@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Employee, updateEmployee } from "../services/employeeServices";
 import { DialogueUpdateEmployee } from "./DialogueUpdateEmployee";
+import EyeIcon from "../images/eyeOpened.svg";
+import EyeOffIcon from "../images/eyeClosed.svg";
 
 interface ModalUpdateProps {
   open: boolean;
@@ -26,6 +28,7 @@ export function ModalUpdateEmployee({
   const [name, setNombre] = useState(employee.name);
   const [phone, setPhone] = useState(employee.phone_number);
   const [newEmployee, setNewEmployee] = useState<Employee>(employee);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const mutation = useMutation({
     mutationFn: updateEmployee,
@@ -56,6 +59,10 @@ export function ModalUpdateEmployee({
     setPassword(employee.password);
     setPhone(employee.phone_number);
     onClose();
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -107,10 +114,27 @@ export function ModalUpdateEmployee({
                   />
                   <Field
                     id={"password"}
-                    type={"password"}
+                    type={passwordVisible ? "text" : "password"}
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password}
                   />
+                  <span
+                    className="absolute right-9 top-[73%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
                   <Field
                     id={"phone"}
                     type={"tel"}

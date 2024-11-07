@@ -3,7 +3,8 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/POSTlogin";
-
+import EyeIcon from "../images/eyeOpened.svg";
+import EyeOffIcon from "../images/eyeClosed.svg";
 import {
   QueryClient,
   useMutation,
@@ -13,9 +14,9 @@ import {
 const API_URL = import.meta.env.VITE_API_URL;
 
 const queryClient = new QueryClient();
+
 export function Login() {
   return (
-    // Provide the client to your App
     <QueryClientProvider client={queryClient}>
       <LoginForm />
     </QueryClientProvider>
@@ -27,6 +28,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false); // For password visibility toggle
 
   const credentials = {
     email: email,
@@ -40,31 +42,32 @@ function LoginForm() {
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
     },
   });
+
   if (mutation.isSuccess) {
     if (mutation.data.success) {
       localStorage.setItem("token", mutation.data.token);
       navigate("/dashboard");
     }
   }
+
+  // Toggle the visibility of the password
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <>
-      {/*bg gris , div padre*/}
       <div className="bg-[#353232]">
-        {/*divide en dos columnas la pagina, una pa la foto y otra para el login*/}
         <div className="grid sm:grid-cols-2">
-          {/*este div es del lado izquierdo*/}
-          {/*pone encima uno del otro  la imagen del logo y el div blanco */}
+          {/* Left Column */}
           <div className="flex flex-col">
             <div className="w-full flex justify-center items-center mt-5">
               <img
                 src="src/images/logoBueno.jpeg"
-                className=""
                 alt="Imagen del logo y titulo"
               />
             </div>
-            {/*fin del div que contien el logo*/}
 
-            {/*div del cuadro blanco*/}
             <div className="w-3/5 h-4/6 mt-10 pt-10 mx-auto bg-white rounded-md">
               <div className="p-8 mx-8 mb-8">
                 <h1 className="mb-10 md:text-4xl sm:text-3xl text-xl text-[#E90074] whitespace-nowrap">
@@ -74,13 +77,34 @@ function LoginForm() {
                   <Field
                     id="email"
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
                   />
-
-                  <Field
-                    id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                  />
+                  <div className="relative">
+                    <Field
+                      id="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      type={passwordVisible ? "text" : "password"} // Toggle the input type
+                      placeholder="Password"
+                    />
+                    <span
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {passwordVisible ? (
+                        <img
+                          src={EyeIcon}
+                          alt="Hide password"
+                          className="h-5 w-5"
+                        />
+                      ) : (
+                        <img
+                          src={EyeOffIcon}
+                          alt="Show password"
+                          className="h-5 w-5"
+                        />
+                      )}
+                    </span>
+                  </div>
 
                   <Button
                     id="submit"
@@ -91,6 +115,7 @@ function LoginForm() {
                       mutation.mutate(credentials);
                     }}
                   />
+
                   <a
                     className="flex justify-center sm:text-2xl text-lg whitespace-nowrap p-auto py-5 hover:underline"
                     href="/templates/loginAdmin.html"
@@ -100,10 +125,9 @@ function LoginForm() {
                 </form>
               </div>
             </div>
-            {/*fin del cuadro blanco*/}
           </div>
-          {/*fin del div del lado izuqierdo*/}
 
+          {/* Right Column (Image) */}
           <div className="bg-black sm:block">
             <img
               src="src/images/peines.webp"

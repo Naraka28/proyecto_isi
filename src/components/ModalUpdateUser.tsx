@@ -1,6 +1,8 @@
 import { Field } from "../components/Field";
 import { useState } from "react";
 import { user, userUpdateService } from "../services/userAddservice";
+import EyeIcon from "../images/eyeOpened.svg";
+import EyeOffIcon from "../images/eyeClosed.svg";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { DialogueUpdateUser } from "./DialogueUpdateUser";
@@ -20,6 +22,7 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
   const [phone, setPhone] = useState(user.phone_number);
   const [dialogue, setDialogue] = useState(false);
   const [newUser, setnewUser] = useState<user>(user);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const mutation = useMutation({
     mutationFn: userUpdateService,
@@ -49,6 +52,10 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
     setPassword(user.password);
     setPhone(user.phone_number);
     onClose();
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -94,10 +101,27 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
                   />
                   <Field
                     id={"password"}
-                    type={"password"}
+                    type={passwordVisible ? "text" : "password"}
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password}
                   />
+                  <span
+                    className="absolute right-9 top-[69%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
                   <Field
                     id={"phone"}
                     type={"tel"}
