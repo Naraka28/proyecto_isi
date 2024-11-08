@@ -52,6 +52,13 @@ export async function login(credentials: LoginCredentials) {
       }),
     });
 
+
+    // Verifica si la respuesta no es satisfactoria
+    if (!response.ok) {
+      // Si es así, lanza un error que `onError` pueda capturar
+      throw new Error("Credenciales inválidas");
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {

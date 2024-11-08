@@ -10,6 +10,7 @@ import {
   useMutation,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { access } from "fs";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -39,7 +40,11 @@ function LoginForm() {
     mutationFn: login,
     onSuccess: () => {
       // Invalidate and refetch
+
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+    },
+    onError: (error) => {
+      alert("Usuario o contraseña incorrectos");
     },
   });
 

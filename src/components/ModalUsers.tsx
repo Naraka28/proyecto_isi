@@ -59,6 +59,52 @@ export function ModalUsersForm() {
     setPasswordVisible(!passwordVisible);
   };
 
+  // Función para validar el formato del correo electrónico
+  const validateEmail = () => {
+    let error;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!access_email) {
+      error = "El correo es obligatorio";
+      return false;
+    } else if (!emailRegex.test(access_email)) {
+      error = "Por favor, ingresa un correo válido";
+      return false;
+    }
+    return true;
+  };
+
+  // Función para validar el formato del número de teléfono
+  const validatePhoneNumber = () => {
+    let error;
+    // Regex para validar un número de teléfono con 10 dígitos
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!phone) {
+      error = "El número de teléfono es obligatorio";
+      return false;
+    } else if (!phoneRegex.test(phone)) {
+      error = "Por favor, ingresa un número de teléfono válido (10 dígitos)";
+      return false;
+    }
+
+    return true;
+  };
+
+  // Función para manejar el cambio en el input (escritura)
+  const handlePhoneChange = (e) => {
+    // Obtiene el valor del input y limita a los primeros 10 caracteres
+    let phoneValue = e.target.value;
+
+    // Limita la longitud del valor a 10 caracteres
+    if (phoneValue.length > 10) {
+      phoneValue = phoneValue.slice(0, 10); // Corta a 10 caracteres
+    }
+
+    // Actualiza el estado con el número de teléfono
+    setPhone(phoneValue);
+    console.log("valor variable phone: ", phone);
+  };
+
   return (
     <>
       <IconButton
@@ -110,7 +156,7 @@ export function ModalUsersForm() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
-                    className="absolute right-9 top-[69%] transform -translate-y-1/2 cursor-pointer"
+                    className="absolute right-9 top-[59%] transform -translate-y-1/2 cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
@@ -127,11 +173,11 @@ export function ModalUsersForm() {
                       />
                     )}
                   </span>
-                  {/*
+
                   <Field
-                    id={"password1"}
+                    id={"confirm Password"}
                     type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword1(e.target.value)}
                   />
                   <span
                     className="absolute right-9 top-[73%] transform -translate-y-1/2 cursor-pointer"
@@ -151,12 +197,12 @@ export function ModalUsersForm() {
                       />
                     )}
                   </span>
-                  */}
 
                   <Field
                     id={"phone"}
                     type={"tel"}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={handlePhoneChange}
+                    value={phone}
                   />
                 </div>
                 {/*footer*/}
@@ -173,7 +219,30 @@ export function ModalUsersForm() {
                     type="button"
                     id="save"
                     onClick={() => {
-                      mutation.mutate(newUser);
+                      if (
+                        password === password1 &&
+                        password.length >= 8 &&
+                        validateEmail() &&
+                        validatePhoneNumber()
+                      ) {
+                        mutation.mutate(newUser);
+                      } else if (
+                        password !== password1 ||
+                        !validateEmail() ||
+                        !validatePhoneNumber()
+                      ) {
+                        if (password !== password1) {
+                          alert("Las contraseñas no coinciden");
+                        } else if (password.length < 8) {
+                          alert(
+                            "La contraseña debe tener al menos 8 caracteres"
+                          );
+                        } else if (!validateEmail()) {
+                          alert("El correo electrónico no es válido");
+                        } else if (!validatePhoneNumber()) {
+                          alert("El número de teléfono no es válido");
+                        }
+                      }
                     }}
                   >
                     Save Changes
