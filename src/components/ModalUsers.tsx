@@ -90,19 +90,16 @@ export function ModalUsersForm() {
     return true;
   };
 
-  // Función para manejar el cambio en el input (escritura)
-  const handlePhoneChange = (e) => {
-    // Obtiene el valor del input y limita a los primeros 10 caracteres
-    let phoneValue = e.target.value;
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Remove any non-numeric characters
+    let phoneValue = e.target.value.replace(/\D/g, "");
 
-    // Limita la longitud del valor a 10 caracteres
+    // Limit the length to 10 characters
     if (phoneValue.length > 10) {
-      phoneValue = phoneValue.slice(0, 10); // Corta a 10 caracteres
+      phoneValue = phoneValue.slice(0, 10);
     }
 
-    // Actualiza el estado con el número de teléfono
     setPhone(phoneValue);
-    console.log("valor variable phone: ", phone);
   };
 
   return (

@@ -259,11 +259,15 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
     return true;
   };
 
-  const handlePhoneChange = (e) => {
-    let phoneValue = e.target.value;
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Remove any non-numeric characters
+    let phoneValue = e.target.value.replace(/\D/g, "");
+
+    // Limit the length to 10 characters
     if (phoneValue.length > 10) {
       phoneValue = phoneValue.slice(0, 10);
     }
+
     setPhone(phoneValue);
   };
 
