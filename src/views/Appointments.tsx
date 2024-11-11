@@ -12,28 +12,27 @@ export function Appointments() {
     throw new Error("Function not implemented.");
   };
 
+  function handleSearch(query: string): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
-      <div className="">
-        <div className="container px-6 mx-auto grid">
-          <h2 className="my-6 text-3xl font-semibold text-black ">
+      <div className="p-10 m-auto h-min  ">
+        <div className="mb-8 text-center">
+          <span className="text-4xl font-semibold text-white ">
             Dashboard - Citas
-          </h2>
+            </span>
 
-          {/* <Search className='hidden sm:flex'/> */}
-          <div className="flex space-x-3 my-5">
-            <ModalAppointments />
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
+            <Search onSearch={handleSearch} className="hidden sm:flex flex-1" />
 
-            <IconButton
-              id={"respaldoBtn"}
-              text={"Respaldo"}
-              icon={faCloudArrowUp}
-              onClick={handleAddClick}
-            />
+            <div className="flex space-x-3">
+              <ModalUsers />
+              
+            </div>
           </div>
-          <div className="">
-            <AppointmentsTable />
-          </div>
+          <AppointmentsTable />
         </div>
       </div>
     </>

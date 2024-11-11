@@ -175,7 +175,7 @@ export function PersistentDrawerLeft() {
           ))}
         </List>
       </Drawer>
-      <Main open={open} className='flex bg-gray-200 p-5 m-5 w-screen h-screen'>
+      <Main open={open} className=' '>
         <DrawerHeader />
           <Outlet/>
       </Main>

@@ -1,3 +1,4 @@
+
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getAllUsers,
@@ -17,6 +18,8 @@ import {
 import { useState } from "react";
 import { ModalDeleteUser } from "./ModalDeleteUser.tsx";
 import { ModalUpdateUser } from "./ModalUpdateUser.tsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export function BasicTable() {
   return <Test />;
@@ -78,54 +81,52 @@ function Test() {
 
   return (
     <>
-      <TableContainer className="flex w-fill" component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="right">Nombre</TableCell>
-              <TableCell align="right">Apellido</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Teléfono</TableCell>
-              <TableCell align="right">Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.users.map((user) => (
-              <TableRow
-                key={user.user_id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+    <TableContainer sx={{ borderRadius: "1rem" }} component={Paper}>
+    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableHead sx={{  border:"1",bgcolor: "#e3e3e3" }}>
+    <TableRow sx={{ "& th": { borderBottom: "3px solid #db37ce",borderTop: "1px solid #ccc" } }}> {/* Aplica un borde a cada celda del encabezado */}       
+       <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary' , width: "10%"}}>ID</TableCell>
+        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Nombre</TableCell>
+        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Apellido</TableCell>
+        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "20%" }} align="justify">Email</TableCell>
+        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "20%" }} align="justify">Teléfono</TableCell>
+        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify">Action</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {data.users.map((user) => (
+        <TableRow key={user.user_id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+          <TableCell sx={{ fontSize: '1.1rem' }}>{user.user_id}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem' }}>{user.name}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem' }}>{user.last_name}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem', width: "25%" }}>{user.access_email}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem', width: "20%" }}>{user.phone_number}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem', width: "10%" }}>
+            <div style={{ display: "grid", gap: "0.4rem" }}>
+              <Button
+                variant="contained"
+                sx={{ bgcolor: "#db37ce", width: "5rem" }}
+                onClick={() => {
+                  handleEdit(user);
+                }}
               >
-                <TableCell>{user.user_id}</TableCell>
-                <TableCell align="right">{user.name}</TableCell>
-                <TableCell align="right">{user.last_name}</TableCell>
-                <TableCell align="right">{user.access_email}</TableCell>
-                <TableCell align="right">{user.phone_number}</TableCell>
-                <TableCell align="right">
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => {
-                        handleEdit(user);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => handleShow(user)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </Button>
+              <Button
+                variant="contained"
+                sx={{ bgcolor: "red", width: "5rem" }}
+                onClick={() => handleShow(user)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
+            </div>
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</TableContainer>
+
 
       {showModal && selectedUser && (
         <ModalDeleteUser

@@ -13,26 +13,29 @@ export function Employees(){
     throw new Error('Function not implemented.');
   }
 
+  function handleSearch(query: string): void {
+    throw new Error('Function not implemented.');
+  }
+
     return(
       <>
-        <div className=''>
+       <div className="p-10 m-auto h-min  ">
+      <div className="mb-8 text-center">
+        <h2 className="text-4xl font-semibold text-white">Dashboard - Employees</h2>
+      </div>
 
-           <div className="container px-6 mx-auto grid">
-             <h2 className="my-6 text-3xl font-semibold text-black ">
-               Dashboard - Empleados
-
-             </h2>
-
-             <Search className='hidden sm:flex'/>
-              <div className='flex space-x-3 my-5'>
-              <ModalEmployees />
-              <IconButton id={'respaldoBtn'} text={'Respaldo'} icon={faCloudArrowUp} onClick={handleAddClick}/>
-              </div>
-              <div className=''>
-                <EmployeeTable />
-            </div>
-           </div>
+      <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
+        <Search onSearch={handleSearch} className="hidden sm:flex flex-1" />
+        
+        <div className="flex space-x-3">
+          <ModalEmployees />
+          
         </div>
+      </div>
+        <EmployeeTable />
+        
+     
+    </div>
         </>
      );
    }
