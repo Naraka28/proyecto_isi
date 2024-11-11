@@ -18,7 +18,7 @@ export function Services() {
     <>
      <div className="p-10 m-auto h-min  ">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl font-semibold text-white">Dashboard - Servicios</h2>
+        <h2 className="text-4xl font-semibold text-black">Dashboard - Servicios</h2>
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
