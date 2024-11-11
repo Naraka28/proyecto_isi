@@ -126,7 +126,7 @@ export function PersistentDrawerLeft() {
             <img
               src="src/images/logoBaza.png"
               alt="Logo Baza"
-              style={{ height: "5rem", width: "auto" , marginBottom: "0.5rem", marginTop: "0.5em", paddingLeft: "0.5em" }}
+              style={{ height: "5rem",maxHeight: "5rem", width: "auto" , marginBottom: "0.5rem", marginTop: "0.5em", paddingLeft: "0.5em" }}
             />
             <span className=" m-5 font-mono text-3xl font-bold"> Salón Baza</span>
           </Typography>
@@ -147,8 +147,8 @@ export function PersistentDrawerLeft() {
         open={open}
       >              
 
-        <DrawerHeader sx={{ height:'98px', backgroundColor:'#353232' }}>
-          <IconButton onClick={handleDrawerClose}>
+        <DrawerHeader sx={{ height:'98px',minHeight:'98px'  , backgroundColor:'#353232' }}>
+          <IconButton onClick={handleDrawerClose} sx={{color:'white'}}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
