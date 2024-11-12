@@ -1,7 +1,8 @@
 export interface Service {
   service_id: number;
   name: string;
-  catalogue_id: number;
+  catalogue_id?: number;
+  catalogue: string;
   price: number;
   duration_in_minutes: number; //duration in minutes - hours
 }

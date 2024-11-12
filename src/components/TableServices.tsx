@@ -87,126 +87,178 @@ function Test() {
 
   return (
     <>
-     <TableContainer sx={{ borderRadius: "1rem", border: "1", borderColor: "red" }} component={Paper}>
-  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-    <TableHead sx={{ border: "1", bgcolor: "#e3e3e3" }}>
-      <TableRow
-        sx={{
-          "& th": {
-            borderBottom: "3px solid #757575",
-            borderTop: "1px solid #ccc",
-          },
-        }}
+      <TableContainer
+        sx={{ borderRadius: "1rem", border: "1", borderColor: "red" }}
+        component={Paper}
       >
-        {/* Ajuste de ancho de las columnas */}
-        <TableCell
-          sx={{
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            color: "text.primary",
-            width: "10%", // Ajuste de ancho
-            textAlign: "center",
-            paddingLeft: "0.4rem", // Ajuste de padding
-          }}
-        >
-          ID
-        </TableCell>
-        <TableCell
-          sx={{
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            color: "text.primary",
-            width: "25%", // Ajuste de ancho para una columna más larga
-          }}
-        >
-          Nombre
-        </TableCell>
-        <TableCell
-          sx={{
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            color: "text.primary",
-            width: "20%", // Ajuste de ancho,
-            textAlign: "center",
-          }}
-        >
-          Catálogo ID
-        </TableCell>
-        <TableCell
-          sx={{
-            textAlign: "center",
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            color: "text.primary",
-            width: "15%", // Ajuste de ancho
-          }}
-        >
-          Precio
-        </TableCell>
-        <TableCell
-          sx={{
-            textAlign: "center",
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            color: "text.primary",
-            width: "15%", // Ajuste de ancho
-          }}
-        >
-          Duración
-        </TableCell>
-        <TableCell
-          sx={{
-            textAlign: "center",
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            color: "text.primary",
-            width: "15%", // Ajuste de ancho
-          }} align="center"
-        >
-          
-        </TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {data.services.map((service) => (
-        <TableRow
-          key={service.service_id}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-        >
-          <TableCell sx={{ fontSize: "1.1rem", width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem", textAlign:'center', paddingLeft:'0.4rem' }}>{service.service_id}</TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", width: "25%" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{service.name}</TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", textAlign: "center", width: "20%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>
-            {service.catalogue_id}
-          </TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", textAlign: "center",  width: "15%" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
-            {service.price}
-          </TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", textAlign: "center", width: "15%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>
-            {service.duration_in_minutes} min
-          </TableCell>
-          <TableCell  sx={{ width: "15%", alignContent:"center" }}>
-            <div style={{ display: "flex", gap: "0.5rem",  justifyContent:"center" }}>
-              <Button
-                variant="contained"
-                sx={{ bgcolor: "#4e68cf", width: "5rem" }}
-                onClick={() => handleEdit(service)}
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead sx={{ border: "1", bgcolor: "#e3e3e3" }}>
+            <TableRow
+              sx={{
+                "& th": {
+                  borderBottom: "3px solid #757575",
+                  borderTop: "1px solid #ccc",
+                },
+              }}
+            >
+              {/* Ajuste de ancho de las columnas */}
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "10%", // Ajuste de ancho
+                  textAlign: "center",
+                  paddingLeft: "0.4rem", // Ajuste de padding
+                }}
               >
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </Button>
-              <Button
-                variant="contained"
-                sx={{ bgcolor: "#f04141", width: "5rem" }}
-                onClick={() => handleShow(service)}
+                ID
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "25%", // Ajuste de ancho para una columna más larga
+                }}
               >
-                <FontAwesomeIcon icon={faTrash} />
-              </Button>
-            </div>
-          </TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-</TableContainer>
+                Nombre
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "20%", // Ajuste de ancho,
+                  textAlign: "center",
+                }}
+              >
+                Catálogo
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "15%", // Ajuste de ancho
+                }}
+              >
+                Precio
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "15%", // Ajuste de ancho
+                }}
+              >
+                Duración
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "15%", // Ajuste de ancho
+                }}
+                align="center"
+              ></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.services.map((service) => (
+              <TableRow
+                key={service.service_id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell
+                  sx={{
+                    fontSize: "1.1rem",
+                    width: "10%",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                    textAlign: "center",
+                    paddingLeft: "0.4rem",
+                  }}
+                >
+                  {service.service_id}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.1rem",
+                    width: "25%",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                >
+                  {service.name}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                    width: "20%",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                >
+                  {service.catalogue}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                    width: "15%",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                >
+                  {service.price}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                    width: "15%",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                >
+                  {service.duration_in_minutes} min
+                </TableCell>
+                <TableCell sx={{ width: "15%", alignContent: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.5rem",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: "#4e68cf", width: "5rem" }}
+                      onClick={() => handleEdit(service)}
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: "#f04141", width: "5rem" }}
+                      onClick={() => handleShow(service)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       {showModal && selectedService && (
         <ModalDeleteServices
