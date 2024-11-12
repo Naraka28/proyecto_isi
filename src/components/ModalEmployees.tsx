@@ -235,6 +235,17 @@ export function ModalEmployeesForm() {
     mutationFn: employeeAddService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employeeInfo"] });
+
+        setShowModal(false);
+        setNombre("");
+        setApellido("");
+        setAccessEmail("");
+        setPersonalEmail("");
+        setPassword("");
+        setPassword1("");
+        setPhone("");
+        setRole("");
+        alert("Empleado añadido correctamente");
     },
   });
 
@@ -243,11 +254,11 @@ export function ModalEmployeesForm() {
   };
 
   const newEmployee: EmployeeCreate = {
-    name,
-    last_name,
-    access_email,
-    personal_email,
-    password,
+    name: name,
+    last_name: last_name,
+    access_email: access_email,
+    personal_email: personal_email,
+    password: password,
     phone_number: phone,
     role_id: parseInt(role_id),
   };
@@ -297,24 +308,49 @@ export function ModalEmployeesForm() {
   };
 
   const handleSave = () => {
-    if (
-      validateEmail(access_email, "de acceso") &&
-      validateEmail(personal_email, "personal") &&
-      validatePhoneNumber() &&
-      password === password1 &&
-      password.length >= 8 &&
-      role_id !== ""
-    ) {
-      mutation.mutate(newEmployee);
-      setShowModal(false);
-    } else if (password !== password1) {
-      alert("Las contraseñas no coinciden");
-    } else if (password.length < 8) {
-      alert("La contraseña debe tener al menos 8 caracteres");
-    } else if (role_id === "") {
-      alert("Por favor, selecciona un rol");
+    if(name && last_name &&access_email && personal_email && password && password1 && phone && role_id) {
+      if (
+        validateEmail(access_email, "de acceso") &&
+        validateEmail(personal_email, "personal") &&
+        validatePhoneNumber() &&
+        password === password1 &&
+        password.length >= 8 &&
+        role_id !== ""
+      ) {
+        mutation.mutate(newEmployee);
+      } else if (password !== password1) {
+        alert("Las contraseñas no coinciden");
+      } else if (password.length < 8) {
+        alert("La contraseña debe tener al menos 8 caracteres");
+      } else if (role_id === "") {
+        alert("Por favor, selecciona un rol");
+      } else if(!validateEmail(access_email, "de acceso")){
+        alert("Por favor, ingresa un correo de acceso válido");
+      } else if(!validateEmail(personal_email, "personal")){
+        alert("Por favor, ingresa un correo personal válido");
+      } else if(!validatePhoneNumber()){
+        alert("Por favor, ingresa un número de teléfono válido");
+      }
+    }else{
+      if(!name){
+        alert("El nombre es obligatorio");
+    } else if(!last_name){
+        alert("El apellido es obligatorio");
+    } else if(!access_email){
+        alert("El correo de acceso es obligatorio");
+    } else if(!personal_email){
+        alert("El correo personal es obligatorio");
+    } else if(!password){
+        alert("La contraseña es obligatoria");
+    } else if(!password1){
+        alert("Por favor, confirma la contraseña");
+    } else if(!phone){
+        alert("El número de teléfono es obligatorio");
+    } else if(!role_id){
+        alert("Por favor, selecciona un rol");
     }
   };
+};
 
   return (
     <>

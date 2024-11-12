@@ -14,6 +14,7 @@ import {
   QueryClientProvider,
   useQueryClient,
 } from "@tanstack/react-query";
+import { access } from "fs";
 
 export function ModalUsers() {
   return (
@@ -44,6 +45,16 @@ export function ModalUsersForm() {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+
+      
+      setShowModal(false);
+      setEmail("");
+      setPassword("");
+      setPassword1("");
+      setApellido("");
+      setNombre("");
+      setPhone("");
+      alert("Usuario creado con éxito");
     },
   });
   const newUser = {
@@ -216,28 +227,38 @@ export function ModalUsersForm() {
                     type="button"
                     id="save"
                     onClick={() => {
-                      if (
-                        password === password1 &&
-                        password.length >= 8 &&
-                        validateEmail() &&
-                        validatePhoneNumber()
-                      ) {
-                        mutation.mutate(newUser);
-                      } else if (
-                        password !== password1 ||
-                        !validateEmail() ||
-                        !validatePhoneNumber()
-                      ) {
-                        if (password !== password1) {
-                          alert("Las contraseñas no coinciden");
-                        } else if (password.length < 8) {
-                          alert(
-                            "La contraseña debe tener al menos 8 caracteres"
-                          );
-                        } else if (!validateEmail()) {
-                          alert("El correo electrónico no es válido");
-                        } else if (!validatePhoneNumber()) {
-                          alert("El número de teléfono no es válido");
+                      if(access_email && password && password1 && last_name && name && phone){
+                        if (validateEmail() && validatePhoneNumber()) {
+                          if(password.length < 8){
+                            alert("La contraseña debe tener al menos 8 caracteres");
+                          }else{
+                            if (password === password1) {
+                              mutation.mutate(newUser);
+                             
+                            } else {
+                              alert("Las contraseñas no coinciden");
+                            }
+                          }
+                        }else{
+                          if(!validateEmail()){
+                            alert("Por favor, ingresa un correo válido");
+                          }else if(!validatePhoneNumber()){
+                            alert("Por favor, ingresa un número de teléfono válido (10 dígitos)");
+                          }
+                        }
+                      }else{
+                        if(access_email === ""){
+                          alert("El correo es obligatorio");
+                       }else if(password === ""){
+                          alert("La contraseña es obligatoria");
+                       }else if(password1 === ""){
+                          alert("La confirmación de la contraseña es obligatoria");
+                        }else if(last_name === ""){
+                          alert("El apellido es obligatorio");
+                        }else if(name === ""){
+                          alert("El nombre es obligatorio");  
+                        }else if(phone === ""){
+                          alert("El número de teléfono es obligatorio");
                         }
                       }
                     }}

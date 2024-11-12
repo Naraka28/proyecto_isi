@@ -272,6 +272,7 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
   };
 
   const showDialog = () => {
+   if(access_email && name && password && password1 && phone && last_name){
     if (
       validateEmail() &&
       validatePhoneNumber() &&
@@ -293,7 +294,14 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
       alert("Las contraseñas no coinciden");
     } else if (password.length < 8) {
       alert("La contraseña debe tener al menos 8 caracteres");
+    } else if (!validateEmail()) {
+      alert("Por favor, ingresa un correo válido");
+    } else if (!validatePhoneNumber()) {
+      alert("Por favor, ingresa un número de teléfono válido (10 dígitos)");
     }
+   } else{
+      alert("Por favor, llena todos los campos");
+   }
   };
 
   const cancelDialog = () => {
@@ -431,15 +439,8 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
         <DialogueUpdateUser
           open={dialogue}
           onConfirm={() => {
-            if (
-              validateEmail() &&
-              validatePhoneNumber() &&
-              password === password1 &&
-              password.length >= 8
-            ) {
-              mutation.mutate(newUser);
-              onClose();
-            }
+            mutation.mutate(newUser);
+            onClose();
           }}
           onClose={cancelDialog}
           user={newUser}

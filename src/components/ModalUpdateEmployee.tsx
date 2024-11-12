@@ -245,11 +245,20 @@ export function ModalUpdateEmployee({
     mutationFn: updateEmployee,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employeeInfo"] });
+      setAccessEmail("");
+      setPassword("");
+      setPassword1("");
+      setApellido("");
+      setPersonalEmail("");
+      setNombre("");
+      setPhone("");
+      
     },
   });
 
   const showDialog = () => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if(name && last_name && access_email && personal_email && password && password1 && phone){
+      const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (!emailRegex.test(access_email)) {
       alert("El correo de acceso no es válido.");
       return;
@@ -283,6 +292,23 @@ export function ModalUpdateEmployee({
     };
     setNewEmployee(updateEmployee);
     setDialogue(true);
+    }else{
+      if(!name){
+        alert("El campo nombre es obligatorio");
+    } else if(!last_name){
+        alert("El campo apellido es obligatorio");
+    } else if(!access_email){
+        alert("El campo correo de acceso es obligatorio");
+    } else if(!personal_email){
+        alert("El campo correo personal es obligatorio");
+    } else if(!password){ 
+        alert("El campo contraseña es obligatorio");
+    } else if(!password1){
+        alert("El campo confirmar contraseña es obligatorio");
+    } else if(!phone){
+        alert("El campo teléfono es obligatorio");
+    }
+  }
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
