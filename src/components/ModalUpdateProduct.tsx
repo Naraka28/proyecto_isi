@@ -29,14 +29,19 @@ export function ModalUpdateProduct({
     },
   });
   const showDialog = () => {
-    const updateProduct: Product = {
-      product_id: product.product_id,
-      name: name,
-      quantity: parseInt(quantity),
-      price: parseFloat(price),
-    };
-    setNewProduct(updateProduct);
-    setDialog(true);
+    if(name === "" || price === "" || quantity === ""){
+      alert("Por favor, rellene todos los campos");
+      return;
+    }else{
+      const updateProduct: Product = {
+        product_id: product.product_id,
+        name: name,
+        quantity: parseInt(quantity),
+        price: parseFloat(price),
+      };
+      setNewProduct(updateProduct);
+      setDialog(true);
+    }
   };
   const cancelDialog = () => {
     setDialog(false);

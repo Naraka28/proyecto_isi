@@ -41,15 +41,19 @@ export function ModalUpdateService({
     },
   });
   const showDialog = () => {
-    const updateService: Service = {
-      service_id: service.service_id,
-      name: name,
-      catalogue_id: parseInt(catalogue),
-      price: parseFloat(price),
-      duration_in_minutes: parseInt(duration),
-    };
-    setNewService(updateService);
-    setDialogue(true);
+    if(name && price && duration && catalogue){
+      const updateService: Service = {
+        service_id: service.service_id,
+        name: name,
+        catalogue_id: parseInt(catalogue),
+        price: parseFloat(price),
+        duration_in_minutes: parseInt(duration),
+      };
+      setNewService(updateService);
+      setDialogue(true);
+    }else{
+      alert("Por favor, llene todos los campos");
+    }
   };
   const cancelDialog = () => {
     setDialogue(false);
