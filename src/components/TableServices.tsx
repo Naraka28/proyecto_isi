@@ -105,6 +105,8 @@ function Test() {
             fontWeight: "bold",
             color: "text.primary",
             width: "10%", // Ajuste de ancho
+            textAlign: "center",
+            paddingLeft: "0.4rem", // Ajuste de padding
           }}
         >
           ID
@@ -124,7 +126,8 @@ function Test() {
             fontSize: "1.4rem",
             fontWeight: "bold",
             color: "text.primary",
-            width: "20%", // Ajuste de ancho
+            width: "20%", // Ajuste de ancho,
+            textAlign: "center",
           }}
         >
           Catálogo ID
@@ -170,7 +173,7 @@ function Test() {
           key={service.service_id}
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
-          <TableCell sx={{ fontSize: "1.1rem", width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{service.service_id}</TableCell>
+          <TableCell sx={{ fontSize: "1.1rem", width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem", textAlign:'center', paddingLeft:'0.4rem' }}>{service.service_id}</TableCell>
           <TableCell sx={{ fontSize: "1.1rem", width: "25%" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{service.name}</TableCell>
           <TableCell sx={{ fontSize: "1.1rem", textAlign: "center", width: "20%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>
             {service.catalogue_id}

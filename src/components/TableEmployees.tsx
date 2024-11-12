@@ -161,7 +161,7 @@ function Test() {
                   width: "10%",
                 }}
               >
-                Action
+                
               </TableCell>
             </TableRow>
           </TableHead>

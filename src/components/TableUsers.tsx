@@ -90,7 +90,7 @@ function Test() {
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Apellido</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "20%" }} align="justify">Email</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "20%" }} align="justify">Teléfono</TableCell>
-        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify">Action</TableCell>
+        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify"></TableCell>
       </TableRow>
     </TableHead>
     <TableBody>

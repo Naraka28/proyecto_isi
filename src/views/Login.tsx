@@ -62,8 +62,8 @@ function LoginForm() {
 
   return (
     <>
-      <div className="bg-[#353232]">
-        <div className="grid sm:grid-cols-2">
+      <div className="bg-[#353232] h-screen w-screen">
+        <div className="grid sm:grid-cols-2 ">
           {/* Left Column */}
           <div className="flex flex-col">
             <div className="w-full flex justify-center items-center mt-5">
