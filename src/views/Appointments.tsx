@@ -21,7 +21,7 @@ export function Appointments() {
       <div className="p-10 m-auto h-min  ">
         <div className="mb-8 text-center">
           <span className="text-4xl font-semibold text-black ">
-            Dashboard - Citas
+            Citas
             </span>
 
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">

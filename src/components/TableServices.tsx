@@ -87,13 +87,13 @@ function Test() {
 
   return (
     <>
-     <TableContainer sx={{ borderRadius: "1rem" }} component={Paper}>
+     <TableContainer sx={{ borderRadius: "1rem", border: "1", borderColor: "red" }} component={Paper}>
   <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead sx={{ border: "1", bgcolor: "#e3e3e3" }}>
       <TableRow
         sx={{
           "& th": {
-            borderBottom: "3px solid #db37ce",
+            borderBottom: "3px solid #757575",
             borderTop: "1px solid #ccc",
           },
         }}
@@ -131,6 +131,7 @@ function Test() {
         </TableCell>
         <TableCell
           sx={{
+            textAlign: "center",
             fontSize: "1.4rem",
             fontWeight: "bold",
             color: "text.primary",
@@ -141,6 +142,7 @@ function Test() {
         </TableCell>
         <TableCell
           sx={{
+            textAlign: "center",
             fontSize: "1.4rem",
             fontWeight: "bold",
             color: "text.primary",
@@ -151,13 +153,14 @@ function Test() {
         </TableCell>
         <TableCell
           sx={{
+            textAlign: "center",
             fontSize: "1.4rem",
             fontWeight: "bold",
             color: "text.primary",
             width: "15%", // Ajuste de ancho
           }} align="center"
         >
-          Action
+          
         </TableCell>
       </TableRow>
     </TableHead>
@@ -167,29 +170,29 @@ function Test() {
           key={service.service_id}
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
-          <TableCell sx={{ fontSize: "1.1rem", width: "10%" }}>{service.service_id}</TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", width: "25%" }}>{service.name}</TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", textAlign: "right", paddingRight: "3rem", width: "20%" }}>
+          <TableCell sx={{ fontSize: "1.1rem", width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{service.service_id}</TableCell>
+          <TableCell sx={{ fontSize: "1.1rem", width: "25%" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{service.name}</TableCell>
+          <TableCell sx={{ fontSize: "1.1rem", textAlign: "center", width: "20%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>
             {service.catalogue_id}
           </TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", textAlign: "right", paddingRight: "3rem", width: "15%" }}>
+          <TableCell sx={{ fontSize: "1.1rem", textAlign: "center",  width: "15%" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
             {service.price}
           </TableCell>
-          <TableCell sx={{ fontSize: "1.1rem", textAlign: "right", paddingRight: "3rem", width: "15%" }}>
+          <TableCell sx={{ fontSize: "1.1rem", textAlign: "center", width: "15%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>
             {service.duration_in_minutes} min
           </TableCell>
           <TableCell  sx={{ width: "15%", alignContent:"center" }}>
-            <div style={{ display: "grid", gap: "0.4rem",  justifyContent:"center" }}>
+            <div style={{ display: "flex", gap: "0.5rem",  justifyContent:"center" }}>
               <Button
                 variant="contained"
-                sx={{ bgcolor: "#db37ce", width: "5rem" }}
+                sx={{ bgcolor: "#4e68cf", width: "5rem" }}
                 onClick={() => handleEdit(service)}
               >
                 <FontAwesomeIcon icon={faPenToSquare} />
               </Button>
               <Button
                 variant="contained"
-                sx={{ bgcolor: "red", width: "5rem" }}
+                sx={{ bgcolor: "#f04141", width: "5rem" }}
                 onClick={() => handleShow(service)}
               >
                 <FontAwesomeIcon icon={faTrash} />

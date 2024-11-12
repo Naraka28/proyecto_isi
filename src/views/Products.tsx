@@ -19,7 +19,7 @@ export function Products() {
       <div className="p-10 m-auto h-min  ">
         <div className="mb-8 text-center">
           <h2 className="text-4xl font-semibold text-black">
-            Dashboard - Productos
+            Productos
           </h2>
         </div>
 

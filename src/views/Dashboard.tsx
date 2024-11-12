@@ -33,11 +33,8 @@ export function Dashboard() {
   return (
       <>
       
-      <div className="h-screen w-screen manrope-500 ">
         <div className="relative  justify-center grid grid-cols-5 grid-rows-6 m-5 gap-5 w-screen h-screen">
           
-        
-
            {/* Sección de próximas citas */}
            <div className="bg-white rounded-2xl col-span-2 row-span-3 w-full h-full my-auto gap-y-5 flex flex-col ">
             <div className="flex relative   justify-between">
@@ -84,7 +81,7 @@ export function Dashboard() {
 
          
         </div>
-      </div>
+      
     </>
       
   );

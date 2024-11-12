@@ -20,10 +20,7 @@ export function Reports() {
         <div className=" px-6 mx-auto grid">
           <h2 className="my-6 py-6 text-3xl font-bold text-black ">Reportes</h2>
 
-          <Search onSearch={handleSearch} className="hidden sm:flex" />
           <div className="flex space-x-3 my-5">
-            <ModalUsers />
-
             <IconButton
               id={"respaldoBtn"}
               text={"Respaldo"}
@@ -31,7 +28,16 @@ export function Reports() {
               onClick={handleAddClick}
             />
           </div>
-          <div className="a">
+          <h2
+            style={{
+              fontSize: "24px",
+              fontWeight: "bold",
+              marginBottom: "16px",
+            }}
+          >
+            Descargar PDF
+          </h2>
+          <div className="bg-white rounded-xl">
             <BasicTable />
           </div>
         </div>

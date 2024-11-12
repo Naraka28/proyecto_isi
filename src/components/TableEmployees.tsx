@@ -88,7 +88,7 @@ function Test() {
             <TableRow
               sx={{
                 "& th": {
-                  borderBottom: "3px solid #db37ce",
+                  borderBottom: "3px solid #757575",
                   borderTop: "1px solid #ccc",
                 },
               }}
@@ -171,37 +171,37 @@ function Test() {
                 key={employee.employee_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {employee.employee_id}
                 </TableCell>
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {employee.name}
                 </TableCell>
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {employee.last_name}
                 </TableCell>
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {employee.access_email}
                 </TableCell>
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {employee.phone_number}
                 </TableCell>
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {employee.role_id}
                 </TableCell>
-                <TableCell sx={{ fontSize: "1.1rem" }}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
                   {" "}
-                  <div style={{ display: "grid", gap: "0.4rem" }}>
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
                     <Button
                       variant="contained"
-                      sx={{ bgcolor: "#db37ce", width: "2rem" }}
+                      sx={{ bgcolor: "#4e68cf", width: "2rem" }}
                       onClick={() => handleEdit(employee)}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="" />
                     </Button>
                     <Button
                       variant="contained"
-                      sx={{ bgcolor: "red", width: "2rem" }}
+                      sx={{ bgcolor: "#f04141", width: "2rem" }}
                       onClick={() => handleShow(employee)}
                     >
                       <FontAwesomeIcon icon={faTrash} className="" />

@@ -84,7 +84,7 @@ function Test() {
     <TableContainer sx={{ borderRadius: "1rem" }} component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead sx={{  border:"1",bgcolor: "#e3e3e3" }}>
-    <TableRow sx={{ "& th": { borderBottom: "3px solid #db37ce",borderTop: "1px solid #ccc" } }}> {/* Aplica un borde a cada celda del encabezado */}       
+    <TableRow sx={{ "& th": { borderBottom: "3px solid #757575",borderTop: "1px solid #ccc" } }}> {/* Aplica un borde a cada celda del encabezado */}       
        <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary' , width: "10%"}}>ID</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Nombre</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Apellido</TableCell>
@@ -96,16 +96,16 @@ function Test() {
     <TableBody>
       {data.users.map((user) => (
         <TableRow key={user.user_id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-          <TableCell sx={{ fontSize: '1.1rem' }}>{user.user_id}</TableCell>
-          <TableCell sx={{ fontSize: '1.1rem' }}>{user.name}</TableCell>
-          <TableCell sx={{ fontSize: '1.1rem' }}>{user.last_name}</TableCell>
-          <TableCell sx={{ fontSize: '1.1rem', width: "25%" }}>{user.access_email}</TableCell>
-          <TableCell sx={{ fontSize: '1.1rem', width: "20%" }}>{user.phone_number}</TableCell>
-          <TableCell sx={{ fontSize: '1.1rem', width: "10%" }}>
-            <div style={{ display: "grid", gap: "0.4rem" }}>
+          <TableCell sx={{ fontSize: '1.1rem',paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.user_id}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem',paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.name}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem' ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{user.last_name}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem', width: "25%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.access_email}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem', width: "20%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.phone_number}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem', width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
               <Button
                 variant="contained"
-                sx={{ bgcolor: "#db37ce", width: "5rem" }}
+                sx={{ bgcolor: "#4e68cf", width: "5rem" }}
                 onClick={() => {
                   handleEdit(user);
                 }}
@@ -114,7 +114,7 @@ function Test() {
               </Button>
               <Button
                 variant="contained"
-                sx={{ bgcolor: "red", width: "5rem" }}
+                sx={{ bgcolor: "#f04141 ", width: "5rem" }}
                 onClick={() => handleShow(user)}
               >
                 <FontAwesomeIcon icon={faTrash} />

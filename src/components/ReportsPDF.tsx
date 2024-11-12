@@ -505,12 +505,9 @@ export function BasicTable() {
 export function BasicTable() {
   return (
     <div style={{ width: "100%", padding: "24px" }}>
-      <h2
-        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}
-      >
-        Descargar PDF para:
-      </h2>
+      
       <div
+      
         style={{
           display: "grid",
           gap: "16px",
