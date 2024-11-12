@@ -33,63 +33,10 @@ export function Dashboard() {
   return (
       <>
       
-      <div className="h-screen w-screen manrope-500 overflow-y-auto">
+      <div className="h-screen w-screen manrope-500 ">
         <div className="relative  justify-center grid grid-cols-5 grid-rows-6 m-5 gap-5 w-screen h-screen">
           
-        <div className="grid col-span-2 bg-white rounded-lg row-span-6 w-full h-full text-justify">
-            {/* Seccion de siguiente cita*/}
-            <div className="relative">
-              <div className="mr-5 flex justify-end">
-                <ModalView closeModal={closeModal} />
-                {isModalOpen && (
-                  <div
-                    className="fixed bg-gray-800 bg-opacity-50 flex justify-center items-center"
-                    onClick={handleOutsideClick}
-                  >
-                    <ModalView closeModal={closeModal} />
-                  </div>
-                )}
-              </div>
-              <h2 className="ml-5 mt-4 text-2xl">Siguiente cita</h2>
-              <ul className="flex flex-col mt-8 ms-6 text-xl tracking-tight text-gray-900 font-[400]">
-                <li>
-                  <h3>Hora: </h3>
-                </li>
-                <li>
-                  <h3>Cliente: </h3>
-                </li>
-                <li>
-                  <h3>Procedimiento: </h3>
-                </li>
-              </ul>
-            </div>
-            {/* Seccion de cita anterior*/}
-            <div className="relative">
-              <div className="mr-5 mt-auto flex justify-end">
-                <ModalView closeModal={closeModal} />
-                {isModalOpen && (
-                  <div
-                    className="fixed bg-gray-800 bg-opacity-50 flex justify-center items-center"
-                    onClick={handleOutsideClick}
-                  >
-                    <ModalView closeModal={closeModal} />
-                  </div>
-                )}
-              </div>
-              <h2 className="ml-5 mt-4 text-2xl">Ultima cita</h2>
-              <ul className="flex flex-col mt-8 ms-6 text-xl tracking-tight text-gray-900 font-[400]">
-                <li>
-                  <h3>Hora: </h3>
-                </li>
-                <li>
-                  <h3>Cliente: </h3>
-                </li>
-                <li>
-                  <h3>Procedimiento: </h3>
-                </li>
-              </ul>
-            </div>
-          </div>
+        
 
            {/* Sección de próximas citas */}
            <div className="bg-white rounded-2xl col-span-2 row-span-3 w-full h-full my-auto gap-y-5 flex flex-col ">
