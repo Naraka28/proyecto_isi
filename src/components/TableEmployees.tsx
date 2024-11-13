@@ -98,7 +98,7 @@ function Test() {
                   fontSize: "1.4rem",
                   fontWeight: "bold",
                   color: "text.primary",
-                  width: "5%",
+                  width: "5%",textAlign: "center",paddingLeft: "0.4rem",
                 }}
               >
                 ID
@@ -171,7 +171,7 @@ function Test() {
                 key={employee.employee_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
+                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem",textAlign: "center",paddingLeft: "0.4rem",}}>
                   {employee.employee_id}
                 </TableCell>
                 <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>

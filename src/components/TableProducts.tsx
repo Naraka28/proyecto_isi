@@ -86,7 +86,7 @@ function Test() {
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead sx={{  border:"1",bgcolor: "#e3e3e3" }}>
     <TableRow sx={{ "& th": { borderBottom: "3px solid #757575",borderTop: "1px solid #ccc" } }}> 
-              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify">ID</TableCell>
+              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%", textAlign: "center", }} >ID</TableCell>
               <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Nombre</TableCell>
               <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="center">Cantidad</TableCell>
               <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="center">Price</TableCell>
@@ -99,7 +99,7 @@ function Test() {
                 key={product.product_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } , }}
               >
-                <TableCell sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{product.product_id}</TableCell>
+                <TableCell sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem",textAlign: "center", }}>{product.product_id}</TableCell>
                 <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{product.name}</TableCell>
                 <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}align="center">{product.quantity}</TableCell>
                 <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}align="center">{product.price}</TableCell>

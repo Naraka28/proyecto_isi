@@ -15,6 +15,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { access } from "fs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 
 export function ModalUsers() {
   return (
@@ -115,12 +117,23 @@ export function ModalUsersForm() {
 
   return (
     <>
-      <IconButton
-        id={"añadirBtn"}
-        text={"Añadir"}
-        icon={faPlus}
-        onClick={handleAddClick}
-      />
+      <Button
+        variant="contained"
+        sx={{
+          bgcolor: "#E90074",
+          width: "9rem",
+          height: "3.5rem",
+          borderRadius: "1.7rem",
+          textTransform: "none", // Desactiva el texto en mayúsculas
+        }}
+        onClick={() => handleAddClick()}
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}>
+        <FontAwesomeIcon
+          icon={faPlus}
+          style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
+        />
+        <h3 className="text-lg mr-3 capitalize">Agregar</h3>
+      </Button>
 
       {showModal ? (
         <>

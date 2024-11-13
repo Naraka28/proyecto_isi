@@ -1,5 +1,5 @@
 import { Field } from "../components/Field";
-import { Button } from "../components/Button";
+import { Button } from "../components/ButtonNoUI";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/POSTlogin";

@@ -19,7 +19,7 @@ export function Appointments() {
   return (
     <>
       <div className="p-10 m-auto h-min  ">
-        <div className="mb-8 text-center">
+        <div className="pb-20 text-center">
           <span className="text-4xl font-semibold text-black ">
             Citas
             </span>
@@ -28,7 +28,7 @@ export function Appointments() {
             <Search onSearch={handleSearch} className="hidden sm:flex flex-1" />
 
             <div className="flex space-x-3">
-              <ModalUsers />
+              <ModalAppointments />
               
             </div>
           </div>

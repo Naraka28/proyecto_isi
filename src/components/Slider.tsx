@@ -16,7 +16,7 @@ export function MultipleItems() {
 
 
     const settings = {
-        dots: false, // los dos son lo que mostraba "next"
+        dots: true, // los dos son lo que mostraba "next"
         infinite: false, //fran quito el infinito nice
         speed: 200,
         slidesToShow: 3,

@@ -1,6 +1,4 @@
-import { faPlus, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton } from '../components/DashButton';
 import { EmployeeTable } from '../components/TableEmployees';
 import { Search } from '../components/Search';
 import {ModalEmployees} from '../components/ModalEmployees';

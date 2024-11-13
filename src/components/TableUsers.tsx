@@ -85,7 +85,7 @@ function Test() {
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead sx={{  border:"1",bgcolor: "#e3e3e3" }}>
     <TableRow sx={{ "& th": { borderBottom: "3px solid #757575",borderTop: "1px solid #ccc" } }}> {/* Aplica un borde a cada celda del encabezado */}       
-       <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary' , width: "10%"}}>ID</TableCell>
+       <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary' , width: "10%", textAlign: "center",paddingLeft: "0.4rem",}}>ID</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Nombre</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Apellido</TableCell>
         <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "20%" }} align="justify">Email</TableCell>
@@ -96,7 +96,7 @@ function Test() {
     <TableBody>
       {data.users.map((user) => (
         <TableRow key={user.user_id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-          <TableCell sx={{ fontSize: '1.1rem',paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.user_id}</TableCell>
+          <TableCell sx={{ fontSize: '1.1rem',paddingBottom:"1.5rem",paddingTop:"1.5rem",textAlign: "center",paddingLeft: "0.4rem", }}>{user.user_id}</TableCell>
           <TableCell sx={{ fontSize: '1.1rem',paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.name}</TableCell>
           <TableCell sx={{ fontSize: '1.1rem' ,paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{user.last_name}</TableCell>
           <TableCell sx={{ fontSize: '1.1rem', width: "25%",paddingBottom:"1.5rem",paddingTop:"1.5rem" }}>{user.access_email}</TableCell>

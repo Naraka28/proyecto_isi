@@ -52,7 +52,7 @@ function Test({}) {
        <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead sx={{  border:"1",bgcolor: "#e3e3e3" }}>
     <TableRow sx={{ "& th": { borderBottom: "3px solid #757575",borderTop: "1px solid #ccc" } }}> 
-            <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "5%" }} align="justify">ID</TableCell>
+            <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "5%" ,textAlign: "center",paddingLeft: "0.4rem",}} >ID</TableCell>
             <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify">Date</TableCell>
             <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify">User Name</TableCell>
             <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="justify">Employee Name</TableCell>
@@ -68,7 +68,7 @@ function Test({}) {
               key={appointment.appointment_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell sx={{ fontSize: '1.1rem' , width: "3%",paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{appointment.appointment_id}</TableCell>
+              <TableCell sx={{ fontSize: '1.1rem' , width: "3%",paddingBottom:"1.5rem",paddingTop:"1.5rem",textAlign: "center",paddingLeft: "0.4rem",}}>{appointment.appointment_id}</TableCell>
               <TableCell sx={{ fontSize: '1.1rem' , width: "5%",paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{appointment.date}</TableCell>
               <TableCell sx={{ fontSize: '1.1rem' , width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{appointment.name} {appointment.last_name}</TableCell>
               <TableCell sx={{ fontSize: '1.1rem' , width: "10%",paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{appointment.em_name} {appointment.em_last_name}</TableCell>

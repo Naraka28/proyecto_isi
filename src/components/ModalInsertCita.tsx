@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { searchUser } from "../services/appointmentServices.ts";
+import { Button } from "./ButtonNoUI.tsx";
 
 interface ModalInsertProps {
   closeModal: () => void;
@@ -75,16 +76,26 @@ export function ModalInsertCita({ closeModal }: ModalInsertProps) {
     }
   };
 
-  const saveData = () => { };
+  const saveData = () => {};
 
   return (
     <>
-      <IconButton
-        id="insert"
-        icon={faPlus}
-        onClick={handleClick}
-        text="Añadir Cita"
-      />
+      <Button
+        variant="contained"
+        sx={{
+          bgcolor: "#E90074 ",
+          width: "7rem",
+          height: "2.5rem",
+          borderRadius: "2rem",
+        }}
+        onClick={() => handleClick()}
+        className="absolute bottom-9"
+      >
+        <FontAwesomeIcon icon={faPlus} style={{ margin: "0.3rem" }} />
+        <h3 className="text-transform: lowercase text-transform:capitalize">
+          Agregar
+        </h3>
+      </Button>
       {showModal ? (
         <>
           <div className=" items-center flex overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none">

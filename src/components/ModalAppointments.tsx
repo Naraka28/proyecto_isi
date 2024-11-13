@@ -17,15 +17,21 @@ import {
 } from "../services/appointmentServices";
 import { ComboBox } from "./Combobox";
 import { ComboBoxPhone } from "./ComboboxPhone";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 
-export function ModalAppointments() {
+interface Props {
+  className?: string;
+}
+
+export function ModalAppointments({ className = '' }: Props) {
   return (
     // Provide the client to your App
-    <ModalAppointmentsForm />
+    <ModalAppointmentsForm className= {className}/>
   );
 }
 
-export function ModalAppointmentsForm() {
+export function ModalAppointmentsForm({className = ''}: Props) {
   const [showModal, setShowModal] = React.useState(false);
   const queryClient = useQueryClient();
 
@@ -89,12 +95,23 @@ export function ModalAppointmentsForm() {
 
   return (
     <>
-      <IconButton
-        id={"añadirBtn"}
-        text={"Añadir"}
-        icon={faPlus}
-        onClick={handleAddClick}
-      />
+      <Button
+        variant="contained"
+        sx={{
+          bgcolor: "#E90074",
+          width: "9rem",
+          height: "3.5rem",
+          borderRadius: "1.7rem",
+          textTransform: "none", // Desactiva el texto en mayúsculas
+        }}
+        onClick={() => handleAddClick()}
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] ${className}`}>
+        <FontAwesomeIcon
+          icon={faPlus}
+          style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
+        />
+        <h3 className="text-lg mr-3 capitalize">Agregar</h3>
+      </Button>
 
       {showModal ? (
         <>

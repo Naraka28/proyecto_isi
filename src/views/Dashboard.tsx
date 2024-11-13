@@ -1,4 +1,8 @@
-import { faPlus, faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faCloudArrowUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton } from "../components/DashButton";
 import { BasicTable } from "../components/TableUsers";
@@ -13,6 +17,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ModalAppointments } from "../components/ModalAppointments";
+import ChartComponent from "../components/Graphs";
+import MyCalendar from "../components/Calendar";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -33,36 +40,60 @@ export function Dashboard() {
   };
 
   return (
-      <>
-
-      <div className="justify-center grid grid-rows-2 gap-5  ">
-        
-        <div id="NextCitas" className="bg-white row-span-1 h-[70vh] w-[93vw]  rounded-2xl py-12 mt-12 ">
-          <div className="">
-              <div className="relative w-screen " >
-                <h2 className="text-3xl">Proximas Citas</h2> 
-                <div className="absolute ">
-                <Button
-                variant="contained"
-                sx={{ bgcolor: "#f04141 ", width: "5rem" }}
-                onClick={() => handleClick()}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </Button>
-              </div>
-              </div>
-              <div className="">
-                <MultipleItems/>
-              </div>
-              
+    <>
+      <div className="grid grid-rows-[auto,auto,auto] gap-y-8 justify-center  mt-12">
+        <div
+          id="Calendar"
+          className="bg-white row-span-1 w-full rounded-2xl py-12"
+        >
+          <div className="relative w-full px-10">
+            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+              CALENDARIO
+            </h2>
+            <div className="flex relative">
+              <ModalAppointments className="bottom-12" />
+            </div>
+            <div>
+              <MyCalendar />
+            </div>
           </div>
-
         </div>
-        <div id="Graficas" className="bg-white row-span-1  w-[93vw] h-[70vh] rounded-2xl py-12">
-          <h1>hola</h1>
 
+        <div
+          id="NextCitas"
+          className="bg-white row-span-1 h-[70vh] w-[87vw] rounded-2xl py-12 "
+        >
+          <div className="relative w-full px-10">
+            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+              PRÓXIMAS CITAS
+            </h2>
+            <div className="flex relative">
+              <ModalAppointments className="bottom-12" />
+            </div>
+            <div>
+              <MultipleItems />
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="Graficas"
+          className="bg-white row-span-1 h-[70vh] w-full rounded-2xl py-12"
+        >
+          <div className="relative w-full px-10">
+            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+              GRÁFICAS
+            </h2>
+            <div className="flex relative">
+              <ModalAppointments className="bottom-12" />
+            </div>
+            <div>
+              <ChartComponent />
+            </div>
+          </div>
         </div>
       </div>
+
       {/*
         <div className="relative  justify-center grid grid-cols-5 grid-rows-6 m-5 gap-5 w-screen h-screen">
           
@@ -114,6 +145,5 @@ export function Dashboard() {
         </div>
       */}
     </>
-      
   );
 }
