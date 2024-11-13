@@ -238,16 +238,16 @@ export function ModalEmployeesForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employeeInfo"] });
 
-        setShowModal(false);
-        setNombre("");
-        setApellido("");
-        setAccessEmail("");
-        setPersonalEmail("");
-        setPassword("");
-        setPassword1("");
-        setPhone("");
-        setRole("");
-        alert("Empleado añadido correctamente");
+      setShowModal(false);
+      setNombre("");
+      setApellido("");
+      setAccessEmail("");
+      setPersonalEmail("");
+      setPassword("");
+      setPassword1("");
+      setPhone("");
+      setRole("");
+      alert("Empleado añadido correctamente");
     },
   });
 
@@ -265,7 +265,7 @@ export function ModalEmployeesForm() {
     role_id: parseInt(role_id),
   };
 
-  const validateEmail = (email, type) => {
+  const validateEmail = (email: string, type: any) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
       alert(`El correo ${type} es obligatorio`);
@@ -310,7 +310,16 @@ export function ModalEmployeesForm() {
   };
 
   const handleSave = () => {
-    if(name && last_name &&access_email && personal_email && password && password1 && phone && role_id) {
+    if (
+      name &&
+      last_name &&
+      access_email &&
+      personal_email &&
+      password &&
+      password1 &&
+      phone &&
+      role_id
+    ) {
       if (
         validateEmail(access_email, "de acceso") &&
         validateEmail(personal_email, "personal") &&
@@ -326,33 +335,33 @@ export function ModalEmployeesForm() {
         alert("La contraseña debe tener al menos 8 caracteres");
       } else if (role_id === "") {
         alert("Por favor, selecciona un rol");
-      } else if(!validateEmail(access_email, "de acceso")){
+      } else if (!validateEmail(access_email, "de acceso")) {
         alert("Por favor, ingresa un correo de acceso válido");
-      } else if(!validateEmail(personal_email, "personal")){
+      } else if (!validateEmail(personal_email, "personal")) {
         alert("Por favor, ingresa un correo personal válido");
-      } else if(!validatePhoneNumber()){
+      } else if (!validatePhoneNumber()) {
         alert("Por favor, ingresa un número de teléfono válido");
       }
-    }else{
-      if(!name){
+    } else {
+      if (!name) {
         alert("El nombre es obligatorio");
-    } else if(!last_name){
+      } else if (!last_name) {
         alert("El apellido es obligatorio");
-    } else if(!access_email){
+      } else if (!access_email) {
         alert("El correo de acceso es obligatorio");
-    } else if(!personal_email){
+      } else if (!personal_email) {
         alert("El correo personal es obligatorio");
-    } else if(!password){
+      } else if (!password) {
         alert("La contraseña es obligatoria");
-    } else if(!password1){
+      } else if (!password1) {
         alert("Por favor, confirma la contraseña");
-    } else if(!phone){
+      } else if (!phone) {
         alert("El número de teléfono es obligatorio");
-    } else if(!role_id){
+      } else if (!role_id) {
         alert("Por favor, selecciona un rol");
+      }
     }
   };
-};
 
   return (
     <>
@@ -468,7 +477,7 @@ export function ModalEmployeesForm() {
                   <ComboBox
                     id="role_id"
                     options={["1 Admin", "2 Empleado"]}
-                    onChange={setRole}
+                    onChange={(e) => setRole(e.target.value)}
                   />
                 </div>
 

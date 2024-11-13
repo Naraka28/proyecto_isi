@@ -6,7 +6,8 @@ export interface Employee {
   personal_email: string;
   password: string;
   phone_number: string;
-  role_id: number;
+  role_id?: number;
+  role?: string;
   token?: string;
 }
 export interface EmployeeResponse {
@@ -48,7 +49,6 @@ export async function employeeAddService(create: EmployeeCreate) {
     }),
   });
 
-    
   const responsedata = await response.json();
   return responsedata;
 }
