@@ -61,12 +61,12 @@ export function Dashboard() {
         </div>
 
         <div
-          id="NextCitas"
-          className="bg-white row-span-1 h-[70vh] w-[87vw] rounded-2xl py-12 "
+          id="Catalogo"
+          className="bg-white row-span-1 h-[80vh] w-[87vw]  rounded-2xl py-12 "
         >
           <div className="relative w-full px-10">
             <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
-              CÁTALOGO
+              CATÁLOGO
             </h2>
             <div className="flex relative">
               <ModalServices className="bottom-12" />

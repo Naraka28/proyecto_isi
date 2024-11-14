@@ -1,7 +1,10 @@
+import "../App.css";//slider
 import Slider from "react-slick";
 import { Cajita } from "./Cajita.tsx";
 import { useQuery } from '@tanstack/react-query';
 import { getAllServices } from "../services/serviciosServices.ts";
+import { faArrowAltCircleLeft, faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Componentes para los botones personalizados usando TailwindCSS
 function NextArrow(props) {
@@ -9,9 +12,10 @@ function NextArrow(props) {
   return (
     <div
       onClick={onClick}
-      className="absolute top-1/2 right-[-50px] transform -translate-y-1/2 text-white bg-black bg-opacity-50 hover:bg-opacity-80 text-2xl rounded-full p-2 cursor-pointer transition-colors duration-300 z-10"
+      className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 text-white bg-[#8c0046] bg-opacity-60 hover:bg-opacity-80 text-2xl rounded-full p-2 cursor-pointer transition-colors duration-300 z-10"
     >
-      ➔
+            <FontAwesomeIcon icon={faArrowAltCircleRight} />
+
     </div>
   );
 }
@@ -21,9 +25,9 @@ function PrevArrow(props) {
   return (
     <div
       onClick={onClick}
-      className="absolute top-1/2 left-[-50px] transform -translate-y-1/2 text-white bg-black bg-opacity-50 hover:bg-opacity-80 text-2xl rounded-full p-2 cursor-pointer transition-colors duration-300 z-10"
+      className="absolute top-1/2 left-[-20px]  transform -translate-y-1/2 text-white bg-[#8c0046] bg-opacity-60 hover:bg-opacity-80 text-2xl rounded-full p-2 cursor-pointer transition-colors duration-300 z-10"
     >
-      ⬅
+      <FontAwesomeIcon icon={faArrowAltCircleLeft} />
     </div>
   );
 }
