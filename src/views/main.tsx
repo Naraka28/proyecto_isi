@@ -17,6 +17,7 @@ import { PersistentDrawerLeft } from "../components/Sidebar";
 import { Dashboard } from "./Dashboard.tsx";
 import { Employees } from "./Employees.tsx";
 import { Reports } from "./Reports.tsx";
+import { Inventory } from "./Inventory.tsx";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
         <Route path="products" element={<Products />} />
         <Route path="employees" element={<Employees />} />
         <Route path="reports" element={<Reports />} />
+        <Route path="inventory" element={<Inventory />} />
       </Route>
     </Route>
   )

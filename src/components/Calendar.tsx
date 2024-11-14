@@ -47,7 +47,7 @@ const MyCalendar = () => {
   });
 
   const eventStyleGetter = (event) => {
-    let backgroundColor = "#353535";
+    let backgroundColor = "#353232";
 
     if (event.catalogo === "Cortes") {
       backgroundColor = "#4CAF50";
@@ -72,7 +72,7 @@ const MyCalendar = () => {
 
   const EventComponent = ({ event }) => (
     <span className="flex gap-5">
-      <strong className="px-5 ">{event.servicio}</strong>
+      <strong className="px-5 text-[#ff65b2]">{event.servicio}</strong>
       <p>{event.cliente}</p>
       <p>{event.empleado}</p>
       <p>{event.costo}</p>
@@ -94,7 +94,7 @@ const MyCalendar = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        defaultView="week"
+        defaultView="day"
         views={["day", "week", "agenda"]}
         eventPropGetter={eventStyleGetter}
         components={{
