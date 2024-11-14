@@ -1,26 +1,35 @@
 export interface Appointment {
-  appointment_id?: number;
+  appointment_id: number;
   date: string;
   name: string;
   last_name: string;
-  material: string;
   em_name: string;
   em_last_name: string;
   servicio: string;
+  hour: string;
   total_price: number;
+  employee_id: number;
+  service_id: number;
+  user_id: number;
 }
 export interface AppointmentResponse {
   appointments: Appointment[];
 }
+export interface AppointmentUpdate {
+  appointment_id: number;
+  date: string;
+  user_id: number;
+  hour: string;
+  employee_id: number;
+  service_id: number;
+}
 
 export interface AppointmentCreate {
   date: string;
+  hour: string;
   user_id: number;
-  material_id: number;
-  ticket_id: number;
   employee_id: number;
   service_id: number;
-  total_price: number;
 }
 
 const API_URL = import.meta.env.VITE_API_URL as string;
@@ -54,15 +63,34 @@ export async function appointmentAddService(create: AppointmentCreate) {
     body: JSON.stringify({
       date: create.date,
       user_id: create.user_id,
-      material_id: create.material_id,
-      ticket_id: create.ticket_id,
+      hour: create.hour,
       employee_id: create.employee_id,
       service_id: create.service_id,
-      total_price: create.total_price,
     }),
   });
   const responsedata = await response.json();
   return responsedata;
+}
+
+export async function updateAppointment(update: Appointment) {
+  const response = await fetch(
+    `${API_URL}/appointments/${update.appointment_id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        date: update.date,
+        user_id: update.user_id,
+        hour: update.hour,
+        employee_id: update.employee_id,
+        service_id: update.service_id,
+      }),
+    }
+  );
+  const data = await response.json();
+  return data;
 }
 
 export async function deleteAppointment(id: number) {

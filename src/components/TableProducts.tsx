@@ -1,5 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { faPenToSquare, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   getAllProducts,
@@ -83,43 +87,143 @@ function Test() {
   return (
     <>
       <TableContainer sx={{ borderRadius: "1rem" }} component={Paper}>
-    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-    <TableHead sx={{  border:"1",bgcolor: "#e3e3e3" }}>
-    <TableRow sx={{ "& th": { borderBottom: "3px solid #757575",borderTop: "1px solid #ccc" } }}> 
-              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%", textAlign: "center", }} >ID</TableCell>
-              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="justify">Nombre</TableCell>
-              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="center">Cantidad</TableCell>
-              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "15%" }} align="center">Price</TableCell>
-              <TableCell sx={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'text.primary', width: "10%" }} align="center"></TableCell>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead sx={{ border: "1", bgcolor: "#e3e3e3" }}>
+            <TableRow
+              sx={{
+                "& th": {
+                  borderBottom: "3px solid #757575",
+                  borderTop: "1px solid #ccc",
+                },
+              }}
+            >
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "10%",
+                  textAlign: "center",
+                }}
+              >
+                ID
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "15%",
+                }}
+                align="justify"
+              >
+                Nombre
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "15%",
+                }}
+                align="center"
+              >
+                Cantidad
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "15%",
+                }}
+                align="center"
+              >
+                Price
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.4rem",
+                  fontWeight: "bold",
+                  color: "text.primary",
+                  width: "10%",
+                }}
+                align="center"
+              ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.products.map((product) => (
               <TableRow
                 key={product.product_id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } , }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem",textAlign: "center", }}>{product.product_id}</TableCell>
-                <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>{product.name}</TableCell>
-                <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}align="center">{product.quantity}</TableCell>
-                <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}align="center">{product.price}</TableCell>
-                <TableCell  sx={{ fontSize: '1.2rem' , paddingBottom:"1.5rem",paddingTop:"1.5rem"}}>
-                  
-                  <div style={{ display: "flex", gap: "0.5rem", justifyContent:"center" }}>
+                <TableCell
+                  sx={{
+                    fontSize: "1.2rem",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                    textAlign: "center",
+                  }}
+                >
+                  {product.product_id}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.2rem",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                >
+                  {product.name}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.2rem",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                  align="center"
+                >
+                  {product.quantity}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.2rem",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                  align="center"
+                >
+                  {product.price}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1.2rem",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.5rem",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Button
                       variant="contained"
-                      sx={{ bgcolor: "#4e68cf", width: "5rem", height:"2rem" }}
+                      sx={{ bgcolor: "#4e68cf", width: "5rem", height: "2rem" }}
                       onClick={() => handleEdit(product)}
                     >
-                      <FontAwesomeIcon icon={faPenToSquare} className="" /> 
+                      <FontAwesomeIcon icon={faPenToSquare} className="" />
                     </Button>
                     <Button
                       variant="contained"
-                      sx={{ bgcolor: "#f04141", width: "5rem",height:"2rem" }}
+                      sx={{ bgcolor: "#f04141", width: "5rem", height: "2rem" }}
                       onClick={() => handleShow(product)}
                     >
                       <FontAwesomeIcon icon={faTrash} className="" />
-
                     </Button>
                   </div>
                 </TableCell>

@@ -1,13 +1,17 @@
-import { user } from "../services/userAddservice";
 interface ComboBoxProps {
   id: string;
   options: any[];
-  optionObjects?: user[];
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  value?: string;
 }
 
-export function ComboBoxPhone({ id, options, onChange }: ComboBoxProps) {
+export function ComboBoxEmployees({
+  id,
+  options,
+  onChange,
+  value,
+}: ComboBoxProps) {
   return (
     <div className="relative w-full mx-auto my-">
       <select
@@ -17,13 +21,14 @@ export function ComboBoxPhone({ id, options, onChange }: ComboBoxProps) {
         className="peer w-full h-full bg-white text-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-gray-400 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 pt-5 pb-3 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
         onChange={onChange}
         required
+        value={value}
       >
         <option value="" disabled hidden>
           Selecciona una opción
         </option>
         {options.map((option) => (
-          <option key={option.user_id} value={option.user_id}>
-            {option.phone_number + " - " + option.name + " " + option.last_name}
+          <option key={option.employee_id} value={option.employee_id}>
+            {option.name + " " + option.last_name}
           </option>
         ))}
       </select>
