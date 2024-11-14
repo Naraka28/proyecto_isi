@@ -1,19 +1,31 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { materialAddService } from "../services/inventoryServices"; // Servicio para agregar material
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Field } from "../components/Field"; // Campo de entrada reutilizable
-import { ModalState } from "../components/ModalState"; // Componente para mostrar el estado del modal
+import { IconButton } from "../components/DashButton";
+import { Field } from "../components/Field";
+import { useState } from "react";
+import { materialAddService } from "../services/inventoryServices";
+import {
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 
-export function ModalMaterial() {
-  return <ModalMaterialForm />;
+export function ModalInventory() {
+  return (
+    <ModalInventoryForm />
+  );
 }
 
-export function ModalMaterialForm() {
+export function ModalInventoryForm() {
   const queryClient = useQueryClient();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = React.useState(false);
+
+  const handleAddClick = () => {
+    setShowModal(true);
+  };
+
+  // Campos específicos para la tabla de inventario
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
@@ -22,43 +34,41 @@ export function ModalMaterialForm() {
   const mutation = useMutation({
     mutationFn: materialAddService,
     onSuccess: () => {
-      // Invalidate and refetch materials data after adding a new material
-      queryClient.invalidateQueries({ queryKey: ["materialsInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["inventoryData"] });
       setShowModal(false);
       setName("");
       setQuantity("");
       setPrice("");
-      alert("Material agregado con éxito");
+      alert("Material agregado al inventario con éxito");
     },
   });
 
-  const newMaterial = {
+  const newInventoryItem = {
     name: name,
     quantity: parseInt(quantity),
     price: parseFloat(price),
   };
 
-  const handleAddClick = () => {
-    setShowModal(true);
+  // Validaciones para cantidad y precio
+  const validateQuantity = () => {
+    if (!quantity) {
+      setError("La cantidad es obligatoria");
+      return false;
+    } else if (!/^\d+$/.test(quantity)) {
+      setError("La cantidad debe ser un número entero");
+      return false;
+    }
+    return true;
   };
 
-  // Función de validación
-  const validateInputs = () => {
-    if (!name || !quantity || !price) {
-      setError("Todos los campos son obligatorios");
+  const validatePrice = () => {
+    if (!price) {
+      setError("El precio es obligatorio");
+      return false;
+    } else if (!/^\d+(\.\d{1,2})?$/.test(price)) {
+      setError("El precio debe ser un número con hasta dos decimales");
       return false;
     }
-
-    if (isNaN(parseInt(quantity)) || parseInt(quantity) <= 0) {
-      setError("La cantidad debe ser un número mayor a 0");
-      return false;
-    }
-
-    if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
-      setError("El precio debe ser un número mayor a 0");
-      return false;
-    }
-
     return true;
   };
 
@@ -67,14 +77,14 @@ export function ModalMaterialForm() {
       <Button
         variant="contained"
         sx={{
-          bgcolor: "#4e68cf",
+          bgcolor: "#E90074",
           width: "9rem",
           height: "3.5rem",
           borderRadius: "1.7rem",
           textTransform: "none",
         }}
-        onClick={handleAddClick}
-        className={`hover:bg-[#3a57a2] transition-colors ease-in-out duration-[400ms] `}
+        onClick={() => handleAddClick()}
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}
       >
         <FontAwesomeIcon
           icon={faPlus}
@@ -83,7 +93,7 @@ export function ModalMaterialForm() {
         <h3 className="text-lg mr-3 capitalize">Agregar Material</h3>
       </Button>
 
-      {showModal && (
+      {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-full my-6 mx-auto max-w-xl">
@@ -101,46 +111,53 @@ export function ModalMaterialForm() {
                 </div>
                 <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
-                    id={"nombre"}
+                    id={"name"}
+                    label="Nombre del Material"
                     type={"text"}
-                    label={"Nombre del Material"}
+                    value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                   <Field
-                    id={"cantidad"}
+                    id={"quantity"}
+                    label="Cantidad"
                     type={"number"}
-                    label={"Cantidad"}
-                    onChange={(e) => setQuantity(e.target.value)}
                     value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
                   />
                   <Field
-                    id={"precio"}
-                    type={"number"}
-                    label={"Precio"}
-                    onChange={(e) => setPrice(e.target.value)}
+                    id={"price"}
+                    label="Precio"
+                    type={"text"}
                     value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
-                {error && <div className="text-red-500 text-sm">{error}</div>}
+                {error && (
+                  <p className="text-red-500 text-sm px-4">{error}</p>
+                )}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Close
+                    Cerrar
                   </button>
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     id="save"
                     onClick={() => {
-                      if (validateInputs()) {
-                        mutation.mutate(newMaterial);
+                      if (name && quantity && price) {
+                        if (validateQuantity() && validatePrice()) {
+                          mutation.mutate(newInventoryItem);
+                        }
+                      } else {
+                        setError("Todos los campos son obligatorios");
                       }
                     }}
                   >
-                    Save Changes
+                    Guardar Cambios
                   </button>
                 </div>
               </div>
@@ -148,7 +165,7 @@ export function ModalMaterialForm() {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      )}
+      ) : null}
     </>
   );
 }

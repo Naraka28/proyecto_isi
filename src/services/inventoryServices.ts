@@ -1,13 +1,47 @@
-// Fetch all inventory items
-export async function getAllInventoryItems() {
-  const response = await fetch(`${API_URL}/inventory`);
-  const data: InventoryResponse = await response.json();
-  return data;
+export interface Material {
+  material_id: number;
+  name: string;
+  quantity: number;
+  price: number;
 }
 
-// Add a new inventory item
-export async function addInventoryItem(create: InventoryCreate) {
-  const response = await fetch(`${API_URL}/inventory/create`, {
+export interface MaterialResponse {
+  materials: Material[];
+}
+
+export interface MaterialCreate {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+const API_URL = import.meta.env.VITE_API_URL as string;
+
+export const getAllMaterials = async (): Promise<MaterialResponse> => {
+  try {
+    const response = await fetch(`${API_URL}/inventory`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      console.log(response);
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data: MaterialResponse = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al obtener datos:", error);
+    throw error;
+  }
+};
+
+export async function materialAddService(create: MaterialCreate) {
+  const response = await fetch(`${API_URL}/inventory`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,36 +50,46 @@ export async function addInventoryItem(create: InventoryCreate) {
       name: create.name,
       quantity: create.quantity,
       price: create.price,
-      
     }),
   });
-  const responsedata = await response.json();
-  return responsedata;
+  const responseData = await response.json();
+  return responseData;
 }
 
-// Delete an inventory item
-export async function deleteInventoryItem(item_id: number) {
-  const response = await fetch(`${API_URL}/inventory/${item_id}`, {
+export async function materialDeleteService(id: number) {
+  const response = await fetch(`${API_URL}/inventory/${id}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
-  const data = await response.json();
-  return data;
+  const responseData = await response.json();
+  return responseData;
 }
 
-// Update an inventory item
-export async function updateInventoryItem(item: InventoryItem) {
-  const response = await fetch(`${API_URL}/inventory/${item.item_id}`, {
+export async function materialFindById(id: number) {
+  const response = await fetch(`${API_URL}/inventory/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const responseData = await response.json();
+  return responseData;
+}
+
+export async function materialUpdateService(update: Material) {
+  const response = await fetch(`${API_URL}/inventory/${update.material_id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price,
-      
+      name: update.name,
+      quantity: update.quantity,
+      price: update.price,
     }),
   });
-  const data = await response.json();
-  return data;
+  const responseData = await response.json();
+  return responseData;
 }

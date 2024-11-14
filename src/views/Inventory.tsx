@@ -24,13 +24,7 @@ export function Inventory() {
         <Search onSearch={handleSearch} className="hidden sm:flex flex-1" />
 
         <div className="flex space-x-3">
-          <button 
-            onClick={handleAddClick} 
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Agregar Material
-          </button>
-
+          
           <ModalMaterial />  {/* Aquí se asume que el modal está diseñado para crear o editar materiales */}
         </div>
       </div>
