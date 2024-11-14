@@ -1,8 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  getAllInventoryItems,
-  deleteInventoryItem,
-} from "../services/inventoryServices"; // Asegúrate de que el archivo de servicio sea adecuado
+  getAllMaterials,
+  Material,
+  materialDeleteService,
+} from "../services/inventoryServices";
 import {
   Table,
   TableBody,
@@ -14,8 +15,8 @@ import {
   Button,
 } from "@mui/material";
 import { useState } from "react";
-import { ModalDeleteMaterial } from "./ModalDeleteMaterial"; // Actualiza este modal para manejar materiales
-import { ModalUpdateMaterial } from "./ModalUpdateMaterial"; // Actualiza este modal para manejar materiales
+import { ModalDeleteInventory } from "./ModalDeleteMaterial";
+import { ModalUpdateInventory } from "./ModalUpdateMaterial";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,18 +27,21 @@ export function BasicTable() {
 function InventoryTable() {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
-  const [showUpdate, setshowUpdate] = useState(false);
-  const [selectedMaterial, setSelectedMaterial] = useState<any | undefined>(undefined); // Track selected material
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [selectedMaterial, setSelectedMaterial] = useState<
+    Material | undefined
+  >(undefined);
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["inventory"],
     queryFn: getAllMaterials,
   });
+
   const deleteMutation = useMutation({
     mutationFn: materialDeleteService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["inventory"] });
-      setShowModal(false); // Close modal after successful deletion
+      setShowModal(false);
     },
   });
 
@@ -53,7 +57,7 @@ function InventoryTable() {
     return <span>No hay datos disponibles</span>;
   }
 
-  const handleShow = (material: any) => {
+  const handleShow = (material: Material) => {
     setSelectedMaterial(material);
     setShowModal(true);
   };
@@ -62,18 +66,20 @@ function InventoryTable() {
     setShowModal(false);
     setSelectedMaterial(undefined);
   };
+
   const handleDeleteConfirm = () => {
     if (selectedMaterial) {
       deleteMutation.mutate(selectedMaterial.material_id);
     }
   };
-  const handleEdit = (material: any) => {
+
+  const handleEdit = (material: Material) => {
     setSelectedMaterial(material);
-    setshowUpdate(true);
+    setShowUpdate(true);
   };
 
   const handleCloseUpdateModal = () => {
-    setshowUpdate(false);
+    setShowUpdate(false);
     setSelectedMaterial(undefined);
   };
 
@@ -107,7 +113,7 @@ function InventoryTable() {
                   fontSize: "1.4rem",
                   fontWeight: "bold",
                   color: "text.primary",
-                  width: "15%",
+                  width: "25%",
                 }}
                 align="justify"
               >
@@ -147,7 +153,7 @@ function InventoryTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.materials.map((material: any) => (
+            {data.materials.map((material) => (
               <TableRow
                 key={material.material_id}
                 sx={{
@@ -205,9 +211,7 @@ function InventoryTable() {
                     <Button
                       variant="contained"
                       sx={{ bgcolor: "#4e68cf", width: "5rem" }}
-                      onClick={() => {
-                        handleEdit(material);
-                      }}
+                      onClick={() => handleEdit(material)}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </Button>
@@ -227,7 +231,7 @@ function InventoryTable() {
       </TableContainer>
 
       {showModal && selectedMaterial && (
-        <ModalDeleteMaterial
+        <ModalDeleteInventory
           open={showModal}
           onClose={handleCloseModal}
           onConfirm={handleDeleteConfirm}
@@ -235,7 +239,7 @@ function InventoryTable() {
         />
       )}
       {showUpdate && selectedMaterial && (
-        <ModalUpdateMaterial
+        <ModalUpdateInventory
           open={showUpdate}
           onClose={handleCloseUpdateModal}
           material={selectedMaterial}

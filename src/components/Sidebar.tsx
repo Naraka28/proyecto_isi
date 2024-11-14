@@ -180,13 +180,15 @@ const logoutFunction = () => {
         </List>
         <Divider />
         <List>
-          {secondaryMenuItems.map(({ text, icon, onClick }) => (
+          {secondaryMenuItems.map(({ text, icon, link, onClick }) => (
+            <Link to={link} className="no-underline text-black" key={text}>
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={onClick}>
                 <ListItemIcon>{icon}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
