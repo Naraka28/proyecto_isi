@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ModalAppointments } from "../components/ModalAppointments";
 import ChartComponent from "../components/Graphs";
 import MyCalendar from "../components/Calendar";
+import { ModalServices } from "../components/ModalService";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -65,10 +66,10 @@ export function Dashboard() {
         >
           <div className="relative w-full px-10">
             <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
-              PRÓXIMAS CITAS
+              CÁTALOGO
             </h2>
             <div className="flex relative">
-              <ModalAppointments className="bottom-12" />
+              <ModalServices className="bottom-12" />
             </div>
             <div>
               <MultipleItems />
