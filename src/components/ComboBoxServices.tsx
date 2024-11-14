@@ -3,9 +3,15 @@ interface ComboBoxProps {
   options: any[];
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  value?: string;
 }
 
-export function ComboBoxServices({ id, options, onChange }: ComboBoxProps) {
+export function ComboBoxServices({
+  id,
+  options,
+  onChange,
+  value,
+}: ComboBoxProps) {
   return (
     <div className="relative w-full mx-auto my-">
       <select
@@ -14,6 +20,7 @@ export function ComboBoxServices({ id, options, onChange }: ComboBoxProps) {
         name={id}
         className="peer w-full h-full bg-white text-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-gray-400 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 pt-5 pb-3 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
         onChange={onChange}
+        value={value}
         required
       >
         <option value="" disabled hidden>

@@ -21,6 +21,7 @@ import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
 import { DialogueUpdateAppointment } from "./DialogueUpdateAppointment";
+import { dateFnsLocalizer } from "react-big-calendar";
 
 interface ModalUpdateProps {
   open: boolean;
@@ -33,16 +34,19 @@ export function ModalUpdateAppointment({
   onClose,
   appointment,
 }: ModalUpdateProps) {
+  const [day, month, year] = appointment.date.split("/");
+
+  const formattedDate = `${year}-${month}-${day}`;
   const [dialogue, setDialogue] = React.useState(false);
   const queryClient = useQueryClient();
-  const [date, setDate] = useState(appointment.date);
-  const [user_id, setUserId] = useState(appointment.user_id?.toString());
+  const [date, setDate] = useState(formattedDate);
+  const [user_id, setUserId] = useState(appointment.user_id.toString());
   const [hour, setHour] = useState(appointment.hour);
   const [employee_id, setEmployeeId] = useState(
-    appointment.employee_id?.toString()
+    appointment.employee_id.toString()
   );
   const [service_id, setServiceId] = useState(
-    appointment.service_id?.toString()
+    appointment.service_id.toString()
   );
   const [total_price, setTotalPrice] = useState(
     appointment.total_price.toString()
@@ -171,12 +175,14 @@ export function ModalUpdateAppointment({
                       );
                     }}
                     className={servicesResult.isSuccess ? "" : "disabled"}
+                    value={service_id.toString()}
                   />
                   <FieldDate
                     id={"Date"}
                     type={"date"}
                     onChange={(e) => setDate(e.target.value)}
                     min={today}
+                    value={date}
                   />
                   <ComboBox
                     id={"Choose a Time"}
