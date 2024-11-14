@@ -17,6 +17,7 @@ export function Field({ id, type = "text", onChange, value }: FieldProps) {
         onChange={onChange}
         required
         value={value}
+        autoComplete="off"
       />
       <label
         htmlFor={id}
