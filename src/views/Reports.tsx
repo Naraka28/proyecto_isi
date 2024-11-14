@@ -18,16 +18,6 @@ export function Reports() {
     <>
       <div className="">
         <div className=" px-6 mx-auto grid">
-          <h2 className="my-6 py-6 text-3xl font-bold text-black ">Reportes</h2>
-
-          <div className="flex space-x-3 my-5">
-            <IconButton
-              id={"respaldoBtn"}
-              text={"Respaldo"}
-              icon={faCloudArrowUp}
-              onClick={handleAddClick}
-            />
-          </div>
           <h2
             style={{
               fontSize: "24px",
@@ -39,6 +29,7 @@ export function Reports() {
           </h2>
           <div className="bg-white rounded-xl">
             <BasicTable />
+            
           </div>
         </div>
       </div>

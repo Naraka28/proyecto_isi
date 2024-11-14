@@ -377,7 +377,7 @@ export function ModalUpdateEmployee({
                     value={last_name}
                   />
                   <Field
-                    id={"access_email"}
+                    id={"Access Email"}
                     type={"email"}
                     onChange={(e) => setAccessEmail(e.target.value)}
                     value={access_email}
@@ -388,7 +388,7 @@ export function ModalUpdateEmployee({
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Field
-                    id={"personal_email"}
+                    id={"Personal Email"}
                     type={"email"}
                     onChange={(e) => setPersonalEmail(e.target.value)}
                     value={personal_email}

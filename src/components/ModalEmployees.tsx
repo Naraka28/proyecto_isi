@@ -415,7 +415,7 @@ export function ModalEmployeesForm() {
                     onChange={(e) => setApellido(e.target.value)}
                   />
                   <Field
-                    id="access_email"
+                    id="Access Email"
                     type="email"
                     onChange={(e) => setAccessEmail(e.target.value)}
                   />
@@ -443,7 +443,7 @@ export function ModalEmployeesForm() {
                     )}
                   </span>
                   <Field
-                    id="personal_email"
+                    id="Personal Email"
                     type="email"
                     onChange={(e) => setPersonalEmail(e.target.value)}
                   />
@@ -477,7 +477,7 @@ export function ModalEmployeesForm() {
                     value={phone}
                   />
                   <ComboBox
-                    id="role_id"
+                    id="Role"
                     options={["1 Admin", "2 Empleado"]}
                     onChange={(e) => setRole(e.target.value)}
                   />
