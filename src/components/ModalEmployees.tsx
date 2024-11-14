@@ -419,16 +419,33 @@ export function ModalEmployeesForm() {
                     type="email"
                     onChange={(e) => setAccessEmail(e.target.value)}
                   />
+                   <Field
+                    id="confirm Password"
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword1(e.target.value)}
+                  />
+                  <span
+                    className="absolute right-6 top-[38%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
                   <Field
                     id="personal_email"
                     type="email"
                     onChange={(e) => setPersonalEmail(e.target.value)}
-                  />
-                  <Field
-                    id="phone"
-                    type="tel"
-                    onChange={handlePhoneChange}
-                    value={phone}
                   />
                   <Field
                     id="password"
@@ -436,7 +453,7 @@ export function ModalEmployeesForm() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
-                    className="absolute right-9 top-[57%] transform -translate-y-1/2 cursor-pointer"
+                    className="absolute right-6 top-[63%] transform -translate-y-1/2 cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
@@ -453,37 +470,20 @@ export function ModalEmployeesForm() {
                       />
                     )}
                   </span>
-
                   <Field
-                    id="confirm Password"
-                    type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword1(e.target.value)}
+                    id="phone"
+                    type="tel"
+                    onChange={handlePhoneChange}
+                    value={phone}
                   />
-                  <span
-                    className="absolute right-9 top-[68%] transform -translate-y-1/2 cursor-pointer"
-                    onClick={togglePasswordVisibility}
-                  >
-                    {passwordVisible ? (
-                      <img
-                        src={EyeIcon}
-                        alt="Hide password"
-                        className="h-5 w-5"
-                      />
-                    ) : (
-                      <img
-                        src={EyeOffIcon}
-                        alt="Show password"
-                        className="h-5 w-5"
-                      />
-                    )}
-                  </span>
                   <ComboBox
                     id="role_id"
                     options={["1 Admin", "2 Empleado"]}
                     onChange={(e) => setRole(e.target.value)}
                   />
-                </div>
 
+                </div>
+                
                 {/* Footer */}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
