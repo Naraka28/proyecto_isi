@@ -27,6 +27,9 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, Outlet } from "react-router-dom";
+import { ModalLogout } from "./ModalLogout";
+import { useNavigate } from "react-router-dom";
+
 
 const drawerWidth = 240;
 
@@ -70,9 +73,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export function PersistentDrawerLeft() {
+  const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
   const theme = useTheme();
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,6 +86,18 @@ export function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogoutClick = () => {
+    setLogoutModalOpen(true); // Abre el modal al hacer clic en "Log Out"
+};
+
+const closeLogoutModal = () => {
+  setLogoutModalOpen(false); // Cierra el modal
+};
+
+const logoutFunction = () => {
+  navigate("/login"); // Navega a la página de inicio de sesión 
+};
 
   // useEffect que solo se dispara al abrir el Dashboard
   useEffect(() => {
@@ -100,8 +117,8 @@ export function PersistentDrawerLeft() {
   ];
 
   const secondaryMenuItems = [
-    { text: "Inventory", icon: <InventoryIcon /> },
-    { text: "Log Out", icon: <LogoutIcon /> },
+    { text: "Inventory", icon: <InventoryIcon />, link: "../inventory" },
+    { text: "Log Out", icon: <LogoutIcon />, onClick: handleLogoutClick },
   ];
 
   return (
@@ -163,9 +180,9 @@ export function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {secondaryMenuItems.map(({ text, icon }) => (
+          {secondaryMenuItems.map(({ text, icon, onClick }) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={onClick}>
                 <ListItemIcon>{icon}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -177,6 +194,17 @@ export function PersistentDrawerLeft() {
         <DrawerHeader />
         <Outlet />
       </Main>
+
+      {isLogoutModalOpen && (
+        <ModalLogout 
+        open={isLogoutModalOpen} 
+        onClose={closeLogoutModal} 
+        onConfirm={logoutFunction} 
+        />
+      )}
+
     </Box>
   );
+  
+
 }

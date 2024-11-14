@@ -26,3 +26,4 @@ export function IconButton({ id, text, icon, onClick }: dashBhutton) {
         </button>
     );
 }
+

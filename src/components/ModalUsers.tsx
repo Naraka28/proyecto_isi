@@ -48,7 +48,6 @@ export function ModalUsersForm() {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
 
-      
       setShowModal(false);
       setEmail("");
       setPassword("");
@@ -127,7 +126,8 @@ export function ModalUsersForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}>
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}
+      >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
@@ -139,9 +139,7 @@ export function ModalUsersForm() {
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-full my-6 mx-auto max-w-xl">
-              {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h2 className="text-3xl font-semibold">Añadir Usuario</h2>
                   <button
@@ -153,10 +151,7 @@ export function ModalUsersForm() {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Usuario:</h2>
-                  
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
@@ -172,13 +167,14 @@ export function ModalUsersForm() {
                     type={"email"}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+
                   <Field
                     id={"password"}
                     type={passwordVisible ? "text" : "password"}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
-                    className="absolute right-9 top-[59%] transform -translate-y-1/2 cursor-pointer"
+                    className="absolute right-6 top-[50%] transform -translate-y-1/2 cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
@@ -195,39 +191,36 @@ export function ModalUsersForm() {
                       />
                     )}
                   </span>
-
-                  <Field
-                    id={"confirm Password"}
-                    type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword1(e.target.value)}
-                  />
-                  <span
-                    className="absolute right-9 top-[73%] transform -translate-y-1/2 cursor-pointer"
-                    onClick={togglePasswordVisibility}
-                  >
-                    {passwordVisible ? (
-                      <img
-                        src={EyeIcon}
-                        alt="Hide password"
-                        className="h-5 w-5"
-                      />
-                    ) : (
-                      <img
-                        src={EyeOffIcon}
-                        alt="Show password"
-                        className="h-5 w-5"
-                      />
-                    )}
-                  </span>
-
                   <Field
                     id={"phone"}
                     type={"tel"}
                     onChange={handlePhoneChange}
                     value={phone}
                   />
+                  <Field
+                    id={"confirm Password"}
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword1(e.target.value)}
+                  />
+                  <span
+                    className="absolute right-6 top-[83%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
                 </div>
-                {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -241,37 +234,49 @@ export function ModalUsersForm() {
                     type="button"
                     id="save"
                     onClick={() => {
-                      if(access_email && password && password1 && last_name && name && phone){
+                      if (
+                        access_email &&
+                        password &&
+                        password1 &&
+                        last_name &&
+                        name &&
+                        phone
+                      ) {
                         if (validateEmail() && validatePhoneNumber()) {
-                          if(password.length < 8){
-                            alert("La contraseña debe tener al menos 8 caracteres");
-                          }else{
+                          if (password.length < 8) {
+                            alert(
+                              "La contraseña debe tener al menos 8 caracteres"
+                            );
+                          } else {
                             if (password === password1) {
                               mutation.mutate(newUser);
-                             
                             } else {
                               alert("Las contraseñas no coinciden");
                             }
                           }
-                        }else{
-                          if(!validateEmail()){
+                        } else {
+                          if (!validateEmail()) {
                             alert("Por favor, ingresa un correo válido");
-                          }else if(!validatePhoneNumber()){
-                            alert("Por favor, ingresa un número de teléfono válido (10 dígitos)");
+                          } else if (!validatePhoneNumber()) {
+                            alert(
+                              "Por favor, ingresa un número de teléfono válido (10 dígitos)"
+                            );
                           }
                         }
-                      }else{
-                        if(access_email === ""){
+                      } else {
+                        if (access_email === "") {
                           alert("El correo es obligatorio");
-                       }else if(password === ""){
+                        } else if (password === "") {
                           alert("La contraseña es obligatoria");
-                       }else if(password1 === ""){
-                          alert("La confirmación de la contraseña es obligatoria");
-                        }else if(last_name === ""){
+                        } else if (password1 === "") {
+                          alert(
+                            "La confirmación de la contraseña es obligatoria"
+                          );
+                        } else if (last_name === "") {
                           alert("El apellido es obligatorio");
-                        }else if(name === ""){
-                          alert("El nombre es obligatorio");  
-                        }else if(phone === ""){
+                        } else if (name === "") {
+                          alert("El nombre es obligatorio");
+                        } else if (phone === "") {
                           alert("El número de teléfono es obligatorio");
                         }
                       }

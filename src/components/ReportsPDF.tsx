@@ -243,7 +243,7 @@ export function BasicTable() {
   );
 }
 */
-
+import { faPlus, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
@@ -269,6 +269,11 @@ interface PDFButtonProps {
   generateTableData: any;
   textoDescriptivo: string;
 }
+
+const handleAddClick = () => {
+  throw new Error("Function not implemented.");
+};
+
 
 // Componente genérico para exportar a PDF
 function PDFButton({
@@ -520,6 +525,12 @@ export function BasicTable() {
         <WantedEmployeePDFButton />
         <WantedServicePDFButton />
         <PriceListPDFButton />
+        <IconButton
+              id={"respaldoBtn"}
+              text={"Respaldo"}
+              icon={faCloudArrowUp}
+              onClick={handleAddClick}
+            />
       </div>
     </div>
   );

@@ -56,7 +56,8 @@ export function ModalProductsForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}>
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}
+      >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
@@ -83,8 +84,7 @@ export function ModalProductsForm() {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Producto:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
@@ -117,7 +117,6 @@ export function ModalProductsForm() {
                       if (!name || !price || !quantity) {
                         alert("Por favor, rellene todos los campos");
                       } else {
-                        
                         const newProduct: ProductCreate = {
                           name: name,
                           quantity: parseInt(quantity),

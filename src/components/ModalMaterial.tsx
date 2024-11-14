@@ -1,51 +1,65 @@
-import React from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { IconButton } from "../components/DashButton";
-import { Field } from "../components/Field";
-import { ComboBox } from "../components/Combobox";
-import { useState } from "react";
-import { addService } from "../services/serviciosServices";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { MaterialAddService } from "../services/materialAddService"; // Servicio para agregar material
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Field } from "../components/Field"; // Campo de entrada reutilizable
+import { ModalState } from "../components/ModalState"; // Componente para mostrar el estado del modal
 
-export function ModalServices() {
-  return (
-    // Provide the client to your App
-    <ModalServiceForm />
-  );
+export function ModalMaterial() {
+  return <ModalMaterialForm />;
 }
 
-export function ModalServiceForm() {
+export function ModalMaterialForm() {
   const queryClient = useQueryClient();
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [error, setError] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: MaterialAddService,
+    onSuccess: () => {
+      // Invalidate and refetch materials data after adding a new material
+      queryClient.invalidateQueries({ queryKey: ["materialsInfo"] });
+      setShowModal(false);
+      setName("");
+      setQuantity("");
+      setPrice("");
+      alert("Material agregado con éxito");
+    },
+  });
+
+  const newMaterial = {
+    name: name,
+    quantity: parseInt(quantity),
+    price: parseFloat(price),
+  };
 
   const handleAddClick = () => {
     setShowModal(true);
   };
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [duration, setDuration] = useState("");
-  const [catalogue, setCatalogue] = useState("");
+  // Función de validación
+  const validateInputs = () => {
+    if (!name || !quantity || !price) {
+      setError("Todos los campos son obligatorios");
+      return false;
+    }
 
-  const mutation = useMutation({
-    mutationFn: addService,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["serviceInfo"] });
-      setShowModal(false);
-      setName("");
-      setPrice("");
-      setDuration("");
-      setCatalogue("");
-    },
-  });
-  const newService = {
-    name: name,
-    catalogue_id: parseInt(catalogue),
-    price: parseFloat(price),
-    duration: parseInt(duration),
+    if (isNaN(parseInt(quantity)) || parseInt(quantity) <= 0) {
+      setError("La cantidad debe ser un número mayor a 0");
+      return false;
+    }
+
+    if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
+      setError("El precio debe ser un número mayor a 0");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -53,31 +67,29 @@ export function ModalServiceForm() {
       <Button
         variant="contained"
         sx={{
-          bgcolor: "#E90074",
+          bgcolor: "#4e68cf",
           width: "9rem",
           height: "3.5rem",
           borderRadius: "1.7rem",
-          textTransform: "none", // Desactiva el texto en mayúsculas
+          textTransform: "none",
         }}
-        onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}
+        onClick={handleAddClick}
+        className={`hover:bg-[#3a57a2] transition-colors ease-in-out duration-[400ms] `}
       >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
         />
-        <h3 className="text-lg mr-3 capitalize">Agregar</h3>
+        <h3 className="text-lg mr-3 capitalize">Agregar Material</h3>
       </Button>
 
-      {showModal ? (
+      {showModal && (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-full my-6 mx-auto max-w-xl">
-              {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h2 className="text-3xl font-semibold">Añadir Servicio</h2>
+                  <h2 className="text-3xl font-semibold">Añadir Material</h2>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -87,31 +99,29 @@ export function ModalServiceForm() {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
-                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
+                    label={"Nombre del Material"}
                     onChange={(e) => setName(e.target.value)}
                   />
-
+                  <Field
+                    id={"cantidad"}
+                    type={"number"}
+                    label={"Cantidad"}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    value={quantity}
+                  />
                   <Field
                     id={"precio"}
                     type={"number"}
+                    label={"Precio"}
                     onChange={(e) => setPrice(e.target.value)}
-                  />
-                  <Field
-                    id={"duración"}
-                    type={"number"}
-                    onChange={(e) => setDuration(e.target.value)}
-                  />
-                  <ComboBox
-                    id="Catalogue"
-                    options={["1 Corte", "2 Tinte", "3 Peinado"]}
-                    onChange={(e) => setCatalogue(e.target.value)}
+                    value={price}
                   />
                 </div>
-                {/*footer*/}
+                {error && <div className="text-red-500 text-sm">{error}</div>}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -123,11 +133,10 @@ export function ModalServiceForm() {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
+                    id="save"
                     onClick={() => {
-                      if (name && price && duration && catalogue) {
-                        mutation.mutate(newService);
-                      } else {
-                        alert("Por favor llene todos los campos");
+                      if (validateInputs()) {
+                        mutation.mutate(newMaterial);
                       }
                     }}
                   >
@@ -139,7 +148,7 @@ export function ModalServiceForm() {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
+      )}
     </>
   );
 }

@@ -40,6 +40,9 @@ function LoginForm() {
     mutationFn: login,
     onSuccess: () => {
       // Invalidate and refetch
+      setEmail("");
+      setPassword("");  
+      
 
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
     },

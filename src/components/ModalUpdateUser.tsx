@@ -272,36 +272,36 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
   };
 
   const showDialog = () => {
-   if(access_email && name && password && password1 && phone && last_name){
-    if (
-      validateEmail() &&
-      validatePhoneNumber() &&
-      password === password1 &&
-      password.length >= 8
-    ) {
-      const updateuser: user = {
-        user_id: user.user_id,
-        name: name,
-        last_name: last_name,
-        access_email: access_email,
-        password: password,
-        phone_number: phone,
-        role_id: user.role_id,
-      };
-      setnewUser(updateuser);
-      setDialogue(true);
-    } else if (password !== password1) {
-      alert("Las contraseñas no coinciden");
-    } else if (password.length < 8) {
-      alert("La contraseña debe tener al menos 8 caracteres");
-    } else if (!validateEmail()) {
-      alert("Por favor, ingresa un correo válido");
-    } else if (!validatePhoneNumber()) {
-      alert("Por favor, ingresa un número de teléfono válido (10 dígitos)");
-    }
-   } else{
+    if (access_email && name && password && password1 && phone && last_name) {
+      if (
+        validateEmail() &&
+        validatePhoneNumber() &&
+        password === password1 &&
+        password.length >= 8
+      ) {
+        const updateuser: user = {
+          user_id: user.user_id,
+          name: name,
+          last_name: last_name,
+          access_email: access_email,
+          password: password,
+          phone_number: phone,
+          role_id: user.role_id,
+        };
+        setnewUser(updateuser);
+        setDialogue(true);
+      } else if (password !== password1) {
+        alert("Las contraseñas no coinciden");
+      } else if (password.length < 8) {
+        alert("La contraseña debe tener al menos 8 caracteres");
+      } else if (!validateEmail()) {
+        alert("Por favor, ingresa un correo válido");
+      } else if (!validatePhoneNumber()) {
+        alert("Por favor, ingresa un número de teléfono válido (10 dígitos)");
+      }
+    } else {
       alert("Por favor, llena todos los campos");
-   }
+    }
   };
 
   const cancelDialog = () => {
@@ -337,8 +337,7 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
                   </button>
                 </div>
 
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Usuario:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
@@ -363,7 +362,7 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
-                    className="absolute right-9 top-[59%] transform -translate-y-1/2 cursor-pointer"
+                    className="absolute right-6 top-[50%] transform -translate-y-1/2 cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
@@ -380,36 +379,35 @@ export function ModalUpdateUser({ open, onClose, user }: ModalUpdateProps) {
                       />
                     )}
                   </span>
-                  <Field
-                    id={"confirm Password"}
-                    type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword1(e.target.value)}
-                  />
-                  <span
-                    className="absolute right-9 top-[73%] transform -translate-y-1/2 cursor-pointer"
-                    onClick={togglePasswordVisibility}
-                  >
-                    {passwordVisible ? (
-                      <img
-                        src={EyeIcon}
-                        alt="Hide password"
-                        className="h-5 w-5"
-                      />
-                    ) : (
-                      <img
-                        src={EyeOffIcon}
-                        alt="Show password"
-                        className="h-5 w-5"
-                      />
-                    )}
-                  </span>
-
                   <Field
                     id={"phone"}
                     type={"tel"}
                     onChange={handlePhoneChange}
                     value={phone}
                   />
+                  <Field
+                    id={"confirm Password"}
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword1(e.target.value)}
+                  />
+                  <span
+                    className="absolute right-6 top-[83%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
