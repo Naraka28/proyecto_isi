@@ -25,6 +25,7 @@ import { getAllEmployees } from "../services/employeeServices";
 import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
+import { set } from "date-fns";
 
 interface Props {
   className?: string;
@@ -72,6 +73,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["appointmentInfo"] });
+      setShowModal(false);
     },
   });
 
