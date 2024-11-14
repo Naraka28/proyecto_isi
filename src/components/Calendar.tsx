@@ -30,13 +30,19 @@ const MyCalendar = () => {
     const [day, month, year] = appointment.date.split("/");
     const formattedDate = `${year}-${month}-${day}`;
     const dateTimeString = `${formattedDate}T${appointment.hour}`;
+    const startDate = new Date(dateTimeString);
+    const endDate = new Date(startDate);
+    endDate.setMinutes(startDate.getMinutes() + 30); 
 
     return {
       nombre: appointment.name,
-      title: `${appointment.servicio} - ${appointment.name} ${appointment.last_name}`,
-      start: new Date(dateTimeString),
-      end: new Date(dateTimeString),
+      
+      start: new Date(startDate),
+      end: new Date(endDate),
+      cliente:`Cliente: ${appointment.name} ${appointment.last_name}`,
+      empleado:`Empleado: ${appointment.em_name} ${appointment.em_last_name}`,
       servicio: appointment.servicio,
+      costo: `Precio: ${appointment.total_price}`,
     };
   });
 
@@ -65,15 +71,26 @@ const MyCalendar = () => {
   };
 
   const EventComponent = ({ event }) => (
-    <span>
-      <strong>{event.title}</strong>
+    <span className="flex gap-5">
+      <strong className="px-5 ">{event.servicio}</strong>
+      <p>{event.cliente}</p>
+      <p>{event.empleado}</p>
+      <p>{event.costo}</p>
+    </span>
+  );
+  const WeekEventComponent = ({ event }) => (
+    <span className="flex gap-5">
+      <strong>{event.servicio}</strong>
+      
     </span>
   );
 
+
   return (
-    <div style={{ height: "80vh" }}>
+    <div style={{ height: "350vh" }}>
       <Calendar
         localizer={localizer}
+        culture="es"
         events={events}
         startAccessor="start"
         endAccessor="end"
@@ -81,11 +98,12 @@ const MyCalendar = () => {
         views={["day", "week", "agenda"]}
         eventPropGetter={eventStyleGetter}
         components={{
-          event: EventComponent, // Usando el componente personalizado
+          event: EventComponent,
+          week: {
+            event: WeekEventComponent,
+          },
         }}
-
       />
-      
     </div>
   );
 };

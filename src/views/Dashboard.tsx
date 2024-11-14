@@ -77,7 +77,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div
+        {/* <div
           id="Graficas"
           className="bg-white row-span-1 h-[70vh] w-full rounded-2xl py-12"
         >
@@ -92,7 +92,7 @@ export function Dashboard() {
               <ChartComponent />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/*
