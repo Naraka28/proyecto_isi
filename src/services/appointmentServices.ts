@@ -31,6 +31,13 @@ export async function getAllAppointments() {
   return data;
 }
 
+export async function getAppointmentsForCalendar() {
+  const response = await fetch(`${API_URL}/appointments/calendar`);
+  const data: AppointmentResponse = await response.json();
+  return data;
+}
+
+
 export async function searchUser(search: string) {
   const response = await fetch(`${API_URL}/users/phone`, {
     method: "POST",
@@ -44,6 +51,8 @@ export async function searchUser(search: string) {
   const data = await response.json();
   return data;
 }
+
+
 
 export async function appointmentAddService(create: AppointmentCreate) {
   const response = await fetch(`${API_URL}/appointments/create`, {
