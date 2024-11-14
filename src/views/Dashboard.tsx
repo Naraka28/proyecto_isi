@@ -45,7 +45,7 @@ export function Dashboard() {
       <div className="grid grid-rows-[auto,auto,auto] gap-y-8 justify-center  mt-12">
         <div
           id="Calendar"
-          className="bg-white row-span-1 w-full rounded-2xl py-12"
+          className="bg-white row-span-1 w-full h- rounded-2xl py-12"
         >
           <div className="relative w-full px-10">
             <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
