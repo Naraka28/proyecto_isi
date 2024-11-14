@@ -1,69 +1,84 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
-import { es } from "date-fns/locale/es"; // Importa el idioma español
+import { es } from "date-fns/locale/es";
+import { getAllAppointments } from "../services/appointmentServices.ts";
 
-// Configuración de `date-fns` para `react-big-calendar` con español
+// Configuración de localización en español
 const locales = {
-  es, // Asigna `es` al idioma español
+  es,
 };
 
 const localizer = dateFnsLocalizer({
   format,
   parse,
-  startOfWeek: () => startOfWeek(new Date(), { locale: es }), // Iniciar semana en lunes
+  startOfWeek: () => startOfWeek(new Date(), { locale: es }),
   getDay,
   locales,
 });
 
 const MyCalendar = () => {
-  const [myEvents, setMyEvents] = useState([]);
-
-  // useEffect para cargar eventos desde el backend
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetch("https://tu-api-url.com/api/events");
-        if (response.ok) {
-          const data = await response.json();
-          
-          // Asumiendo que data es un array de objetos con las propiedades title, start y end
-          const events = data.map((event) => ({
-            title: event.title,
-            start: new Date(event.start), // Asegúrate de que la fecha esté en formato Date
-            end: new Date(event.end),
-          }));
-          
-          setMyEvents(events);
-        } else {
-          console.error("Error al obtener eventos");
-        }
-      } catch (error) {
-        console.error("Error en la solicitud de eventos:", error);
+    const { isLoading, isError, data, error } = useQuery({
+      queryKey: ["appointmentsInfo"],
+      queryFn: getAllAppointments,
+    });
+  
+    if (isLoading) return <span>Loading...</span>;
+    if (isError) return <span>Error: {error.message}</span>;
+    if (!data) return <span>No hay datos disponibles</span>;
+  
+    const events = data.appointments.map((appointment) => ({
+      title: `${appointment.servicio} - ${appointment.name} ${appointment.last_name}`,
+      start: new Date(appointment.date),
+      end: new Date(appointment.date),
+      // Añade cualquier información extra que necesites para el estilo
+      servicio: appointment.servicio,
+    }));
+  
+    // Propiedad para estilizar los eventos
+    const eventStyleGetter = (event) => {
+      let backgroundColor = "#353535"; // Color base
+  
+      // Cambia el color según el tipo de servicio
+      if (event.servicio === "Consulta") {
+        backgroundColor = "#4CAF50"; // Verde
+      } else if (event.servicio === "Procedimiento") {
+        backgroundColor = "#FF9800"; // Naranja
       }
+  
+      return {
+        style: {
+          backgroundColor,
+          color: "white",
+          borderRadius: "5px",
+          padding: "2px 5px",
+            border: "1px solid ",
+        },
+      };
     };
-
-    fetchEvents();
-  }, []);
-
-  return (
-    <div style={{ height: "80vh" }}>
-      <Calendar
-        localizer={localizer}
-        events={myEvents}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500, margin: "50px" }}
-        defaultView="month"
-        selectable
-        onSelectEvent={(event) => alert(`Evento: ${event.title}`)}
-        onSelectSlot={(slotInfo) =>
-          alert(`Seleccionaste desde ${slotInfo.start} hasta ${slotInfo.end}`)
-        }
-      />
-    </div>
-  );
-};
+  
+    return (
+      <div style={{ height: "80vh" }}>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500, margin: "50px" }}
+          defaultView="week" // Cambia la vista por defecto a semanal
+          views={["day", "week","agenda"]}
+          eventPropGetter={eventStyleGetter} // Aplica el estilo personalizado
+          selectable
+          onSelectEvent={(event) => alert(`Evento: ${event.title}`)}
+          onSelectSlot={(slotInfo) =>
+            alert(`Seleccionaste desde ${slotInfo.start} hasta ${slotInfo.end}`)
+          }
+        />
+      </div>
+    );
+  };
+  
 
 export default MyCalendar;

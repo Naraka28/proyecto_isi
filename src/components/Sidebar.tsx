@@ -119,12 +119,14 @@ export function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src="src/images/logoBaza.png"
-              alt="Logo Baza"
-              style={{ height: "5rem", maxHeight: "5rem", width: "auto", marginBottom: "0.5rem", marginTop: "0.5em", paddingLeft: "0.5em" }}
-            />
-            <span className="m-5 font-mono text-3xl font-bold"> Salón Baza</span>
+          <Link to="/dashboard" style={{ textDecoration: "none", display: "flex", color:"inherit", alignItems:"center" }}>
+              <img
+                src="src/images/logoBaza.png"
+                alt="Logo Baza"
+                style={{ height: "5rem", maxHeight: "5rem", width: "auto", marginBottom: "0.5rem", marginTop: "0.5em", paddingLeft: "0.5em" }}
+              />
+              <span className="m-5 font-mono text-3xl font-bold"> Salón Baza</span>
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>

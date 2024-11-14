@@ -16,6 +16,7 @@ export function Field({ id, type = "text", onChange, value }: FieldProps) {
         placeholder=" "
         onChange={onChange}
         required
+        autoComplete="off"
         value={value}
       />
       <label

@@ -156,6 +156,7 @@ export function ModalUsersForm() {
                 {/*body*/}
                 <div className="relative p-6 m-6 flex-auto">
                   <h2>Formulario de Usuario:</h2>
+                  
                   <Field
                     id={"nombre"}
                     type={"text"}
