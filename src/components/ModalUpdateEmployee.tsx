@@ -252,63 +252,70 @@ export function ModalUpdateEmployee({
       setPersonalEmail("");
       setNombre("");
       setPhone("");
-      
     },
   });
 
   const showDialog = () => {
-    if(name && last_name && access_email && personal_email && password && password1 && phone){
+    if (
+      name &&
+      last_name &&
+      access_email &&
+      personal_email &&
+      password &&
+      password1 &&
+      phone
+    ) {
       const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!emailRegex.test(access_email)) {
-      alert("El correo de acceso no es válido.");
-      return;
-    }
-    if (!emailRegex.test(personal_email)) {
-      alert("El correo personal no es válido.");
-      return;
-    }
-    if (password.length < 8) {
-      alert("La contraseña debe tener al menos 8 caracteres.");
-      return;
-    }
-    if (password !== password1) {
-      alert("Las contraseñas no coinciden.");
-      return;
-    }
-    if (phone.length !== 10) {
-      alert("El número de teléfono debe ser de 10 dígitos");
-      return;
-    }
+      if (!emailRegex.test(access_email)) {
+        alert("El correo de acceso no es válido.");
+        return;
+      }
+      if (!emailRegex.test(personal_email)) {
+        alert("El correo personal no es válido.");
+        return;
+      }
+      if (password.length < 8) {
+        alert("La contraseña debe tener al menos 8 caracteres.");
+        return;
+      }
+      if (password !== password1) {
+        alert("Las contraseñas no coinciden.");
+        return;
+      }
+      if (phone.length !== 10) {
+        alert("El número de teléfono debe ser de 10 dígitos");
+        return;
+      }
 
-    const updateEmployee: Employee = {
-      employee_id: employee.employee_id,
-      name: name,
-      last_name: last_name,
-      access_email: access_email,
-      personal_email: personal_email,
-      password: password,
-      phone_number: phone,
-      role_id: employee.role_id,
-    };
-    setNewEmployee(updateEmployee);
-    setDialogue(true);
-    }else{
-      if(!name){
+      const updateEmployee: Employee = {
+        employee_id: employee.employee_id,
+        name: name,
+        last_name: last_name,
+        access_email: access_email,
+        personal_email: personal_email,
+        password: password,
+        phone_number: phone,
+        role_id: employee.role_id,
+      };
+      setNewEmployee(updateEmployee);
+      setDialogue(true);
+    } else {
+      if (!name) {
         alert("El campo nombre es obligatorio");
-    } else if(!last_name){
+      } else if (!last_name) {
         alert("El campo apellido es obligatorio");
-    } else if(!access_email){
+      } else if (!access_email) {
         alert("El campo correo de acceso es obligatorio");
-    } else if(!personal_email){
+      } else if (!personal_email) {
         alert("El campo correo personal es obligatorio");
-    } else if(!password){ 
+      } else if (!password) {
         alert("El campo contraseña es obligatorio");
-    } else if(!password1){
+      } else if (!password1) {
         alert("El campo confirmar contraseña es obligatorio");
-    } else if(!phone){
+      } else if (!phone) {
         alert("El campo teléfono es obligatorio");
+      }
     }
-  }
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -356,8 +363,7 @@ export function ModalUpdateEmployee({
                     </span>
                   </button>
                 </div>
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Empleado:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
@@ -377,18 +383,19 @@ export function ModalUpdateEmployee({
                     value={access_email}
                   />
                   <Field
+                    id={"password"}
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <Field
                     id={"personal_email"}
                     type={"email"}
                     onChange={(e) => setPersonalEmail(e.target.value)}
                     value={personal_email}
                   />
-                  <Field
-                    id={"password"}
-                    type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+
                   <span
-                    className="absolute right-9 top-[64%] transform -translate-y-1/2 cursor-pointer"
+                    className="absolute right-6 top-[38%] transform -translate-y-1/2 cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
@@ -411,7 +418,7 @@ export function ModalUpdateEmployee({
                     onChange={(e) => setPassword1(e.target.value)}
                   />
                   <span
-                    className="absolute right-9 top-[76%] transform -translate-y-1/2 cursor-pointer"
+                    className="absolute right-6 top-[63%] transform -translate-y-1/2 cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (

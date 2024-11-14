@@ -34,6 +34,11 @@ export function ModalServiceForm() {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["serviceInfo"] });
+      setShowModal(false);
+      setName("");
+      setPrice("");
+      setDuration("");
+      setCatalogue("");
     },
   });
   const newService = {
@@ -45,7 +50,7 @@ export function ModalServiceForm() {
 
   return (
     <>
-    <Button
+      <Button
         variant="contained"
         sx={{
           bgcolor: "#E90074",
@@ -55,7 +60,8 @@ export function ModalServiceForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}>
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}
+      >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
@@ -82,18 +88,13 @@ export function ModalServiceForm() {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Servicio:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
                     onChange={(e) => setName(e.target.value)}
                   />
-                  <ComboBox
-                    id="catalogue_id"
-                    options={["1 Corte", "2 Tinte", "3 Peinado"]}
-                    onChange={(e) => setCatalogue(e.target.value)}
-                  />
+
                   <Field
                     id={"precio"}
                     type={"number"}
@@ -103,6 +104,11 @@ export function ModalServiceForm() {
                     id={"duración"}
                     type={"number"}
                     onChange={(e) => setDuration(e.target.value)}
+                  />
+                  <ComboBox
+                    id="catalogue_id"
+                    options={["1 Corte", "2 Tinte", "3 Peinado"]}
+                    onChange={(e) => setCatalogue(e.target.value)}
                   />
                 </div>
                 {/*footer*/}
@@ -120,14 +126,10 @@ export function ModalServiceForm() {
                     onClick={() => {
                       if (name && price && duration && catalogue) {
                         mutation.mutate(newService);
-                        setShowModal(false);
-                        setName("");
-                        setPrice("");
-                        setDuration("");
-                        setCatalogue("");
-                    }else{
-                      alert("Por favor llene todos los campos")
-                    }}}
+                      } else {
+                        alert("Por favor llene todos los campos");
+                      }
+                    }}
                   >
                     Save Changes
                   </button>

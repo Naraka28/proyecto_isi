@@ -375,7 +375,8 @@ export function ModalEmployeesForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}>
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}
+      >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
@@ -388,6 +389,7 @@ export function ModalEmployeesForm() {
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-full my-6 mx-auto max-w-xl">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/* Header */}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h2 className="text-3xl font-semibold">Añadir Empleado</h2>
                   <button
@@ -400,30 +402,36 @@ export function ModalEmployeesForm() {
                   </button>
                 </div>
 
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Empleado:</h2>
+                {/* Body */}
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
-                    id={"nombre"}
-                    type={"text"}
+                    id="nombre"
+                    type="text"
                     onChange={(e) => setNombre(e.target.value)}
                   />
                   <Field
-                    id={"apellido"}
-                    type={"text"}
+                    id="apellido"
+                    type="text"
                     onChange={(e) => setApellido(e.target.value)}
                   />
                   <Field
-                    id={"access_email"}
-                    type={"email"}
+                    id="access_email"
+                    type="email"
                     onChange={(e) => setAccessEmail(e.target.value)}
                   />
                   <Field
-                    id={"personal_email"}
-                    type={"email"}
+                    id="personal_email"
+                    type="email"
                     onChange={(e) => setPersonalEmail(e.target.value)}
                   />
                   <Field
-                    id={"password"}
+                    id="phone"
+                    type="tel"
+                    onChange={handlePhoneChange}
+                    value={phone}
+                  />
+                  <Field
+                    id="password"
                     type={passwordVisible ? "text" : "password"}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -445,8 +453,9 @@ export function ModalEmployeesForm() {
                       />
                     )}
                   </span>
+
                   <Field
-                    id={"confirm Password"}
+                    id="confirm Password"
                     type={passwordVisible ? "text" : "password"}
                     onChange={(e) => setPassword1(e.target.value)}
                   />
@@ -468,12 +477,6 @@ export function ModalEmployeesForm() {
                       />
                     )}
                   </span>
-                  <Field
-                    id={"phone"}
-                    type={"tel"}
-                    onChange={handlePhoneChange}
-                    value={phone}
-                  />
                   <ComboBox
                     id="role_id"
                     options={["1 Admin", "2 Empleado"]}
@@ -481,6 +484,7 @@ export function ModalEmployeesForm() {
                   />
                 </div>
 
+                {/* Footer */}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -506,3 +510,124 @@ export function ModalEmployeesForm() {
     </>
   );
 }
+
+/*
+<>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-full my-6 mx-auto max-w-xl">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                  <h2 className="text-3xl font-semibold">Añadir Empleado</h2>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
+                  <Field
+                    id={"nombre"}
+                    type={"text"}
+                    onChange={(e) => setNombre(e.target.value)}
+                  />
+                  <Field
+                    id={"apellido"}
+                    type={"text"}
+                    onChange={(e) => setApellido(e.target.value)}
+                  />
+                  <Field
+                    id={"access_email"}
+                    type={"email"}
+                    onChange={(e) => setAccessEmail(e.target.value)}
+                  />
+                  <Field
+                    id={"personal_email"}
+                    type={"email"}
+                    onChange={(e) => setPersonalEmail(e.target.value)}
+                  />
+                  <Field
+                    id={"phone"}
+                    type={"tel"}
+                    onChange={handlePhoneChange}
+                    value={phone}
+                  />
+                  <Field
+                    id={"password"}
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span
+                    className="absolute right-9 top-[57%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
+
+                  <ComboBox
+                    id="role_id"
+                    options={["1 Admin", "2 Empleado"]}
+                    onChange={(e) => setRole(e.target.value)}
+                  />
+                  <Field
+                    id={"confirm Password"}
+                    type={passwordVisible ? "text" : "password"}
+                    onChange={(e) => setPassword1(e.target.value)}
+                  />
+                  <span
+                    className="absolute right-9 top-[68%] transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <img
+                        src={EyeIcon}
+                        alt="Hide password"
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <img
+                        src={EyeOffIcon}
+                        alt="Show password"
+                        className="h-5 w-5"
+                      />
+                    )}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={handleSave}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+*/

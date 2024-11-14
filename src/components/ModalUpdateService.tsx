@@ -29,7 +29,7 @@ export function ModalUpdateService({
   const [duration, setDuration] = useState(
     service.duration_in_minutes.toString()
   );
-  const [catalogue, setCatalogue] = useState(service.catalogue_id.toString());
+  const [catalogue, setCatalogue] = useState(service.catalogue_id);
   const [dialogue, setDialogue] = useState(false);
   const [newService, setNewService] = useState<Service>(service);
 
@@ -41,17 +41,17 @@ export function ModalUpdateService({
     },
   });
   const showDialog = () => {
-    if(name && price && duration && catalogue){
+    if (name && price && duration && catalogue) {
       const updateService: Service = {
         service_id: service.service_id,
         name: name,
-        catalogue_id: parseInt(catalogue),
+        catalogue_id: parseInt(catalogue.toString()),
         price: parseFloat(price),
         duration_in_minutes: parseInt(duration),
       };
       setNewService(updateService);
       setDialogue(true);
-    }else{
+    } else {
       alert("Por favor, llene todos los campos");
     }
   };
@@ -84,8 +84,7 @@ export function ModalUpdateService({
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Servicio:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}

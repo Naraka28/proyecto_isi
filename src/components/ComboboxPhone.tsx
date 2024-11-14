@@ -9,7 +9,7 @@ interface ComboBoxProps {
 
 export function ComboBoxPhone({ id, options, onChange }: ComboBoxProps) {
   return (
-    <div className="relative w-full mx-auto my-6">
+    <div className="relative w-full mx-auto my-">
       <select
         defaultValue=""
         id={id}

@@ -24,14 +24,14 @@ interface Props {
   className?: string;
 }
 
-export function ModalAppointments({ className = '' }: Props) {
+export function ModalAppointments({ className = "" }: Props) {
   return (
     // Provide the client to your App
-    <ModalAppointmentsForm className= {className}/>
+    <ModalAppointmentsForm className={className} />
   );
 }
 
-export function ModalAppointmentsForm({className = ''}: Props) {
+export function ModalAppointmentsForm({ className = "" }: Props) {
   const [showModal, setShowModal] = React.useState(false);
   const queryClient = useQueryClient();
 
@@ -93,6 +93,10 @@ export function ModalAppointmentsForm({className = ''}: Props) {
     setError(searchMutation.error.message);
   }
 
+  /*
+
+                */
+
   return (
     <>
       <Button
@@ -105,7 +109,8 @@ export function ModalAppointmentsForm({className = ''}: Props) {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] ${className}`}>
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] ${className}`}
+      >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
@@ -132,15 +137,14 @@ export function ModalAppointmentsForm({className = ''}: Props) {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Cita:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
-                    id={"search_user"}
+                    id={"Search User"}
                     type={"text"}
                     onChange={handleChange}
                   />
                   <ComboBoxPhone
-                    id={"users"}
+                    id={"Users"}
                     options={
                       searchMutation.isSuccess ? searchMutation.data.users : []
                     }
@@ -148,33 +152,39 @@ export function ModalAppointmentsForm({className = ''}: Props) {
                     className={searchMutation.isSuccess ? "" : "disabled"}
                   />
                   <Field
-                    id={"date"}
+                    id={"Search Employee"}
+                    type={"text"}
+                    onChange={handleChange}
+                  />
+                  {/* <Field id={'user_id'} type={'text'} onChange={(e) => setUserId(e.target.value)} /> */}
+
+                  <ComboBoxPhone
+                    id={"Employees"}
+                    options={
+                      searchMutation.isSuccess ? searchMutation.data.users : []
+                    }
+                    onChange={(e) => setEmployeeId(e.target.value)}
+                    className={searchMutation.isSuccess ? "" : "disabled"}
+                  />
+
+                  <Field
+                    id={"Date"}
                     type={"date"}
                     onChange={(e) => setDate(e.target.value)}
                   />
-                  {/* <Field id={'user_id'} type={'text'} onChange={(e) => setUserId(e.target.value)} /> */}
                   <Field
-                    id={"material_id"}
+                    id={"Choose a Time"}
                     type={"text"}
-                    onChange={(e) => setMaterialId(e.target.value)}
+                    onChange={handleChange}
                   />
+
                   <Field
-                    id={"ticket_id"}
-                    type={"text"}
-                    onChange={(e) => setTicketId(e.target.value)}
-                  />
-                  <Field
-                    id={"employee_id"}
-                    type={"text"}
-                    onChange={(e) => setEmployeeId(e.target.value)}
-                  />
-                  <Field
-                    id={"service_id"}
+                    id={"Service"}
                     type={"text"}
                     onChange={(e) => setServiceId(e.target.value)}
                   />
                   <Field
-                    id={"total_price"}
+                    id={"Total Price"}
                     type={"number"}
                     onChange={(e) => setTotalPrice(e.target.value)}
                   />
@@ -190,7 +200,7 @@ export function ModalAppointmentsForm({className = ''}: Props) {
                     Close
                   </button>
                   <button
-                    className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py- rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => {
                       mutation.mutate(newAppointment);

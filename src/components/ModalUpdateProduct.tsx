@@ -29,10 +29,10 @@ export function ModalUpdateProduct({
     },
   });
   const showDialog = () => {
-    if(name === "" || price === "" || quantity === ""){
+    if (name === "" || price === "" || quantity === "") {
       alert("Por favor, rellene todos los campos");
       return;
-    }else{
+    } else {
       const updateProduct: Product = {
         product_id: product.product_id,
         name: name,
@@ -71,8 +71,7 @@ export function ModalUpdateProduct({
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 m-6 flex-auto">
-                  <h2>Formulario de Producto:</h2>
+                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}
