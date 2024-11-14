@@ -42,10 +42,12 @@ const MyCalendar = () => {
       let backgroundColor = "#353535"; // Color base
   
       // Cambia el color según el tipo de servicio
-      if (event.servicio === "Consulta") {
+      if (event.servicio === "Cortes") {
         backgroundColor = "#4CAF50"; // Verde
-      } else if (event.servicio === "Procedimiento") {
+      } else if (event.servicio === "Tintes") {
         backgroundColor = "#FF9800"; // Naranja
+      } else if (event.servicio === "Peinados") {
+        backgroundColor = "#252525"; 
       }
   
       return {

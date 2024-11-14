@@ -9,14 +9,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function ModalServices() {
+interface Props {
+  className?: string;
+}
+
+export function ModalServices({ className = "" }: Props) {
   return (
     // Provide the client to your App
-    <ModalServiceForm />
+    <ModalServiceForm  className={className}/>
   );
 }
 
-export function ModalServiceForm() {
+export function ModalServiceForm({ className = "" }: Props) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = React.useState(false);
 
@@ -60,7 +64,7 @@ export function ModalServiceForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}
+        className={`hover:bg-[#75003a] ${className} transition-colors ease-in-out duration-[400ms]`}
       >
         <FontAwesomeIcon
           icon={faPlus}
