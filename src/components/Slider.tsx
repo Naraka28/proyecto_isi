@@ -47,7 +47,7 @@ export function MultipleItems() {
     infinite: true,
     speed: 200,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     centerMode: true, // Activa el modo de centrado
     centerPadding: "0", // Evita el padding adicional en los laterales
     swipeToSlide: true,

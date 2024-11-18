@@ -84,7 +84,7 @@ export function ModalInventoryForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] ${className} transition-colors ease-in-out duration-[400ms]`}
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}
       >
         <FontAwesomeIcon
           icon={faPlus}

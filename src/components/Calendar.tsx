@@ -87,11 +87,14 @@ const MyCalendar = () => {
 
 
   return (
-    <div style={{ height: "350vh" }}>
+    <div style={{ height: "350vh", paddingLeft:'3.8rem',paddingRight:'3.8rem'
+    }}>
       <Calendar
         localizer={localizer}
         culture="es"
         events={events}
+        min={new Date(1970, 1, 1, 8, 0, 0)} // Empieza a las 8:00
+        max={new Date(1970, 1, 1, 21, 0, 0)} // Termina a las 18:00
         startAccessor="start"
         endAccessor="end"
         defaultView="day"

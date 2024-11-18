@@ -64,23 +64,23 @@ export function ModalMaterialForm() {
 
   return (
     <>
-      <Button
+       <Button
         variant="contained"
         sx={{
-          bgcolor: "#4e68cf",
+          bgcolor: "#E90074",
           width: "9rem",
           height: "3.5rem",
           borderRadius: "1.7rem",
-          textTransform: "none",
+          textTransform: "none", // Desactiva el texto en mayúsculas
         }}
-        onClick={handleAddClick}
-        className={`hover:bg-[#3a57a2] transition-colors ease-in-out duration-[400ms] `}
+        onClick={() => handleAddClick()}
+        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}
       >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
         />
-        <h3 className="text-lg mr-3 capitalize">Agregar Material</h3>
+        <h3 className="text-lg mr-3 capitalize">Agregar</h3>
       </Button>
 
       {showModal && (
