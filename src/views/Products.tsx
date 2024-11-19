@@ -6,6 +6,7 @@ import { Search } from "../components/Search";
 import { ModalProducts } from "../components/ModalProducts";
 import { useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
+import { RefreshButton } from "../components/refreshButton";
 
 export function Products() {
   const [search, setSearch] = useState("");
@@ -26,6 +27,7 @@ export function Products() {
             onChange={(e) => setSearch(e.target.value.trim())}
             className="hidden sm:flex flex-1"
           />
+          <RefreshButton queryK={["productInfo"]} />
 
           <div className="flex space-x-3">
             <ModalProducts />

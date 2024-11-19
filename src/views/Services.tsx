@@ -5,6 +5,7 @@ import { Search } from "../components/Search";
 import { ModalServices } from "../components/ModalService";
 import { ServiceTable } from "../components/TableServices";
 import { useState } from "react";
+import { RefreshButton } from "../components/refreshButton";
 
 export function Services() {
   const [search, setSearch] = useState("");
@@ -29,6 +30,7 @@ export function Services() {
             onChange={(e) => setSearch(e.target.value)}
             className="hidden sm:flex flex-1"
           />
+          <RefreshButton queryK={["serviceInfo"]} />
 
           <div className="flex space-x-3">
             <ModalServices />
