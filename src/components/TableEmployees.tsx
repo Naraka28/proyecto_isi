@@ -3,6 +3,7 @@ import {
   getAllEmployees,
   deleteEmployee,
   Employee,
+  searchEmployee,
 } from "../services/employeeServices.ts"; // Servicio para obtener los usuarios
 import {
   Table,
@@ -14,27 +15,28 @@ import {
   Paper,
 } from "@mui/material";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalDeleteEmployee } from "./ModalDeleteEmployees.tsx";
 import { ModalUpdateEmployee } from "./ModalUpdateEmployee.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { TableSearchProps } from "./TableProducts.tsx";
+import { useDebounce } from "@uidotdev/usehooks";
 
-export function EmployeeTable() {
-  return <Test />;
-}
-
-function Test() {
+export function EmployeeTable({ searchInput }: TableSearchProps) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [selectedEmployee, setselectedEmployee] = useState<
     Employee | undefined
   >(undefined);
   const [showUpdate, setshowUpdate] = useState(false);
+  const debouncedSearchTerm = useDebounce(searchInput, 500);
+
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["employeeInfo"],
     queryFn: getAllEmployees,
   });
+
   const deleteMutation = useMutation({
     mutationFn: deleteEmployee,
     onSuccess: () => {
@@ -42,6 +44,17 @@ function Test() {
       setShowModal(false);
     },
   });
+  const searchMutation = useMutation({
+    mutationFn: searchEmployee,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["employeeInfo"], data);
+    },
+  });
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchMutation.mutate(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -98,7 +111,9 @@ function Test() {
                   fontSize: "1.4rem",
                   fontWeight: "bold",
                   color: "text.primary",
-                  width: "5%",textAlign: "center",paddingLeft: "0.4rem",
+                  width: "5%",
+                  textAlign: "center",
+                  paddingLeft: "0.4rem",
                 }}
               >
                 ID
@@ -169,7 +184,15 @@ function Test() {
                 key={employee.employee_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell sx={{ fontSize: "1.1rem" ,paddingBottom:"1.5rem",paddingTop:"1.5rem",textAlign: "center",paddingLeft: "0.4rem",}}>
+                <TableCell
+                  sx={{
+                    fontSize: "1.1rem",
+                    paddingBottom: "1.5rem",
+                    paddingTop: "1.5rem",
+                    textAlign: "center",
+                    paddingLeft: "0.4rem",
+                  }}
+                >
                   {employee.employee_id}
                 </TableCell>
                 <TableCell

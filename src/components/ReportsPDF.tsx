@@ -274,7 +274,6 @@ const handleAddClick = () => {
   throw new Error("Function not implemented.");
 };
 
-
 // Componente genérico para exportar a PDF
 function PDFButton({
   text,
@@ -508,11 +507,29 @@ export function BasicTable() {
 
 // Componente principal para mostrar los botones de exportación
 export function BasicTable() {
+  const handleBackup = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL as string;
+      const response = await fetch(`${API_URL}/users/backup`);
+      if (!response.ok) {
+        throw new Error("Failed to download backup");
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = url;
+      a.download = `MBSalon_backup.sql`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error during backup:", error);
+    }
+  };
   return (
     <div style={{ width: "100%", padding: "24px" }}>
-      
       <div
-      
         style={{
           display: "grid",
           gap: "16px",
@@ -526,11 +543,11 @@ export function BasicTable() {
         <WantedServicePDFButton />
         <PriceListPDFButton />
         <IconButton
-              id={"respaldoBtn"}
-              text={"Respaldo"}
-              icon={faCloudArrowUp}
-              onClick={handleAddClick}
-            />
+          id={"respaldoBtn"}
+          text={"Respaldo"}
+          icon={faCloudArrowUp}
+          onClick={handleBackup}
+        />
       </div>
     </div>
   );
