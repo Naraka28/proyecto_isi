@@ -20,25 +20,67 @@ import { Reports } from "./Reports.tsx";
 import { Inventory } from "./Inventory.tsx";
 
 const queryClient = new QueryClient();
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    element: <PersistentDrawerLeft />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "appointments",
+        element: <Appointments />,
+      },
+      {
+        path: "services",
+        element: <Services />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+      {
+        path: "employees",
+        element: <Employees />,
+      },
+      {
+        path: "reports",
+        element: <Reports />,
+      },
+      {
+        path: "inventory",
+        element: <Inventory />,
+      },
+    ],
+  },
+]);
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route>
+//       <Route path="login" element={<Login />} />
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route path="login" element={<Login />} />
-
-      <Route element={<PersistentDrawerLeft />} path="">
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="users" element={<Users />} />
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="services" element={<Services />} />
-        <Route path="products" element={<Products />} />
-        <Route path="employees" element={<Employees />} />
-        <Route path="reports" element={<Reports />} />
-        <Route path="inventory" element={<Inventory />} />
-      </Route>
-    </Route>
-  )
-);
+//       <Route element={<PersistentDrawerLeft />} path="">
+//         <Route path="dashboard" element={<Dashboard />} />
+//         <Route path="users" element={<Users />} />
+//         <Route path="appointments" element={<Appointments />} />
+//         <Route path="services" element={<Services />} />
+//         <Route path="products" element={<Products />} />
+//         <Route path="employees" element={<Employees />} />
+//         <Route path="reports" element={<Reports />} />
+//         <Route path="inventory" element={<Inventory />} />
+//       </Route>
+//     </Route>
+//   )
+// );
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
