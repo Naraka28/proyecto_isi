@@ -104,3 +104,16 @@ export async function userUpdateService(create: user) {
   const responsedata = await response.json();
   return responsedata;
 }
+export async function searchUser(item: string) {
+  const response = await fetch(`${API_URL}/users/name`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: item,
+    }),
+  });
+  const responsedata = await response.json();
+  return responsedata;
+}

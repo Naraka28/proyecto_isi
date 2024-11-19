@@ -2,8 +2,10 @@
 import { BasicTable } from "../components/TableUsers";
 import { Search } from "../components/Search";
 import { ModalUsers } from "../components/ModalUsers";
+import { useState } from "react";
 
 export function Users() {
+  const [search, setSearch] = useState("");
   const handleAddClick = () => {
     throw new Error("Function not implemented.");
   };
@@ -19,17 +21,17 @@ export function Users() {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
-        <Search onSearch={handleSearch} className="hidden sm:flex flex-1" />
-        
+        <Search
+          onSearch={handleSearch}
+          onChange={(e) => setSearch(e.target.value)}
+          className="hidden sm:flex flex-1"
+        />
+
         <div className="flex space-x-3">
           <ModalUsers />
-          
         </div>
       </div>
-        <BasicTable />
-        
-     
+      <BasicTable searchInput={search} />
     </div>
-);
-
+  );
 }

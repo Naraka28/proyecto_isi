@@ -9,6 +9,7 @@ import {
   getAllServices,
   deleteService,
   Service,
+  searchService,
 } from "../services/serviciosServices.ts"; // Servicio para obtener los usuarios
 import {
   Table,
@@ -20,7 +21,7 @@ import {
   Paper,
 } from "@mui/material";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalDeleteServices } from "./ModalDeleteServices.tsx";
 import { ModalUpdateService } from "./ModalUpdateService.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,18 +30,17 @@ import {
   faTractor,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { TableSearchProps } from "./TableProducts.tsx";
+import { useDebounce } from "@uidotdev/usehooks";
 
-export function ServiceTable() {
-  return <Test />;
-}
-
-function Test() {
+export function ServiceTable({ searchInput }: TableSearchProps) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [showUpdate, setshowUpdate] = useState(false);
   const [selectedService, setselectedService] = useState<Service | undefined>(
     undefined
   );
+  const debouncedSearchTerm = useDebounce(searchInput, 500);
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["serviceInfo"],
@@ -53,6 +53,17 @@ function Test() {
       setShowModal(false); // Close modal after successful deletion
     },
   });
+  const searchMutation = useMutation({
+    mutationFn: searchService,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["serviceInfo"], data);
+    },
+  });
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchMutation.mutate(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   if (isLoading) {
     return <span>Loading...</span>;

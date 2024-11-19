@@ -65,3 +65,16 @@ export async function updateService(create: Service) {
   const data = await response.json();
   return data;
 }
+export async function searchService(item: string) {
+  const response = await fetch(`${API_URL}/services/name`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: item,
+    }),
+  });
+  const responsedata = await response.json();
+  return responsedata;
+}
