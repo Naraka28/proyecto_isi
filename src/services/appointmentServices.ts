@@ -66,7 +66,6 @@ export async function getAppointmentsForCalendar() {
   return data;
 }
 
-
 export async function searchUser(search: string) {
   const response = await fetch(`${API_URL}/users/phone`, {
     method: "POST",
@@ -80,8 +79,6 @@ export async function searchUser(search: string) {
   const data = await response.json();
   return data;
 }
-
-
 
 export async function appointmentAddService(create: AppointmentCreate) {
   const response = await fetch(`${API_URL}/appointments/create`, {
@@ -125,6 +122,19 @@ export async function updateAppointment(update: Appointment) {
 export async function deleteAppointment(id: number) {
   const response = await fetch(`${API_URL}/appointments/${id}`, {
     method: "DELETE",
+  });
+  const data = await response.json();
+  return data;
+}
+export async function searchAppointment(search: string) {
+  const response = await fetch(`${API_URL}/appointments/search`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: search,
+    }),
   });
   const data = await response.json();
   return data;

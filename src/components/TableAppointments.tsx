@@ -12,19 +12,18 @@ import {
   Appointment,
   deleteAppointment,
   getAllAppointments,
+  searchAppointment,
 } from "../services/appointmentServices.ts";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalDeleteAppointment } from "./ModalDeleteAppointment.tsx";
 import { ModalUpdateAppointment } from "./ModalUpdateAppointment.tsx";
+import { TableSearchProps } from "./TableProducts.tsx";
+import { useDebounce } from "@uidotdev/usehooks";
 
-export function AppointmentsTable() {
-  return <Test />;
-}
-
-function Test({}) {
+export function AppointmentsTable({ searchInput }: TableSearchProps) {
   const queryClient = useQueryClient();
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["appointmentsInfo"],
@@ -35,6 +34,7 @@ function Test({}) {
   const [selectedAppointment, setselectedAppointment] = useState<
     Appointment | undefined
   >(undefined);
+  const debouncedSearchTerm = useDebounce(searchInput, 500);
 
   const deleteMutation = useMutation({
     mutationFn: deleteAppointment,
@@ -43,6 +43,17 @@ function Test({}) {
       setShowModal(false); // Close modal after successful deletion
     },
   });
+  const searchMutation = useMutation({
+    mutationFn: searchAppointment,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["appointmentsInfo"], data);
+    },
+  });
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchMutation.mutate(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   if (isLoading) {
     return <span>Loading...</span>;

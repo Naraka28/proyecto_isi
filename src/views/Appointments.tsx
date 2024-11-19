@@ -6,8 +6,10 @@ import { Search } from "../components/Search";
 import { ModalUsers } from "../components/ModalUsers";
 import { AppointmentsTable } from "../components/TableAppointments";
 import { ModalAppointments } from "../components/ModalAppointments";
+import { useState } from "react";
 
 export function Appointments() {
+  const [search, setSearch] = useState("");
   const handleAddClick = () => {
     throw new Error("Function not implemented.");
   };
@@ -20,19 +22,20 @@ export function Appointments() {
     <>
       <div className="p-10 m-auto h-min  ">
         <div className="pb-20 text-center">
-          <span className="text-4xl font-semibold text-black ">
-            Citas
-            </span>
+          <span className="text-4xl font-semibold text-black ">Citas</span>
 
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
-            <Search onSearch={handleSearch} className="hidden sm:flex flex-1" />
+            <Search
+              onSearch={handleSearch}
+              onChange={(e) => setSearch(e.target.value)}
+              className="hidden sm:flex flex-1"
+            />
 
             <div className="flex space-x-3">
               <ModalAppointments />
-              
             </div>
           </div>
-          <AppointmentsTable />
+          <AppointmentsTable searchInput={search} />
         </div>
       </div>
     </>
