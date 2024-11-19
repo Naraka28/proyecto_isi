@@ -62,7 +62,7 @@ export function MultipleItems() {
         {data.services.map((servicio, index) => {
           const datosCaja = {
             nombre: servicio.name,
-            catalogue: servicio.catalogue,
+            catalogo: servicio.catalogue,
             precio: servicio.price,
             duracion: servicio.duration_in_minutes
           };
@@ -71,7 +71,7 @@ export function MultipleItems() {
               key={index}
               className="transition-transform duration-300 transform hover:scale-105"
             >
-              <Cajita datos={datosCaja} className="bg-opacity-100 hover:bg-opacity-90" />
+              <Cajita datos={datosCaja}  />
             </div>
           );
         })}
