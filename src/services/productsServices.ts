@@ -60,3 +60,16 @@ export async function updateProduct(create: Product) {
   const data = await response.json();
   return data;
 }
+export async function searchProduct(name: string) {
+  const response = await fetch(`${API_URL}/products/search`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+    }),
+  });
+  const data: ProductResponse = await response.json();
+  return data;
+}

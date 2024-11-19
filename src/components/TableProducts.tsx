@@ -9,6 +9,7 @@ import {
   getAllProducts,
   Product,
   deleteProduct,
+  searchProduct,
 } from "../services/productsServices.ts"; // Servicio para obtener los usuarios
 import {
   Table,
@@ -20,21 +21,23 @@ import {
   Paper,
 } from "@mui/material";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalDeleteProduct } from "./ModalDeleteProduct.tsx";
 import { ModalUpdateProduct } from "./ModalUpdateProduct.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDebounce } from "@uidotdev/usehooks";
 
-export function ProductTable() {
-  return <Test />;
+export interface TableSearchProps {
+  searchInput: string;
 }
 
-function Test() {
+export function ProductTable({ searchInput }: TableSearchProps) {
   const [showModal, setShowModal] = useState(false);
   const [showUpdate, setshowUpdate] = useState(false);
   const [selectedProduct, setselectedProduct] = useState<Product | undefined>(
     undefined
   );
+  const debouncedSearchTerm = useDebounce(searchInput, 500);
   const queryClient = useQueryClient();
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["productInfo"],
@@ -47,6 +50,17 @@ function Test() {
       setShowModal(false); // Close modal after successful deletion
     },
   });
+  const searchMutation = useMutation({
+    mutationFn: searchProduct,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["productInfo"], data);
+    },
+  });
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchMutation.mutate(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   if (isLoading) {
     return <span>Loading...</span>;
