@@ -73,7 +73,7 @@ export function Dashboard() {
               <ModalServices className="bottom-12" />
             </div>
             <div>
-              <MultipleItems />
+              <ItemsInventory />
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { faArrowAltCircleLeft, faArrowAltCircleRight } from "@fortawesome/free-s
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CajitaInventory } from "./Cajita copy.tsx";
 import { getAllMaterials } from "../services/inventoryServices.ts";
+import { getInventoryList } from "../services/reportsServices.ts";
 
 // Componentes para los botones personalizados usando TailwindCSS
 function NextArrow(props) {
@@ -33,7 +34,7 @@ function PrevArrow(props) {
 }
 
 export function ItemsInventory() {
-  const { data, error } = useQuery({ queryKey: ['materialsInfo'], queryFn: getAllMaterials });
+  const { data, error } = useQuery({ queryKey: ['inventoryInfo'], queryFn: getInventoryList });
 
   if (!data) {
     return <div>Loading</div>;
@@ -46,8 +47,8 @@ export function ItemsInventory() {
     dots: false,
     infinite: true,
     speed: 200,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     centerMode: true, // Activa el modo de centrado
     centerPadding: "0", // Evita el padding adicional en los laterales
     swipeToSlide: true,
@@ -59,12 +60,13 @@ export function ItemsInventory() {
   return (
     <div id="slider-citas" className="slider-container">
       <Slider {...settings}>
-        {data.materials.map((inventario, index) => {
+        {data.inventory.map((inventario, index) => {
           const datosCaja = {
-            material_id: inventario.material_id,
-            name: inventario.name,
-            quantity: inventario.quantity,
+            item_name: inventario.item_name,
+            tipo: inventario.tipo,
+            cantidad: inventario.cantidad,
             price: inventario.price,
+            total: inventario.total,  
            
           };
           return (

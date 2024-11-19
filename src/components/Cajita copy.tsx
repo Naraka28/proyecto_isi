@@ -2,10 +2,11 @@
 //TODO:Cambiar los datos de la interfaz por los datos que se obtienen del servicio
 interface datosCaja {
  
-  material_id: number;
-  name: string;
-  quantity: number;
-  price: number;
+  item_name: string;
+  tipo: string;
+  cantidad: number;
+  price: string;
+  total: number;
 }
 
  
@@ -14,28 +15,26 @@ interface datosCaja {
  }
  
  export const CajitaInventory: React.FC<Props> = ({ datos }) => {
-  const { name,quantity,price } = datos; // Extraemos las propiedades del objeto `datos`
+  const { item_name,tipo,cantidad,price,total } = datos; // Extraemos las propiedades del objeto `datos`
  
-   return (
-     <div className="flex flex-col m-1 p-4 border bg-[#353535] border-gray-200 rounded-lg hover:bg-[#5b5b5b] shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-     {/* Sección de la Imagen (Parte superior) */}
-     
- 
-     {/* Sección de la Información (Parte inferior) */}
-     <div className="flex-1 px-2 text-left text-lg text-gray-900 dark:text-white">
-     <p className="mb-2 tracking-tight text-center">
-         <span className="font-[800] text-[#8c0046]"> {name}</span>
-       </p>
-       <h2 className="mb-2 font-bold tracking-tight text-center">
-         <span className="font-[800]  ">{price} </span>
-       </h2>
-       
-       <p className="mb-2 tracking-tight text-center">
-         <span className="font-[800] "> $ {quantity}</span>
-       </p>
-     
-     </div>
-   </div>
-   );
+  return (
+    <div className="flex flex-col m-1 p-6 border bg-[#353535] border-gray-200 rounded-lg hover:bg-[#5b5b5b] shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out max-w-md min-h-[20rem]">
+      {/* Contenedor dividido en dos secciones horizontales */}
+      <div className="flex flex-row justify-between items-center">
+        {/* Sección izquierda */}
+        <div className="flex-1 text-left">
+          <h2 className="mb-4 font-bold text-xl text-white">{item_name}</h2>
+          <p className="text-gray-400 text-lg">Cantidad: {cantidad}</p>
+        </div>
+        {/* Sección derecha */}
+        <div className="text-right">
+          <p className="text-[#e969a9] font-bold text-xl">${price}</p>
+          <p className="text-gray-400 text-lg">{tipo}</p>
+        </div>
+      </div>
+    </div>
+  );
+  
+  
  };
  
