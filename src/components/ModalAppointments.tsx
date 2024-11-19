@@ -52,6 +52,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   const [total_price, setTotalPrice] = useState("");
   const [error, setError] = useState("");
   const [selectedService, setSelectedService] = useState<Service | undefined>();
+  const [inhabilitado, setInhabilitado] = useState(true);
 
   const debouncedSearchTerm = useDebounce(searchItem, 500);
 
@@ -74,8 +75,25 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["appointmentInfo"] });
       setShowModal(false);
+      setDate("");
+      setUserId("");
+      setHour("");
+      setEmployeeId("");
+      setServiceId("");
+      setTotalPrice("");
+      setSearchItem("");
+      setSearchService("");
+      setSelectedService(undefined);
     },
   });
+
+  const handleSave = () => {
+    if (date && user_id && hour && employee_id && service_id) {
+      mutation.mutate(newAppointment);
+    } else {
+      alert("Por favor llene todos los campos");
+    }
+  };
 
   const searchMutation = useMutation({
     mutationFn: searchUser,
@@ -242,6 +260,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
                     value={
                       selectedService ? selectedService.price.toString() : ""
                     }
+                    inhabilitado={inhabilitado}
                   />
                   {error && <p className="text-red-500">{error}</p>}
                 </div>
@@ -257,9 +276,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py- rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => {
-                      mutation.mutate(newAppointment);
-                    }}
+                    onClick={handleSave}
                   >
                     Save Changes
                   </button>

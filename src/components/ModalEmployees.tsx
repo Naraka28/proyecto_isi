@@ -403,7 +403,7 @@ export function ModalEmployeesForm() {
                 </div>
 
                 {/* Body */}
-                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
+                <div className="relative p-3 m-3 grid grid-cols-2 gap-4 gap-x-9">
                   <Field
                     id="nombre"
                     type="text"
@@ -419,10 +419,10 @@ export function ModalEmployeesForm() {
                     type="email"
                     onChange={(e) => setAccessEmail(e.target.value)}
                   />
-                   <Field
-                    id="confirm Password"
+                  <Field
+                    id="password"
                     type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword1(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
                     className="absolute right-6 top-[38%] transform -translate-y-1/2 cursor-pointer"
@@ -442,15 +442,16 @@ export function ModalEmployeesForm() {
                       />
                     )}
                   </span>
+
                   <Field
                     id="Personal Email"
                     type="email"
                     onChange={(e) => setPersonalEmail(e.target.value)}
                   />
                   <Field
-                    id="password"
+                    id="confirm Password"
                     type={passwordVisible ? "text" : "password"}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword1(e.target.value)}
                   />
                   <span
                     className="absolute right-6 top-[63%] transform -translate-y-1/2 cursor-pointer"
@@ -470,6 +471,7 @@ export function ModalEmployeesForm() {
                       />
                     )}
                   </span>
+
                   <Field
                     id="phone"
                     type="tel"
@@ -481,9 +483,8 @@ export function ModalEmployeesForm() {
                     options={["1 Admin", "2 Empleado"]}
                     onChange={(e) => setRole(e.target.value)}
                   />
-
                 </div>
-                
+
                 {/* Footer */}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button

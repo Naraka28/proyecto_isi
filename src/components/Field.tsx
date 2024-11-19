@@ -3,16 +3,24 @@ interface FieldProps {
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  inhabilitado?: boolean;
 }
 
-export function Field({ id, type = "text", onChange, value }: FieldProps) {
+export function Field({
+  id,
+  type = "text",
+  onChange,
+  value,
+  inhabilitado,
+}: FieldProps) {
   return (
     <div className="relative w-full mx-auto my-1 ">
       <input
         id={id}
         name={id}
         type={type}
-        className="peer w-full h-full bg-white text-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-gray-400 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 pt-5 pb-5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+        className={`peer w-full h-full bg-white text-gray-700 font-sans font-normal outline outline-0 focus:outline-0 transition-all placeholder-shown:border placeholder-shown:border-gray-400 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 pt-5 pb-5 rounded-[7px] border-blue-gray-200 focus:border-gray-900
+          ${inhabilitado ? "pointer-events-none bg-slate-200" : ""}`}
         placeholder=" "
         onChange={onChange}
         required

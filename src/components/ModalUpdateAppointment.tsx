@@ -45,6 +45,7 @@ export function ModalUpdateAppointment({
   const [employee_id, setEmployeeId] = useState(
     appointment.employee_id.toString()
   );
+  const [inhabilitado, setInhabilitado] = useState(true);
   const [service_id, setServiceId] = useState(
     appointment.service_id.toString()
   );
@@ -201,6 +202,7 @@ export function ModalUpdateAppointment({
                     value={
                       selectedService ? selectedService.price.toString() : ""
                     }
+                    inhabilitado={inhabilitado}
                   />
 
                   {error && <p className="text-red-500">{error}</p>}
