@@ -117,7 +117,7 @@ const logoutFunction = () => {
   ];
 
   const secondaryMenuItems = [
-   // { text: "Inventory", icon: <InventoryIcon />, link: "../inventory" },
+   { text: "Inventory", icon: <InventoryIcon />, link: "../inventory" },
     { text: "Log Out", icon: <LogoutIcon />, onClick: handleLogoutClick },
   ];
 

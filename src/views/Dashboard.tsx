@@ -13,6 +13,7 @@ import { ModalInsert } from "../components/ModalInsert";
 import { ClientSlider } from "../components/ClientSlider";
 import { ModalInsertCita } from "../components/ModalInsertCita";
 import { MultipleItems } from "../components/Slider";
+import { ItemsInventory } from "../components/Slider copy";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@mui/material";
@@ -59,6 +60,24 @@ export function Dashboard() {
             </div>
           </div>
         </div>
+
+        <div
+          id="Inventario"
+          className="bg-white row-span-1 h-[80vh] w-[87vw]  rounded-2xl py-12 "
+        >
+          <div className="relative w-full px-10">
+            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+              INVENTARIO
+            </h2>
+            <div className="flex relative">
+              <ModalServices className="bottom-12" />
+            </div>
+            <div>
+              <MultipleItems />
+            </div>
+          </div>
+        </div>
+
 
         <div
           id="Catalogo"

@@ -12,8 +12,28 @@ export interface Appointment {
   service_id: number;
   user_id: number;
 }
+
+export interface AppointmentCalendar {
+  appointment_id: number;
+  date: string;
+  name: string;
+  last_name: string;
+  em_name: string;
+  em_last_name: string;
+  servicio: string;
+  catalogue: string;
+  hour: string;
+  total_price: number;
+  employee_id: number;
+  service_id: number;
+  user_id: number;
+}
+
 export interface AppointmentResponse {
   appointments: Appointment[];
+}
+export interface AppointmentResponseCalendar {
+  appointments: AppointmentCalendar[];
 }
 export interface AppointmentUpdate {
   appointment_id: number;
@@ -42,7 +62,7 @@ export async function getAllAppointments() {
 
 export async function getAppointmentsForCalendar() {
   const response = await fetch(`${API_URL}/appointments/calendar`);
-  const data: AppointmentResponse = await response.json();
+  const data: AppointmentResponseCalendar = await response.json();
   return data;
 }
 
