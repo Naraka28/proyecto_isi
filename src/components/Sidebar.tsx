@@ -224,16 +224,7 @@ export function PersistentDrawerLeft({ children }: PersistentDrawerLeftProps) {
         </List>
         <Divider />
         <List>
-          {/* {secondaryMenuItems.map(({ text, icon, link }) => (
-            <Link to={link} className="no-underline text-black" key={text}>
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          ))} */}
+          
           <ListItem key={logoutItem.text} disablePadding>
             <ListItemButton onClick={logoutItem.onClick}>
               <ListItemIcon>{logoutItem.icon}</ListItemIcon>

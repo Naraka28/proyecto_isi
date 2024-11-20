@@ -65,23 +65,24 @@ function LoginForm() {
 
   return (
     <>
-      <div className="bg-[#353232] h-screen w-screen">
+      <div className="">
         <div className="grid sm:grid-cols-2 ">
           {/* Left Column */}
           <div className="flex flex-col">
             <div className="w-full flex justify-center items-center mt-5">
               <img
-                src="src/images/logoBueno.jpeg"
+                src="src/images/logobaza.png"
                 alt="Imagen del logo y titulo"
               />
+              <div className="text-6xl text-[#353232] m-6 font-[800]">MB Salon</div>
             </div>
 
-            <div className="w-3/5 h-4/6 mt-10 pt-10 mx-auto bg-white rounded-md">
-              <div className="p-8 mx-8 mb-8">
-                <h1 className="mb-10 md:text-4xl sm:text-3xl text-xl text-[#E90074] whitespace-nowrap">
+            <div className="w-3/5 h-4/6 mt-10 pt-10 mx-auto bg-white rounded-xl border shadow-xl">
+              <div className="p-8 mx-8 mb-8 ">
+                <h1 className="mb-10 font-[600] text-4xl text-[#E90074] whitespace-nowrap">
                   Iniciar sesión
                 </h1>
-                <form id="loginForm" className="mt-8" action="POST">
+                <form  id="loginForm" className="mt-8 grid grid-cols-1 gap-y-3" action="POST">
                   <Field
                     id="email"
                     onChange={(e) => setEmail(e.target.value)}
@@ -124,22 +125,17 @@ function LoginForm() {
                     }}
                   />
 
-                  <a
-                    className="flex justify-center sm:text-2xl text-lg whitespace-nowrap p-auto py-5 hover:underline"
-                    href="/templates/loginAdmin.html"
-                  >
-                    ¿Olvidó su contraseña?
-                  </a>
+                  
                 </form>
               </div>
             </div>
           </div>
 
           {/* Right Column (Image) */}
-          <div className="bg-black sm:block">
+          <div className="bg-black w-screen h-screen ">
             <img
               src="src/images/peines.webp"
-              className="h-full object-cover opacity-50"
+              className="h-screen  object-cover opacity-50"
               alt="Imagen grandota"
             />
           </div>

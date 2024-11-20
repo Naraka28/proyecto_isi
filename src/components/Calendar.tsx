@@ -18,8 +18,31 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+const getBackgroundColorByCatalogue = (catalogo) => {
+  switch (catalogo) {
+    case "Cortes":
+      return "#d4f7fc"; // Color de fondo para "Cortes"
+    case "Tintes":
+      return "#fff1db"; // Color de fondo para "Tintes"
+    case "Peinados":
+      return "#fdd3e1"; // Color de fondo para "Peinados"
+    default:
+      return "#f5f5f5"; // Color de fondo por defecto
+  }
+};
 
-
+  const getColorByCatalogue = (catalogo) => {
+    switch (catalogo) {
+      case "Cortes":
+        return "#64a1c4";
+      case "Tintes":
+        return "#cca85c";
+      case "Peinados":
+        return "#c22c15";
+      default:
+        return "#ffffff";
+    }
+  };
 
 const MyCalendar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -160,6 +183,7 @@ const MyCalendar = () => {
   };
 
   
+  
 
  const handleSelectEvent = (event) => {
     setSelectedEvent(event);
@@ -204,8 +228,7 @@ const MyCalendar = () => {
         <Calendar
           localizer={localizer}
           culture="es"
-  
-           events={events}
+          events={events}
           min={new Date(1970, 1, 1, 8, 0, 0)} // Empieza a las 8:00
           max={new Date(1970, 1, 1, 21, 0, 0)} // Termina a las 20:00
           startAccessor="start"
@@ -231,41 +254,53 @@ const MyCalendar = () => {
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Detalles de la Cita"
+        
       >
         {selectedEvent && (
-          <div className="z-40">
-            <h2 className="text-3xl font-bold mb-4 text-center underline underline-offset-[6px]">Detalles de la Cita</h2>
-            <p>
-              <strong>Precio:</strong> {selectedEvent.costo}
-            </p>
-            <p className="">
-           
-              
-              <strong>Cliente:</strong> {selectedEvent.cliente} {selectedEvent.last_name}
-            </p>
-            <p>
-              <strong>Empleado:</strong> {selectedEvent.empleado} 
-            </p>
-            
-            <p>
-              <strong>Precio:</strong> {selectedEvent.costo}
-            </p>
-            <p>
-              <strong>Catálogo:</strong> {selectedEvent.catalogo}
-            </p>
-            <p>
-              <strong>Fecha:</strong> {selectedEvent.start.toLocaleDateString()}
-            </p>
-            <p>
-              <strong>Hora:</strong> {selectedEvent.start.toLocaleTimeString()}
-            </p>
-            <button
-              onClick={closeModal}
-              className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-            >
-              Cerrar
-            </button>
-          </div>
+      <div  className="z-40  shadow-lg rounded-lg p-6 max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-6 text-center text-[#151414] ">
+        Detalles de la Cita
+      </h2>
+      <div style={{backgroundColor:getBackgroundColorByCatalogue(selectedEvent.catalogo)}}>
+          <p style={{color:getColorByCatalogue(selectedEvent.catalogo)}} className={` text-center font-bold m-5 text-3xl`}>{selectedEvent.catalogo}</p>
+        </div>
+      <div className="grid grid-cols-3 gap-6 text-lg">
+      <div>
+          <strong className="text-gray-700">Servicio:</strong>
+          <p className="text-[#353232]">{selectedEvent.servicio}</p>
+        </div>
+        <div>
+          <strong className="text-gray-700">Precio:</strong>
+          <p className="text-[#353232]">{selectedEvent.costo}</p>
+        </div>
+        <div>
+          <strong className="text-gray-700">Cliente:</strong>
+          <p className="text-[#353232]">{selectedEvent.cliente}</p>
+        </div>
+        <div>
+          <strong className="text-[#353232]">Empleado:</strong>
+          <p className="text-[#353232]">{selectedEvent.empleado}</p>
+        </div>
+        <div>
+          <strong className="text-gray-700">Hora:</strong>
+          <p className="text-[#353232]">{selectedEvent.start.toLocaleTimeString()}</p>
+        </div>
+        
+        <div>
+          <strong className="text-gray-700">Fecha:</strong>
+          <p className="text-gray-800">{selectedEvent.start.toLocaleDateString()}</p>
+        </div>
+        
+      </div>
+      <button
+        onClick={closeModal}
+        className="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded mt-6 transition duration-200 w-full"
+      >
+        Cerrar
+      </button>
+    </div>
+    
+    
         )}
       </Modal>
     </div>
