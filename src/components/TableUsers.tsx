@@ -44,8 +44,6 @@ export function BasicTable({ searchInput }: TableSearchProps) {
     mutationFn: searchUser,
     onSuccess: (data) => {
       queryClient.setQueryData(["userInfo"], data);
-      if (debouncedSearchTerm === "")
-        queryClient.invalidateQueries({ queryKey: ["userInfo"] });
     },
   });
   useEffect(() => {

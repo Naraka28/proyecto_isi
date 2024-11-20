@@ -288,3 +288,30 @@ export async function materialUpdateService(update: Material) {
     throw error;
   }
 }
+export async function searchMaterial(name: string) {
+  try {
+    const response = await fetch(`${API_URL}/inventory/name`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error al buscar material:", error.message);
+    } else {
+      console.error("Error desconocido:", error);
+    }
+    throw error;
+  }
+}

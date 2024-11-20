@@ -30,7 +30,7 @@ export function Services() {
             onChange={(e) => setSearch(e.target.value)}
             className="hidden sm:flex mr-5"
           />
-          <RefreshButton queryK={["employeeInfo"]} />
+          <RefreshButton queryK={["serviceInfo"]} />
 
           <div className=" w-full flex justify-end">
             <ModalServices />
