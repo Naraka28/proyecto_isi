@@ -49,11 +49,14 @@ const MyCalendar = () => {
 
   const eventStyleGetter = (event) => ({
     style: {
-      color: "white",
-      backgroundColor: "#353232",
-      borderRadius: "1px",
-      padding: "2px 5px",
-      border: "1px solid",
+      color: "#353232",
+      backgroundColor:"#f5f2f7",
+      borderRadius: "0.5rem",
+      width: "full",
+      padding: "2px 8px",
+      border: "0.5px solid #e2e1e3",
+      borderBottom: "2px solid #ffffff",
+      
     },
   });
 
@@ -61,7 +64,7 @@ const MyCalendar = () => {
     const getColorByCatalogue = (catalogo) => {
       switch (catalogo) {
         case "Cortes":
-          return "#b8b1b0";
+          return "#64a1c4";
         case "Tintes":
           return "#cca85c";
         case "Peinados":
@@ -75,7 +78,7 @@ const MyCalendar = () => {
 
     return (
       <div
-        className="flex items-center justify-between gap-5"
+        className="flex  items-center justify-between gap-5"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
@@ -96,9 +99,11 @@ const MyCalendar = () => {
 
         <strong
           style={{
-            color: "#ff65b2",
+            fontStyle: "bold",
+            color: "#ed5fa6",
             fontSize: "1rem",
-            fontWeight: "600",
+            fontWeight: "700",
+            textTransform: "capitalize",
           }}
         >
           {event.servicio}
@@ -109,6 +114,15 @@ const MyCalendar = () => {
         <p style={{ fontSize: "0.9rem", fontWeight: "500" }}>{event.costo}</p>
       </div>
     );
+  };
+
+  const dayPropGetter = (date) => {
+    const isToday = new Date().toDateString() === date.toDateString();
+    return {
+      style: {
+        backgroundColor: isToday ? "transparent" : undefined, // Fondo transparente si es hoy
+      },
+    };
   };
 
   return (
@@ -132,6 +146,9 @@ const MyCalendar = () => {
           defaultView="day"
           views={["day", "week", "agenda"]}
           eventPropGetter={eventStyleGetter}
+          step={15} // Intervalos de 30 minutos
+          timeslots={2}
+          dayPropGetter={dayPropGetter}
           components={{
             event: EventComponent,
           }}
