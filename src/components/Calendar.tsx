@@ -244,6 +244,7 @@ const MyCalendar = () => {
           dayPropGetter={dayPropGetter}
           components={{
             event: EventComponent,
+             // Envuelve cada día para ocultar la fecha
             eventWrapper: EventWrapper, // Envuelve cada evento para ocultar duración
 
           }}
