@@ -25,18 +25,18 @@ export function Appointments() {
         <div className="pb-20 text-center">
           <span className="text-4xl font-semibold text-black ">Citas</span>
 
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
-            <Search
-              onSearch={handleSearch}
-              onChange={(e) => setSearch(e.target.value)}
-              className="hidden sm:flex flex-1"
-            />
-            <RefreshButton queryK={["appointmentsInfo"]} />
+          <div className="flex flex-col md:flex-row  items-center space-y-4 md:space-y-0 mb-6 w-full">
+          <Search
+            onSearch={handleSearch}
+            onChange={(e) => setSearch(e.target.value)}
+            className="hidden sm:flex mr-5"
+          />
+          <RefreshButton queryK={["employeeInfo"]} />
 
-            <div className="flex space-x-3">
-              <ModalAppointments />
-            </div>
+          <div className=" w-full flex justify-end">
+            <ModalAppointments />
           </div>
+        </div>
           <AppointmentsTable searchInput={search} />
         </div>
       </div>

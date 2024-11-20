@@ -99,7 +99,7 @@ export function ModalMaterialForm() {
                     </span>
                   </button>
                 </div>
-                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
+                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
                   <Field
                     id={"nombre"}
                     type={"text"}

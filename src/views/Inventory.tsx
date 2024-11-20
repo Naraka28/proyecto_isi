@@ -15,21 +15,20 @@ export function Inventory() {
   return (
     <div className="p-10 m-auto h-min">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl font-semibold text-black">Inventario</h2>
+        <h2 className="text-4xl font-semibold text-black">Materiales</h2>
       </div>
-      <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
-        <Search
-          onSearch={handleSearch}
-          onChange={(e) => setSearch(e.target.value)}
-          className="hidden sm:flex flex-1"
-        />
-        <RefreshButton queryK={["inventory"]} />
+      <div className="flex flex-col md:flex-row  items-center space-y-4 md:space-y-0 mb-6 w-full">
+          <Search
+            onSearch={handleSearch}
+            onChange={(e) => setSearch(e.target.value)}
+            className="hidden sm:flex mr-5"
+          />
+          <RefreshButton queryK={["employeeInfo"]} />
 
-        <div className="flex space-x-3">
-          <ModalMaterial />{" "}
-          {/* Aquí se asume que el modal está diseñado para crear o editar materiales */}
+          <div className=" w-full flex justify-end">
+            <ModalMaterial />
+          </div>
         </div>
-      </div>
       <BasicTable />{" "}
       {/* Aquí debería mostrarse la tabla con los materiales del inventario */}
     </div>

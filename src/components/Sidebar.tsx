@@ -121,11 +121,15 @@ export function PersistentDrawerLeft({ children }: PersistentDrawerLeftProps) {
     { text: "Users", icon: <GroupIcon />, link: "../users" },
     { text: "Employees", icon: <GroupIcon />, link: "../employees" },
     { text: "Reports", icon: <BarChartIcon />, link: "../reports" },
+    { text: "Materials", icon: <InventoryIcon />, link: "../inventory" },
+
   ];
 
+  /*
   const secondaryMenuItems = [
     { text: "Inventory", icon: <InventoryIcon />, link: "../inventory" },
   ];
+  */
   const logoutItem = {
     text: "Log Out",
     icon: <LogoutIcon />,
@@ -220,7 +224,7 @@ export function PersistentDrawerLeft({ children }: PersistentDrawerLeftProps) {
         </List>
         <Divider />
         <List>
-          {secondaryMenuItems.map(({ text, icon, link }) => (
+          {/* {secondaryMenuItems.map(({ text, icon, link }) => (
             <Link to={link} className="no-underline text-black" key={text}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
@@ -229,7 +233,7 @@ export function PersistentDrawerLeft({ children }: PersistentDrawerLeftProps) {
                 </ListItemButton>
               </ListItem>
             </Link>
-          ))}
+          ))} */}
           <ListItem key={logoutItem.text} disablePadding>
             <ListItemButton onClick={logoutItem.onClick}>
               <ListItemIcon>{logoutItem.icon}</ListItemIcon>

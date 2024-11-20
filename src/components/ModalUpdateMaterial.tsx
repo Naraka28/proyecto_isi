@@ -32,7 +32,8 @@ export function ModalUpdateInventory({
   const mutation = useMutation({
     mutationFn: materialUpdateService,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["inventoryData"] });
+      queryClient.invalidateQueries({ queryKey: ["inventory"] });
+      onClose();
     },
   });
 
@@ -102,27 +103,23 @@ export function ModalUpdateInventory({
                   </button>
                 </div>
 
-                <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
+                <div className="relative p-3 m-3 grid grid-cols-1 gap-4">
                   <Field
-                    id={"name"}
-                    label="Nombre del Material"
+                    id={"nombre"}
                     type={"text"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                   <Field
-                    id={"quantity"}
-                    label="Cantidad"
+                    id={"cantidad"}
                     type={"number"}
-                    value={quantity}
+                    value={quantity.toString()}
                     onChange={(e) => setQuantity(parseInt(e.target.value))}
                   />
                   <Field
-                    id={"price"}
-                    label="Precio"
+                    id={"precio"}
                     type={"number"}
-                    step="0.01"
-                    value={price}
+                    value={price.toString()}
                     onChange={(e) => setPrice(parseFloat(e.target.value))}
                   />
                 </div>
@@ -155,7 +152,6 @@ export function ModalUpdateInventory({
           open={dialogue}
           onConfirm={() => {
             mutation.mutate(updatedMaterial);
-            onClose();
           }}
           onClose={cancelDialog}
           material={updatedMaterial}
