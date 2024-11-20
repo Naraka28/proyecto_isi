@@ -18,6 +18,7 @@ import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
 import { FilteredHoursDropdown } from "./ComboboxHours";
+import { DialogueAppointmentError } from "./DialogueAppointmentError";
 
 interface Props {
   className?: string;
@@ -43,8 +44,10 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   const [service_id, setServiceId] = useState("");
   const [total_price, setTotalPrice] = useState("");
   const [error, setError] = useState("");
+  const [errorCreate, setErrorCreate] = useState("");
   const [selectedService, setSelectedService] = useState<Service | undefined>();
   const [inhabilitado, setInhabilitado] = useState(true);
+  const [dialogue, setDialogue] = useState(false);
 
   const debouncedSearchTerm = useDebounce(searchItem, 500);
 
@@ -65,7 +68,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     mutationFn: appointmentAddService,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["appointmentInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["appointmentsInfo"] });
       setShowModal(false);
       setDate("");
       setUserId("");
@@ -76,6 +79,10 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
       setSearchItem("");
       setSearchService("");
       setSelectedService(undefined);
+    },
+    onError: (error) => {
+      setErrorCreate(error.message);
+      setDialogue(true);
     },
   });
 
@@ -104,7 +111,6 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   const handleAddClick = () => {
     setShowModal(true);
   };
-  // Establecer el valor mínimo del input de fecha
 
   const newAppointment: AppointmentCreate = {
     date: date,
@@ -114,8 +120,8 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     service_id: parseInt(service_id),
   };
 
-  if (searchMutation.isSuccess) {
-    console.log(searchMutation.data);
+  function closeDialogue() {
+    setDialogue(false);
   }
 
   if (searchMutation.isError) {
@@ -250,6 +256,13 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
+      ) : null}
+      {dialogue ? (
+        <DialogueAppointmentError
+          open={dialogue}
+          message={errorCreate}
+          onClose={closeDialogue}
+        />
       ) : null}
     </>
   );
