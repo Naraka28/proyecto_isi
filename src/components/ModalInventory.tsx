@@ -4,10 +4,7 @@ import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
 import { materialAddService } from "../services/inventoryServices";
-import {
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 
@@ -16,14 +13,11 @@ interface Props {
   texto?: string;
 }
 
-
-export function ModalInventory({texto,className = ""}: Props) {
-  return (
-    <ModalInventoryForm className={className} texto={texto} />
-  );
+export function ModalInventory({ texto, className = "" }: Props) {
+  return <ModalInventoryForm className={className} texto={texto} />;
 }
 
-export function ModalInventoryForm({texto,className = ""}: Props) {
+export function ModalInventoryForm({ texto, className = "" }: Props) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = React.useState(false);
 
@@ -40,7 +34,7 @@ export function ModalInventoryForm({texto,className = ""}: Props) {
   const mutation = useMutation({
     mutationFn: materialAddService,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["inventoryData"] });
+      queryClient.invalidateQueries({ queryKey: ["inventory"] });
       setShowModal(false);
       setName("");
       setQuantity("");
@@ -80,7 +74,7 @@ export function ModalInventoryForm({texto,className = ""}: Props) {
 
   return (
     <>
-        <Button
+      <Button
         variant="contained"
         sx={{
           bgcolor: "#E90074",
@@ -117,30 +111,25 @@ export function ModalInventoryForm({texto,className = ""}: Props) {
                 </div>
                 <div className="relative p-3 m-3 grid grid-cols-2 gap-4">
                   <Field
-                    id={"name"}
-                    label="Nombre del Material"
+                    id={"nombre"}
                     type={"text"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                   <Field
-                    id={"quantity"}
-                    label="Cantidad"
+                    id={"cantidad"}
                     type={"number"}
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   />
                   <Field
-                    id={"price"}
-                    label="Precio"
+                    id={"precio"}
                     type={"text"}
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
-                {error && (
-                  <p className="text-red-500 text-sm px-4">{error}</p>
-                )}
+                {error && <p className="text-red-500 text-sm px-4">{error}</p>}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

@@ -125,12 +125,7 @@ export interface Material {
 }
 
 export interface MaterialResponse {
-  inventory: Array<{
-    material_id: number;
-    name: string;
-    quantity: number;
-    price: string; // En la respuesta el precio es un string, puedes convertirlo a número si es necesario.
-  }>;
+  inventory: Material[];
 }
 
 export interface MaterialCreate {
@@ -158,7 +153,7 @@ export const getAllMaterials = async (): Promise<MaterialResponse> => {
     }
 
     const data: MaterialResponse = await response.json();
-    
+
     // Validar que la estructura de los datos es correcta
     if (!data || !Array.isArray(data.inventory)) {
       console.log("Respuesta del servidor:", data);
@@ -169,7 +164,6 @@ export const getAllMaterials = async (): Promise<MaterialResponse> => {
     return {
       inventory: data.inventory,
     };
-
   } catch (error: unknown) {
     // Manejo de errores
     if (error instanceof Error) {
