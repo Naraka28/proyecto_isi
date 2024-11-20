@@ -63,24 +63,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route>
-//       <Route path="login" element={<Login />} />
-
-//       <Route element={<PersistentDrawerLeft />} path="">
-//         <Route path="dashboard" element={<Dashboard />} />
-//         <Route path="users" element={<Users />} />
-//         <Route path="appointments" element={<Appointments />} />
-//         <Route path="services" element={<Services />} />
-//         <Route path="products" element={<Products />} />
-//         <Route path="employees" element={<Employees />} />
-//         <Route path="reports" element={<Reports />} />
-//         <Route path="inventory" element={<Inventory />} />
-//       </Route>
-//     </Route>
-//   )
-// );
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
