@@ -21,16 +21,16 @@ export function Products() {
           <h2 className="text-4xl font-semibold text-black">Productos</h2>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-6">
+        <div className="flex flex-col md:flex-row  items-center space-y-4 md:space-y-0 mb-6 w-full">
           <Search
             onSearch={handleSearch}
-            onChange={(e) => setSearch(e.target.value.trim())}
-            className="hidden sm:flex flex-1"
+            onChange={(e) => setSearch(e.target.value)}
+            className="hidden sm:flex mr-5"
           />
-          <RefreshButton queryK={["productInfo"]} />
+          <RefreshButton queryK={["employeeInfo"]} />
 
-          <div className="flex space-x-3">
-            <ModalProducts texto="Agregar"/>
+          <div className=" w-full flex justify-end">
+            <ModalProducts />
           </div>
         </div>
         <ProductTable searchInput={search} />
