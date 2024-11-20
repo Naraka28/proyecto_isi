@@ -26,6 +26,8 @@ import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
 import { set } from "date-fns";
+import { FilteredHoursDropdown } from "./ComboboxHours";
+import { constructFromSymbol } from "date-fns/constants";
 
 interface Props {
   className?: string;
@@ -121,6 +123,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     employee_id: parseInt(employee_id),
     service_id: parseInt(service_id),
   };
+  console.log(newAppointment.date);
 
   if (searchMutation.isSuccess) {
     console.log(searchMutation.data);
@@ -135,34 +138,6 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   if (!servicesResult.isSuccess) {
     return <span>Loading...</span>;
   }
-  const hours = [
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ];
-
   return (
     <>
       <Button
@@ -247,9 +222,9 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
                     min={today}
                   />
 
-                  <ComboBox
+                  <FilteredHoursDropdown
                     id={"Choose a Time"}
-                    options={hours}
+                    date={date}
                     onChange={(e) => setHour(e.target.value)}
                   />
 
