@@ -1,3 +1,4 @@
+import { constructFromSymbol } from "date-fns/constants";
 import React, { useState, useEffect } from "react";
 
 interface ComboBoxPropsHours {
@@ -47,8 +48,8 @@ export function FilteredHoursDropdown({
 
     // Fecha actual sin tiempo de zona
     const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // Hoy sin horas
-    const selectedDay = new Date(date); // Prop seleccionada
+    const selectedDay = new Date(date).toISOString().split("T")[0];
+    const today = new Date().toISOString().split("T")[0]; // Hoy sin horas
 
     // Hora actual en minutos desde las 00:00
     const currentHour = now.getHours();
@@ -60,12 +61,12 @@ export function FilteredHoursDropdown({
       const totalMinutes = parseInt(hourStr) * 60 + parseInt(minuteStr);
 
       // Si es hoy, filtrar horas pasadas
-      if (selectedDay.getTime() === today.getTime()) {
+      if (selectedDay === today) {
         return totalMinutes >= currentTotalMinutes;
       }
 
       // Si no es hoy, mostrar todas las horas
-      return true;
+      return hours;
     });
 
     setFilteredHours(updatedHours);
