@@ -18,6 +18,7 @@ import { Dashboard } from "./Dashboard.tsx";
 import { Employees } from "./Employees.tsx";
 import { Reports } from "./Reports.tsx";
 import { Inventory } from "./Inventory.tsx";
+import ProtectedRoute from "../components/ProtectedRoute.tsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    element: <PersistentDrawerLeft />,
+    element: <ProtectedRoute />, // Componente protegido con el layout
     children: [
       {
         path: "dashboard",

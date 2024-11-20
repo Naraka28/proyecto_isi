@@ -30,7 +30,6 @@ import { Link, Outlet } from "react-router-dom";
 import { ModalLogout } from "./ModalLogout";
 import { useNavigate } from "react-router-dom";
 
-
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -48,6 +47,9 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
   className?: string;
+}
+interface PersistentDrawerLeftProps {
+  children?: React.ReactNode;
 }
 
 const AppBar = styled(MuiAppBar, {
@@ -72,7 +74,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export function PersistentDrawerLeft() {
+export function PersistentDrawerLeft({ children }: PersistentDrawerLeftProps) {
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
   const theme = useTheme();
   const location = useLocation();
@@ -89,15 +91,16 @@ export function PersistentDrawerLeft() {
 
   const handleLogoutClick = () => {
     setLogoutModalOpen(true); // Abre el modal al hacer clic en "Log Out"
-};
+  };
 
-const closeLogoutModal = () => {
-  setLogoutModalOpen(false); // Cierra el modal
-};
+  const closeLogoutModal = () => {
+    setLogoutModalOpen(false); // Cierra el modal
+  };
 
-const logoutFunction = () => {
-  navigate("/login"); // Navega a la página de inicio de sesión 
-};
+  const logoutFunction = () => {
+    localStorage.removeItem("token"); // Elimina el token del localStorage
+    navigate("/"); // Navega a la página de inicio de sesión
+  };
 
   // useEffect que solo se dispara al abrir el Dashboard
   useEffect(() => {
@@ -108,7 +111,11 @@ const logoutFunction = () => {
 
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, link: "../dashboard" },
-    { text: "Appointments", icon: <CalendarTodayIcon />, link: "../appointments" },
+    {
+      text: "Appointments",
+      icon: <CalendarTodayIcon />,
+      link: "../appointments",
+    },
     { text: "Products", icon: <ShoppingCartIcon />, link: "../products" },
     { text: "Services", icon: <BuildIcon />, link: "../services" },
     { text: "Users", icon: <GroupIcon />, link: "../users" },
@@ -117,9 +124,13 @@ const logoutFunction = () => {
   ];
 
   const secondaryMenuItems = [
-   { text: "Inventory", icon: <InventoryIcon />, link: "../inventory" },
-    { text: "Log Out", icon: <LogoutIcon />, onClick: handleLogoutClick },
+    { text: "Inventory", icon: <InventoryIcon />, link: "../inventory" },
   ];
+  const logoutItem = {
+    text: "Log Out",
+    icon: <LogoutIcon />,
+    onClick: handleLogoutClick,
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -135,14 +146,37 @@ const logoutFunction = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ display: "flex", alignItems: "center" }}>
-          <Link to="/dashboard" style={{ textDecoration: "none", display: "flex", color:"inherit", alignItems:"center" }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Link
+              to="/dashboard"
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                color: "inherit",
+                alignItems: "center",
+              }}
+            >
               <img
                 src="src/images/logoBaza.png"
                 alt="Logo Baza"
-                style={{ height: "5rem", maxHeight: "5rem", width: "auto", marginBottom: "0.5rem", marginTop: "0.5em", paddingLeft: "0.5em" }}
+                style={{
+                  height: "5rem",
+                  maxHeight: "5rem",
+                  width: "auto",
+                  marginBottom: "0.5rem",
+                  marginTop: "0.5em",
+                  paddingLeft: "0.5em",
+                }}
               />
-              <span className="m-5 font-mono text-3xl font-bold"> Salón Baza</span>
+              <span className="m-5 font-mono text-3xl font-bold">
+                {" "}
+                Salón Baza
+              </span>
             </Link>
           </Typography>
         </Toolbar>
@@ -160,9 +194,15 @@ const logoutFunction = () => {
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{ height: '98px', minHeight: '98px', backgroundColor: '#353232' }}>
-          <IconButton onClick={handleDrawerClose} sx={{ color: 'white' }}>
-            {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        <DrawerHeader
+          sx={{ height: "98px", minHeight: "98px", backgroundColor: "#353232" }}
+        >
+          <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -180,16 +220,22 @@ const logoutFunction = () => {
         </List>
         <Divider />
         <List>
-          {secondaryMenuItems.map(({ text, icon, link, onClick }) => (
+          {secondaryMenuItems.map(({ text, icon, link }) => (
             <Link to={link} className="no-underline text-black" key={text}>
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={onClick}>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
             </Link>
           ))}
+          <ListItem key={logoutItem.text} disablePadding>
+            <ListItemButton onClick={logoutItem.onClick}>
+              <ListItemIcon>{logoutItem.icon}</ListItemIcon>
+              <ListItemText primary={logoutItem.text} />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open}>
@@ -198,15 +244,12 @@ const logoutFunction = () => {
       </Main>
 
       {isLogoutModalOpen && (
-        <ModalLogout 
-        open={isLogoutModalOpen} 
-        onClose={closeLogoutModal} 
-        onConfirm={logoutFunction} 
+        <ModalLogout
+          open={isLogoutModalOpen}
+          onClose={closeLogoutModal}
+          onConfirm={logoutFunction}
         />
       )}
-
     </Box>
   );
-  
-
 }
