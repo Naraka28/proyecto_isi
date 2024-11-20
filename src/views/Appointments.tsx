@@ -7,6 +7,7 @@ import { ModalUsers } from "../components/ModalUsers";
 import { AppointmentsTable } from "../components/TableAppointments";
 import { ModalAppointments } from "../components/ModalAppointments";
 import { useState } from "react";
+import { RefreshButton } from "../components/refreshButton";
 
 export function Appointments() {
   const [search, setSearch] = useState("");
@@ -30,6 +31,7 @@ export function Appointments() {
               onChange={(e) => setSearch(e.target.value)}
               className="hidden sm:flex flex-1"
             />
+            <RefreshButton queryK={["appointmentsInfo"]} />
 
             <div className="flex space-x-3">
               <ModalAppointments />

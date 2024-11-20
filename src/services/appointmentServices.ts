@@ -81,42 +81,58 @@ export async function searchUser(search: string) {
 }
 
 export async function appointmentAddService(create: AppointmentCreate) {
-  const response = await fetch(`${API_URL}/appointments/create`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      date: create.date,
-      user_id: create.user_id,
-      hour: create.hour,
-      employee_id: create.employee_id,
-      service_id: create.service_id,
-    }),
-  });
-  const responsedata = await response.json();
-  return responsedata;
-}
-
-export async function updateAppointment(update: Appointment) {
-  const response = await fetch(
-    `${API_URL}/appointments/${update.appointment_id}`,
-    {
-      method: "PUT",
+  try {
+    const response = await fetch(`${API_URL}/appointments/create`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        date: update.date,
-        user_id: update.user_id,
-        hour: update.hour,
-        employee_id: update.employee_id,
-        service_id: update.service_id,
+        date: create.date,
+        user_id: create.user_id,
+        hour: create.hour,
+        employee_id: create.employee_id,
+        service_id: create.service_id,
       }),
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
     }
-  );
-  const data = await response.json();
-  return data;
+    const responsedata = await response.json();
+    return responsedata;
+  } catch (error: any) {
+    throw error;
+  }
+}
+
+export async function updateAppointment(update: Appointment) {
+  try {
+    const response = await fetch(
+      `${API_URL}/appointments/${update.appointment_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: update.date,
+          user_id: update.user_id,
+          hour: update.hour,
+          employee_id: update.employee_id,
+          service_id: update.service_id,
+        }),
+      }
+    );
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
 }
 
 export async function deleteAppointment(id: number) {

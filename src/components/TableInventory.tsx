@@ -153,7 +153,7 @@ function InventoryTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.materials.map((material) => (
+            {data.inventory.map((material) => (
               <TableRow
                 key={material.material_id}
                 sx={{
@@ -197,7 +197,7 @@ function InventoryTable() {
                     paddingTop: "1.5rem",
                   }}
                 >
-                  ${material.price.toFixed(2)}
+                  ${material.price}
                 </TableCell>
                 <TableCell
                   sx={{

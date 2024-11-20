@@ -1,27 +1,18 @@
-import React, { ChangeEvent, useEffect } from "react";
-import { useDebounce } from "@uidotdev/usehooks";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Field } from "../components/Field";
 import { useState } from "react";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import {
   Appointment,
-  appointmentAddService,
-  AppointmentCreate,
-  AppointmentUpdate,
-  searchUser,
   updateAppointment,
 } from "../services/appointmentServices";
-import { ComboBox } from "./Combobox";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
 import { FieldDate } from "./FieldDate";
 import { getAllEmployees } from "../services/employeeServices";
 import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
 import { DialogueUpdateAppointment } from "./DialogueUpdateAppointment";
-import { dateFnsLocalizer } from "react-big-calendar";
+import { FilteredHoursDropdown } from "./ComboboxHours";
+import { set } from "date-fns";
 
 interface ModalUpdateProps {
   open: boolean;
@@ -35,9 +26,8 @@ export function ModalUpdateAppointment({
   appointment,
 }: ModalUpdateProps) {
   const [day, month, year] = appointment.date.split("/");
-
   const formattedDate = `${year}-${month}-${day}`;
-  const [dialogue, setDialogue] = React.useState(false);
+  const [dialogue, setDialogue] = useState(false);
   const queryClient = useQueryClient();
   const [date, setDate] = useState(formattedDate);
   const [user_id, setUserId] = useState(appointment.user_id.toString());
@@ -45,6 +35,7 @@ export function ModalUpdateAppointment({
   const [employee_id, setEmployeeId] = useState(
     appointment.employee_id.toString()
   );
+  const [inhabilitado, setInhabilitado] = useState(true);
   const [service_id, setServiceId] = useState(
     appointment.service_id.toString()
   );
@@ -55,6 +46,7 @@ export function ModalUpdateAppointment({
   const [newAppointment, setNewAppointment] =
     useState<Appointment>(appointment);
   const [selectedService, setSelectedService] = useState<Service>();
+  const [errorDialogue, setErrorDialogue] = useState(false);
 
   const employeesResult = useQuery({
     queryKey: ["employeesInfo"],
@@ -70,6 +62,11 @@ export function ModalUpdateAppointment({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["appointmentsInfo"] });
       setDialogue(false);
+      onClose();
+    },
+    onError: (error) => {
+      setError(error.message);
+      setErrorDialogue(true);
     },
   });
   const showDialog = () => {
@@ -104,34 +101,9 @@ export function ModalUpdateAppointment({
   if (!servicesResult.isSuccess) {
     return <span>Loading...</span>;
   }
-  const hours = [
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ];
-
+  function closeError() {
+    setErrorDialogue(false);
+  }
   return (
     <>
       {open ? (
@@ -159,9 +131,8 @@ export function ModalUpdateAppointment({
                     options={employeesResult.data.employees}
                     onChange={(e) => setEmployeeId(e.target.value)}
                     className={employeesResult.isSuccess ? "" : "disabled"}
-                    value={employee_id.toString()}
+                    value={employee_id}
                   />
-                  {/* <Field id={'user_id'} type={'text'} onChange={(e) => setUserId(e.target.value)} /> */}
                   <ComboBoxServices
                     id={"services"}
                     options={servicesResult.data.services}
@@ -184,9 +155,9 @@ export function ModalUpdateAppointment({
                     min={today}
                     value={date}
                   />
-                  <ComboBox
+                  <FilteredHoursDropdown
                     id={"Choose a Time"}
-                    options={hours}
+                    date={date}
                     onChange={(e) => setHour(e.target.value)}
                     value={hour}
                   />
@@ -201,9 +172,8 @@ export function ModalUpdateAppointment({
                     value={
                       selectedService ? selectedService.price.toString() : ""
                     }
+                    inhabilitado={inhabilitado}
                   />
-
-                  {error && <p className="text-red-500">{error}</p>}
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -233,10 +203,12 @@ export function ModalUpdateAppointment({
           open={dialogue}
           onConfirm={() => {
             updateMutation.mutate(newAppointment);
-            onClose();
           }}
           onClose={cancelDialog}
           appointment={newAppointment}
+          message={error}
+          error={errorDialogue}
+          onCloseError={closeError}
         />
       ) : null}
     </>

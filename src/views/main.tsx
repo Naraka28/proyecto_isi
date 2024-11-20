@@ -18,27 +18,52 @@ import { Dashboard } from "./Dashboard.tsx";
 import { Employees } from "./Employees.tsx";
 import { Reports } from "./Reports.tsx";
 import { Inventory } from "./Inventory.tsx";
+import ProtectedRoute from "../components/ProtectedRoute.tsx";
 
 const queryClient = new QueryClient();
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route path="login" element={<Login />} />
-
-      <Route element={<PersistentDrawerLeft />} path="">
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="users" element={<Users />} />
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="services" element={<Services />} />
-        <Route path="products" element={<Products />} />
-        <Route path="employees" element={<Employees />} />
-        <Route path="reports" element={<Reports />} />
-        <Route path="inventory" element={<Inventory />} />
-      </Route>
-    </Route>
-  )
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    element: <ProtectedRoute />, // Componente protegido con el layout
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "appointments",
+        element: <Appointments />,
+      },
+      {
+        path: "services",
+        element: <Services />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+      {
+        path: "employees",
+        element: <Employees />,
+      },
+      {
+        path: "reports",
+        element: <Reports />,
+      },
+      {
+        path: "inventory",
+        element: <Inventory />,
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

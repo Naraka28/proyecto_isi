@@ -1,16 +1,16 @@
-import React from "react";
-import { Navigate, Route } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { PersistentDrawerLeft } from "./Sidebar"; // Importa tu componente
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
+const ProtectedRoute = () => {
+  const token = localStorage.getItem("token"); // Verifica si hay un token en el localStorage
 
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  return (
-    <Route
-      render={(props) =>
-        localStorage.getItem("token") ? { children } : <Navigate to="/login" />
-      }
-    />
+  return token ? (
+    <PersistentDrawerLeft>
+      <Outlet />
+    </PersistentDrawerLeft>
+  ) : (
+    <Navigate to="/" replace />
   );
-}
+};
+
+export default ProtectedRoute;

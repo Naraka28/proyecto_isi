@@ -1,22 +1,14 @@
 import React, { ChangeEvent, useEffect } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
-import {
-  useMutation,
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import {
   appointmentAddService,
   AppointmentCreate,
   searchUser,
 } from "../services/appointmentServices";
-import { ComboBox } from "./Combobox";
 import { ComboBoxPhone } from "./ComboboxPhone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
@@ -25,7 +17,8 @@ import { getAllEmployees } from "../services/employeeServices";
 import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
-import { set } from "date-fns";
+import { FilteredHoursDropdown } from "./ComboboxHours";
+import { DialogueAppointmentError } from "./DialogueAppointmentError";
 
 interface Props {
   className?: string;
@@ -51,7 +44,10 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   const [service_id, setServiceId] = useState("");
   const [total_price, setTotalPrice] = useState("");
   const [error, setError] = useState("");
+  const [errorCreate, setErrorCreate] = useState("");
   const [selectedService, setSelectedService] = useState<Service | undefined>();
+  const [inhabilitado, setInhabilitado] = useState(true);
+  const [dialogue, setDialogue] = useState(false);
 
   const debouncedSearchTerm = useDebounce(searchItem, 500);
 
@@ -72,10 +68,31 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     mutationFn: appointmentAddService,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["appointmentInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["appointmentsInfo"] });
       setShowModal(false);
+      setDate("");
+      setUserId("");
+      setHour("");
+      setEmployeeId("");
+      setServiceId("");
+      setTotalPrice("");
+      setSearchItem("");
+      setSearchService("");
+      setSelectedService(undefined);
+    },
+    onError: (error) => {
+      setErrorCreate(error.message);
+      setDialogue(true);
     },
   });
+
+  const handleSave = () => {
+    if (date && user_id && hour && employee_id && service_id) {
+      mutation.mutate(newAppointment);
+    } else {
+      alert("Por favor llene todos los campos");
+    }
+  };
 
   const searchMutation = useMutation({
     mutationFn: searchUser,
@@ -94,7 +111,6 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   const handleAddClick = () => {
     setShowModal(true);
   };
-  // Establecer el valor mínimo del input de fecha
 
   const newAppointment: AppointmentCreate = {
     date: date,
@@ -104,8 +120,8 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     service_id: parseInt(service_id),
   };
 
-  if (searchMutation.isSuccess) {
-    console.log(searchMutation.data);
+  function closeDialogue() {
+    setDialogue(false);
   }
 
   if (searchMutation.isError) {
@@ -117,34 +133,6 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
   if (!servicesResult.isSuccess) {
     return <span>Loading...</span>;
   }
-  const hours = [
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ];
-
   return (
     <>
       <Button
@@ -229,9 +217,9 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
                     min={today}
                   />
 
-                  <ComboBox
+                  <FilteredHoursDropdown
                     id={"Choose a Time"}
-                    options={hours}
+                    date={date}
                     onChange={(e) => setHour(e.target.value)}
                   />
 
@@ -242,6 +230,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
                     value={
                       selectedService ? selectedService.price.toString() : ""
                     }
+                    inhabilitado={inhabilitado}
                   />
                   {error && <p className="text-red-500">{error}</p>}
                 </div>
@@ -257,9 +246,7 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
                   <button
                     className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py- rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => {
-                      mutation.mutate(newAppointment);
-                    }}
+                    onClick={handleSave}
                   >
                     Save Changes
                   </button>
@@ -269,6 +256,13 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
+      ) : null}
+      {dialogue ? (
+        <DialogueAppointmentError
+          open={dialogue}
+          message={errorCreate}
+          onClose={closeDialogue}
+        />
       ) : null}
     </>
   );

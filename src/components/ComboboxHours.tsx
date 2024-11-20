@@ -1,14 +1,76 @@
-import { user } from "../services/userAddservice";
-export interface ComboBoxProps {
+import React, { useState, useEffect } from "react";
+
+interface ComboBoxPropsHours {
   id: string;
-  options: any[];
-  optionObjects?: user[];
-  className?: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value?: string;
+  date: string;
 }
 
-export function ComboBox({ id, options, onChange, value }: ComboBoxProps) {
+export function FilteredHoursDropdown({
+  id,
+  onChange,
+  value,
+  date,
+}: ComboBoxPropsHours) {
+  const [filteredHours, setFilteredHours] = useState<string[]>([]);
+  const hours = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+  ];
+
+  useEffect(() => {
+    if (!date) return;
+
+    // Fecha actual sin tiempo de zona
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // Hoy sin horas
+    const selectedDay = new Date(date); // Prop seleccionada
+
+    // Hora actual en minutos desde las 00:00
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentTotalMinutes = currentHour * 60 + currentMinutes;
+
+    const updatedHours = hours.filter((hour) => {
+      const [hourStr, minuteStr] = hour.split(":");
+      const totalMinutes = parseInt(hourStr) * 60 + parseInt(minuteStr);
+
+      // Si es hoy, filtrar horas pasadas
+      if (selectedDay.getTime() === today.getTime()) {
+        return totalMinutes >= currentTotalMinutes;
+      }
+
+      // Si no es hoy, mostrar todas las horas
+      return true;
+    });
+
+    setFilteredHours(updatedHours);
+  }, [date]); // Ejecutar cuando cambia la fecha seleccionada
+
   return (
     <div className="relative w-full mx-auto my-1">
       <select
@@ -23,7 +85,7 @@ export function ComboBox({ id, options, onChange, value }: ComboBoxProps) {
         <option value="" disabled hidden>
           Selecciona una opción
         </option>
-        {options.map((option) => (
+        {filteredHours.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>

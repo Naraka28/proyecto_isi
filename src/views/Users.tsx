@@ -3,6 +3,7 @@ import { BasicTable } from "../components/TableUsers";
 import { Search } from "../components/Search";
 import { ModalUsers } from "../components/ModalUsers";
 import { useState } from "react";
+import { RefreshButton } from "../components/refreshButton";
 
 export function Users() {
   const [search, setSearch] = useState("");
@@ -26,6 +27,7 @@ export function Users() {
           onChange={(e) => setSearch(e.target.value)}
           className="hidden sm:flex flex-1"
         />
+        <RefreshButton queryK={["userInfo"]} />
 
         <div className="flex space-x-3">
           <ModalUsers />

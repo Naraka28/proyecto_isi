@@ -3,6 +3,7 @@ import { EmployeeTable } from "../components/TableEmployees";
 import { Search } from "../components/Search";
 import { ModalEmployees } from "../components/ModalEmployees";
 import { useState } from "react";
+import { RefreshButton } from "../components/refreshButton";
 
 export function Employees() {
   const [search, setSearch] = useState("");
@@ -23,6 +24,7 @@ export function Employees() {
             onChange={(e) => setSearch(e.target.value)}
             className="hidden sm:flex flex-1"
           />
+          <RefreshButton queryK={["employeeInfo"]} />
 
           <div className="flex space-x-3">
             <ModalEmployees />
