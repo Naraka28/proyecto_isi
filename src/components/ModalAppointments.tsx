@@ -1,22 +1,14 @@
 import React, { ChangeEvent, useEffect } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { IconButton } from "../components/DashButton";
 import { Field } from "../components/Field";
 import { useState } from "react";
-import {
-  useMutation,
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import {
   appointmentAddService,
   AppointmentCreate,
   searchUser,
 } from "../services/appointmentServices";
-import { ComboBox } from "./Combobox";
 import { ComboBoxPhone } from "./ComboboxPhone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
@@ -25,9 +17,7 @@ import { getAllEmployees } from "../services/employeeServices";
 import { ComboBoxServices } from "./ComboBoxServices";
 import { ComboBoxEmployees } from "./ComboBoxEmployees";
 import { getAllServices, Service } from "../services/serviciosServices";
-import { set } from "date-fns";
 import { FilteredHoursDropdown } from "./ComboboxHours";
-import { constructFromSymbol } from "date-fns/constants";
 
 interface Props {
   className?: string;
