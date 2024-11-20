@@ -18,18 +18,18 @@ export function Inventory() {
         <h2 className="text-4xl font-semibold text-black">Materiales</h2>
       </div>
       <div className="flex flex-col md:flex-row  items-center space-y-4 md:space-y-0 mb-6 w-full">
-          <Search
-            onSearch={handleSearch}
-            onChange={(e) => setSearch(e.target.value)}
-            className="hidden sm:flex mr-5"
-          />
-          <RefreshButton queryK={["employeeInfo"]} />
+        <Search
+          onSearch={handleSearch}
+          onChange={(e) => setSearch(e.target.value)}
+          className="hidden sm:flex mr-5"
+        />
+        <RefreshButton queryK={["inventory"]} />
 
-          <div className=" w-full flex justify-end">
-            <ModalMaterial />
-          </div>
+        <div className=" w-full flex justify-end">
+          <ModalMaterial />
         </div>
-      <BasicTable />{" "}
+      </div>
+      <BasicTable searchInput={search} />
       {/* Aquí debería mostrarse la tabla con los materiales del inventario */}
     </div>
   );

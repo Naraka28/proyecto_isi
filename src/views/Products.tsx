@@ -1,11 +1,8 @@
-import { faPlus, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton } from "../components/DashButton";
 import { ProductTable } from "../components/TableProducts";
 import { Search } from "../components/Search";
 import { ModalProducts } from "../components/ModalProducts";
 import { useState } from "react";
-import { useDebounce } from "@uidotdev/usehooks";
+
 import { RefreshButton } from "../components/refreshButton";
 
 export function Products() {
@@ -27,7 +24,7 @@ export function Products() {
             onChange={(e) => setSearch(e.target.value)}
             className="hidden sm:flex mr-5"
           />
-          <RefreshButton queryK={["employeeInfo"]} />
+          <RefreshButton queryK={["productInfo"]} />
 
           <div className=" w-full flex justify-end">
             <ModalProducts />

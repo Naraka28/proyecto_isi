@@ -3,6 +3,7 @@ import {
   getAllMaterials,
   Material,
   materialDeleteService,
+  searchMaterial,
 } from "../services/inventoryServices";
 import {
   Table,
@@ -14,23 +15,22 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalDeleteInventory } from "./ModalDeleteMaterial";
 import { ModalUpdateInventory } from "./ModalUpdateMaterial";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { TableSearchProps } from "./TableProducts";
+import { useDebounce } from "@uidotdev/usehooks";
 
-export function BasicTable() {
-  return <InventoryTable />;
-}
-
-function InventoryTable() {
+export function BasicTable({ searchInput }: TableSearchProps) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState<
     Material | undefined
   >(undefined);
+  const debouncedSearchTerm = useDebounce(searchInput, 500);
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["inventory"],
@@ -44,6 +44,17 @@ function InventoryTable() {
       setShowModal(false);
     },
   });
+  const searchMutation = useMutation({
+    mutationFn: searchMaterial,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["inventory"], data);
+    },
+  });
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchMutation.mutate(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   if (isLoading) {
     return <span>Loading...</span>;

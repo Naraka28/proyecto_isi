@@ -6,9 +6,15 @@ type SearchProps = {
   className?: string;
   onSearch: (query: string) => void; // Función para manejar la búsqueda
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 };
 
-export function Search({ onSearch, className = "", onChange }: SearchProps) {
+export function Search({
+  onSearch,
+  className = "",
+  onChange,
+  value,
+}: SearchProps) {
   const [query, setQuery] = useState("");
 
   const handleIconClick = () => {
@@ -35,6 +41,7 @@ export function Search({ onSearch, className = "", onChange }: SearchProps) {
         onKeyDown={handleKeyDown}
         className={`text-xl border border-gray-300 rounded-full transition-all duration-500 ease-in-out w-96 pl-12 h-14 px-6 outline-none`}
         placeholder="Buscar..."
+        value={value}
       />
       <FontAwesomeIcon
         icon={faMagnifyingGlass}
