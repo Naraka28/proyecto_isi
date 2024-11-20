@@ -15,6 +15,9 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+
+
+
 const MyCalendar = () => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["getAppointmentsForCalendar"],
@@ -47,19 +50,42 @@ const MyCalendar = () => {
     };
   });
 
-  const eventStyleGetter = (event) => ({
-    style: {
-      color: "#353232",
-      backgroundColor:"#f5f2f7",
-      borderRadius: "0.5rem",
-      width: "full",
-      padding: "2px 8px",
-      border: "0.5px solid #e2e1e3",
-      borderBottom: "2px solid #ffffff",
-      
-    },
-  });
-
+  const eventStyleGetter = (event) => {
+    const getBackgroundColorByCatalogue = (catalogo) => {
+      switch (catalogo) {
+        case "Cortes":
+          return "#d4f7fc"; // Color de fondo para "Cortes"
+        case "Tintes":
+          return "#fff1db"; // Color de fondo para "Tintes"
+        case "Peinados":
+          return "#fdd3e1"; // Color de fondo para "Peinados"
+        default:
+          return "#f5f5f5"; // Color de fondo por defecto
+      }
+    };
+  
+    const backgroundColor = getBackgroundColorByCatalogue(event.catalogo);
+  
+    return {
+      style: {
+        color: "#444242",
+        backgroundColor: backgroundColor,
+        borderRadius: "0.5rem",
+        padding: "2px 8px",
+        border: "0.5px solid #e2e1e3",
+        borderBottom: "2px solid #ffffff",
+      },
+    };
+  };
+  
+  const EventWrapper = (props) => {
+    return (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {props.children}
+      </div>
+    );
+  };
+  
   const EventComponent = ({ event }) => {
     const getColorByCatalogue = (catalogo) => {
       switch (catalogo) {
@@ -80,6 +106,7 @@ const MyCalendar = () => {
       <div
         className="flex  items-center justify-between gap-5"
         style={{
+          
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
           alignItems: "center",
@@ -92,6 +119,7 @@ const MyCalendar = () => {
             fontSize: "1.3rem",
             color: textColor,
             textTransform: "uppercase",
+
           }}
         >
           {event.catalogo}
@@ -100,7 +128,7 @@ const MyCalendar = () => {
         <strong
           style={{
             fontStyle: "bold",
-            color: "#ed5fa6",
+            color: "#353232 ",
             fontSize: "1rem",
             fontWeight: "700",
             textTransform: "capitalize",
@@ -109,9 +137,9 @@ const MyCalendar = () => {
           {event.servicio}
         </strong>
 
-        <p style={{ fontSize: "0.9rem", fontWeight: "500" }}>{event.cliente}</p>
-        <p style={{ fontSize: "0.9rem", fontWeight: "500" }}>{event.empleado}</p>
-        <p style={{ fontSize: "0.9rem", fontWeight: "500" }}>{event.costo}</p>
+        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>{event.cliente}</p>
+        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>{event.empleado}</p>
+        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>{event.costo}</p>
       </div>
     );
   };
@@ -125,11 +153,14 @@ const MyCalendar = () => {
     };
   };
 
+  
+
   return (
-    <div className="overflow-y-scroll h-[90vh]">
+    <div className="overflow-y-scroll h-[90vh] ">
       <div
         className=""
         style={{
+          width: "full",
           height: "200vh",
           paddingLeft: "3.8rem",
           paddingRight: "3.8rem",
@@ -144,13 +175,15 @@ const MyCalendar = () => {
           startAccessor="start"
           endAccessor="end"
           defaultView="day"
-          views={["day", "week", "agenda"]}
+          views={["day", "week"]}
           eventPropGetter={eventStyleGetter}
-          step={15} // Intervalos de 30 minutos
+          step={30} // Intervalos de 30 minutos
           timeslots={2}
           dayPropGetter={dayPropGetter}
           components={{
             event: EventComponent,
+            eventWrapper: EventWrapper, // Envuelve cada evento para ocultar duración
+
           }}
         />
       </div>

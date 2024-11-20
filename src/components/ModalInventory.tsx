@@ -11,13 +11,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 
-export function ModalInventory() {
+interface Props {
+  className?: string;
+  texto?: string;
+}
+
+
+export function ModalInventory({texto,className = ""}: Props) {
   return (
-    <ModalInventoryForm />
+    <ModalInventoryForm className={className} texto={texto} />
   );
 }
 
-export function ModalInventoryForm() {
+export function ModalInventoryForm({texto,className = ""}: Props) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = React.useState(false);
 
@@ -84,13 +90,13 @@ export function ModalInventoryForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms]`}
+        className={`hover:bg-[#75003a] ${className} transition-colors ease-in-out duration-[400ms]`}
       >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
         />
-        <h3 className="text-lg mr-3 capitalize">Agregar</h3>
+        <h3 className="text-lg mr-3 capitalize">{texto}</h3>
       </Button>
 
       {showModal ? (

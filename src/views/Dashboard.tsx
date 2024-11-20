@@ -22,6 +22,8 @@ import { ModalAppointments } from "../components/ModalAppointments";
 import ChartComponent from "../components/Graphs";
 import MyCalendar from "../components/Calendar";
 import { ModalServices } from "../components/ModalService";
+import { ModalInventory } from "../components/ModalInventory";
+import { ModalProducts } from "../components/ModalProducts";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ export function Dashboard() {
               CALENDARIO
             </h2>
             <div className="flex relative">
-              <ModalAppointments className="bottom-12" />
+              <ModalAppointments className="bottom-12 left-3 " />
             </div>
             <div>
               <MyCalendar />
@@ -70,7 +72,8 @@ export function Dashboard() {
               INVENTARIO
             </h2>
             <div className="flex relative">
-              <ModalServices className="bottom-12" />
+              <ModalInventory texto="Material" className="bottom-11 left-3 w-[6rem]" />
+              <ModalProducts texto="Producto" className="bottom-11 left-6 w-[6rem]"/>
             </div>
             <div>
               <ItemsInventory />
@@ -88,7 +91,7 @@ export function Dashboard() {
               CATÁLOGO
             </h2>
             <div className="flex relative">
-              <ModalServices className="bottom-12" />
+              <ModalServices className="bottom-12 left-3" />
             </div>
             <div>
               <MultipleItems />

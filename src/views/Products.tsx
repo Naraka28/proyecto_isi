@@ -30,7 +30,7 @@ export function Products() {
           <RefreshButton queryK={["productInfo"]} />
 
           <div className="flex space-x-3">
-            <ModalProducts />
+            <ModalProducts texto="Agregar"/>
           </div>
         </div>
         <ProductTable searchInput={search} />

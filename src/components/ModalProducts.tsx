@@ -12,14 +12,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function ModalProducts() {
+interface Props {
+  className?: string;
+  texto?: string;
+}
+
+export function ModalProducts({ texto,className = "" }: Props) {
   return (
     // Provide the client to your App
-    <ModalProductsForm />
+    <ModalProductsForm texto={texto} className={className}/>
   );
 }
 
-export function ModalProductsForm() {
+export function ModalProductsForm({ texto,className = "" }:Props) {
   const [showModal, setShowModal] = React.useState(false);
   const queryClient = useQueryClient();
   const handleAddClick = () => {
@@ -56,13 +61,13 @@ export function ModalProductsForm() {
           textTransform: "none", // Desactiva el texto en mayúsculas
         }}
         onClick={() => handleAddClick()}
-        className={`hover:bg-[#75003a] transition-colors ease-in-out duration-[400ms] `}
+        className={`hover:bg-[#75003a] ${className} transition-colors ease-in-out duration-[400ms] `}
       >
         <FontAwesomeIcon
           icon={faPlus}
           style={{ margin: "0.5rem", width: "1rem", height: "1rem" }}
         />
-        <h3 className="text-lg mr-3 capitalize">Agregar</h3>
+        <h3 className="text-lg mr-3 capitalize">{texto}</h3>
       </Button>
 
       {showModal ? (
