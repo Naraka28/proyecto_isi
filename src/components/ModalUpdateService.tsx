@@ -41,11 +41,11 @@ export function ModalUpdateService({
     },
   });
   const showDialog = () => {
-    if (name && price && duration && catalogue) {
+    if (name && price && duration) {
       const updateService: Service = {
         service_id: service.service_id,
         name: name,
-        catalogue_id: parseInt(catalogue.toString()),
+        /*catalogue_id: parseInt(catalogue.toString()), */
         price: parseFloat(price),
         duration_in_minutes: parseInt(duration),
       };
