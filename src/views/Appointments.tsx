@@ -11,9 +11,9 @@ import { RefreshButton } from "../components/refreshButton";
 
 export function Appointments() {
   const [search, setSearch] = useState("");
-  const handleAddClick = () => {
-    throw new Error("Function not implemented.");
-  };
+  function handleClearSearch() {
+    setSearch("");
+  }
 
   function handleSearch(query: string): void {
     throw new Error("Function not implemented.");
@@ -30,8 +30,12 @@ export function Appointments() {
               onSearch={handleSearch}
               onChange={(e) => setSearch(e.target.value)}
               className="hidden sm:flex mr-5"
+              value={search}
             />
-            <RefreshButton queryK={["appointmentsInfo"]} />
+            <RefreshButton
+              queryK={["appointmentsInfo"]}
+              onClearSearch={handleClearSearch}
+            />
 
             <div className=" w-full flex justify-end">
               <ModalAppointments />

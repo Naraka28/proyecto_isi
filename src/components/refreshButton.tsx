@@ -4,12 +4,14 @@ import { Button } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 export interface RefreshButtonProps {
   queryK: string[];
+  onClearSearch: () => void;
 }
 
-export function RefreshButton({ queryK }: RefreshButtonProps) {
+export function RefreshButton({ queryK, onClearSearch }: RefreshButtonProps) {
   const queryClient = useQueryClient();
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: queryK });
+    onClearSearch();
   };
   return (
     <>

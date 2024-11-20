@@ -7,8 +7,9 @@ import { RefreshButton } from "../components/refreshButton";
 
 export function Employees() {
   const [search, setSearch] = useState("");
-  function handleSearch(query: string): void {
-    throw new Error("Function not implemented.");
+  function handleSearch(query: string): void {}
+  function handleClearSearch() {
+    setSearch("");
   }
 
   return (
@@ -23,8 +24,12 @@ export function Employees() {
             onSearch={handleSearch}
             onChange={(e) => setSearch(e.target.value)}
             className="hidden sm:flex mr-5"
+            value={search}
           />
-          <RefreshButton queryK={["employeeInfo"]} />
+          <RefreshButton
+            queryK={["employeeInfo"]}
+            onClearSearch={handleClearSearch}
+          />
 
           <div className=" w-full flex justify-end">
             <ModalEmployees />

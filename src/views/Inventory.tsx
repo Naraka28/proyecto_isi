@@ -11,6 +11,9 @@ export function Inventory() {
     // Puedes pasar el `query` a un API o hacer una búsqueda local.
     console.log("Buscando por:", query);
   }
+  function handleClearSearch() {
+    setSearch("");
+  }
 
   return (
     <div className="p-10 m-auto h-min">
@@ -22,8 +25,12 @@ export function Inventory() {
           onSearch={handleSearch}
           onChange={(e) => setSearch(e.target.value)}
           className="hidden sm:flex mr-5"
+          value={search}
         />
-        <RefreshButton queryK={["inventory"]} />
+        <RefreshButton
+          queryK={["inventory"]}
+          onClearSearch={handleClearSearch}
+        />
 
         <div className=" w-full flex justify-end">
           <ModalMaterial />

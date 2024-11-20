@@ -10,6 +10,9 @@ export function Products() {
   function handleSearch(query: string): void {
     throw new Error("Function not implemented.");
   }
+  function handleClearSearch() {
+    setSearch("");
+  }
 
   return (
     <>
@@ -23,8 +26,12 @@ export function Products() {
             onSearch={handleSearch}
             onChange={(e) => setSearch(e.target.value)}
             className="hidden sm:flex mr-5"
+            value={search}
           />
-          <RefreshButton queryK={["productInfo"]} />
+          <RefreshButton
+            queryK={["productInfo"]}
+            onClearSearch={handleClearSearch}
+          />
 
           <div className=" w-full flex justify-end">
             <ModalProducts />
