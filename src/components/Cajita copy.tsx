@@ -78,7 +78,7 @@ export const CajitaInventory: React.FC<Props> = ({ datos }) => {
 
         {/* Precio y tipo */}
         <div className="mt-4 flex justify-between items-center">
-          <p className="text-xl font-bold text-[#e969a9]">${price}</p>
+          <p className="text-xl font-bold text-[#b9b6b6] underline underline-offset-[6px]">${price}</p>
           <p className="text-gray-300 text-lg font-medium">{tipo}</p>
         </div>
       </div>

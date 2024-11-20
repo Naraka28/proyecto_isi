@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+
+import Modal from "react-modal";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { es } from "date-fns/locale/es";
 import {  getAppointmentsForCalendar } from "../services/appointmentServices.ts";
+import React, { useState } from "react";
 
 const locales = { es };
 
@@ -19,6 +22,9 @@ const localizer = dateFnsLocalizer({
 
 
 const MyCalendar = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["getAppointmentsForCalendar"],
     queryFn: getAppointmentsForCalendar,
@@ -42,10 +48,10 @@ const MyCalendar = () => {
       nombre: appointment.name,
       start: new Date(startDate),
       end: new Date(endDate),
-      cliente: `Cliente: ${appointment.name} ${appointment.last_name}`,
-      empleado: `Empleado: ${appointment.em_name} ${appointment.em_last_name}`,
+      cliente: `${appointment.name} ${appointment.last_name}`,
+      empleado: `${appointment.em_name} ${appointment.em_last_name}`,
       servicio: appointment.servicio,
-      costo: `Precio: ${appointment.total_price}`,
+      costo: `$${appointment.total_price}`,
       catalogo: `${appointment.catalogue}`,
     };
   });
@@ -72,8 +78,8 @@ const MyCalendar = () => {
         backgroundColor: backgroundColor,
         borderRadius: "0.5rem",
         padding: "2px 8px",
-        border: "0.5px solid #e2e1e3",
-        borderBottom: "2px solid #ffffff",
+        border: "1px solid #e2e1e3",
+        borderBottom: "1px solid #ffffff",
       },
     };
   };
@@ -106,7 +112,7 @@ const MyCalendar = () => {
       <div
         className="flex  items-center justify-between gap-5"
         style={{
-          
+          paddingLeft: "0.5rem",
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
           alignItems: "center",
@@ -137,9 +143,9 @@ const MyCalendar = () => {
           {event.servicio}
         </strong>
 
-        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>{event.cliente}</p>
-        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>{event.empleado}</p>
-        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>{event.costo}</p>
+        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>Cliente: {event.cliente}</p>
+        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>Empleado: {event.empleado}</p>
+        <p style={{ fontSize: "0.9rem", fontWeight: "700" }}>Precio: {event.costo}</p>
       </div>
     );
   };
@@ -155,6 +161,35 @@ const MyCalendar = () => {
 
   
 
+ const handleSelectEvent = (event) => {
+    setSelectedEvent(event);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedEvent(null);
+  };
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      maxWidth: "600px",
+      width: "90%",
+      borderRadius: "10px",
+      padding: "20px",
+      backgroundColor: "#f8f8f8",
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+  };
+
   return (
     <div className="overflow-y-scroll h-[90vh] ">
       <div
@@ -169,11 +204,15 @@ const MyCalendar = () => {
         <Calendar
           localizer={localizer}
           culture="es"
-          events={events}
+  
+           events={events}
           min={new Date(1970, 1, 1, 8, 0, 0)} // Empieza a las 8:00
           max={new Date(1970, 1, 1, 21, 0, 0)} // Termina a las 20:00
           startAccessor="start"
           endAccessor="end"
+          
+          selected={selectedEvent}
+          onSelectEvent={handleSelectEvent}
           defaultView="day"
           views={["day", "week"]}
           eventPropGetter={eventStyleGetter}
@@ -187,6 +226,48 @@ const MyCalendar = () => {
           }}
         />
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Detalles de la Cita"
+      >
+        {selectedEvent && (
+          <div className="z-40">
+            <h2 className="text-3xl font-bold mb-4 text-center underline underline-offset-[6px]">Detalles de la Cita</h2>
+            <p>
+              <strong>Precio:</strong> {selectedEvent.costo}
+            </p>
+            <p className="">
+           
+              
+              <strong>Cliente:</strong> {selectedEvent.cliente} {selectedEvent.last_name}
+            </p>
+            <p>
+              <strong>Empleado:</strong> {selectedEvent.empleado} 
+            </p>
+            
+            <p>
+              <strong>Precio:</strong> {selectedEvent.costo}
+            </p>
+            <p>
+              <strong>Catálogo:</strong> {selectedEvent.catalogo}
+            </p>
+            <p>
+              <strong>Fecha:</strong> {selectedEvent.start.toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Hora:</strong> {selectedEvent.start.toLocaleTimeString()}
+            </p>
+            <button
+              onClick={closeModal}
+              className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+            >
+              Cerrar
+            </button>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
