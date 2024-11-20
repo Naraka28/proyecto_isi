@@ -113,7 +113,6 @@ export function ModalAppointmentsForm({ className = "" }: Props) {
     employee_id: parseInt(employee_id),
     service_id: parseInt(service_id),
   };
-  console.log(newAppointment.date);
 
   if (searchMutation.isSuccess) {
     console.log(searchMutation.data);
