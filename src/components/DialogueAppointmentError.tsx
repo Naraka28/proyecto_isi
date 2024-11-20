@@ -19,7 +19,7 @@ export function DialogueAppointmentError({
 }: ModalUpdateProps) {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Fallo al crear cita</DialogTitle>
+      <DialogTitle>Fallo en cita</DialogTitle>
       <DialogContent>
         <DialogContentText>{message}</DialogContentText>
       </DialogContent>
