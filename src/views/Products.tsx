@@ -34,7 +34,7 @@ export function Products() {
           />
 
           <div className=" w-full flex justify-end">
-            <ModalProducts />
+            <ModalProducts texto="Agregar" />
           </div>
         </div>
         <ProductTable searchInput={search} />

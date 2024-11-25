@@ -237,7 +237,7 @@ const MyCalendar = () => {
           selected={selectedEvent}
           onSelectEvent={handleSelectEvent}
           defaultView="day"
-          views={["day", "week"]}
+          views={["day", "week","agenda"]}
           eventPropGetter={eventStyleGetter}
           step={30} // Intervalos de 30 minutos
           timeslots={2}
