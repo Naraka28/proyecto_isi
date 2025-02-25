@@ -51,7 +51,7 @@ export function Dashboard() {
           className="bg-white row-span-1 w-full h- rounded-2xl py-12"
         >
           <div className="relative w-full px-10">
-            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+            <h2 className="text-5xl text-center text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
               CALENDARIO
             </h2>
             <div className="flex relative">
@@ -68,7 +68,7 @@ export function Dashboard() {
           className="bg-white row-span-1 h-[80vh] w-[87vw]  rounded-2xl py-12 "
         >
           <div className="relative w-full px-10">
-            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+            <h2 className="text-5xl text-center text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
               INVENTARIO
             </h2>
             <div className="flex relative">
@@ -87,7 +87,7 @@ export function Dashboard() {
           className="bg-white row-span-1 h-[80vh] w-[87vw]  rounded-2xl py-12 "
         >
           <div className="relative w-full px-10">
-            <h2 className="text-5xl text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
+            <h2 className="text-5xl text-center text-[#363636] font-semibold font-sans underline underline-offset-[3vh]">
               CATÁLOGO
             </h2>
             <div className="flex relative">
